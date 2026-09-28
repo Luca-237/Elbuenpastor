@@ -1,0 +1,247 @@
+/* ==========================================================================
+   CONTACTO SECTION STYLING
+   ========================================================================== */
+
+.contacto-section {
+  padding-bottom: 70px;
+}
+
+.contacto-grid-container {
+  margin-top: 36px;
+}
+
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 36px;
+  align-items: start;
+}
+
+/* Formulario */
+.contacto-form-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-warm-border);
+  padding: 36px;
+  box-shadow: var(--elevation-1);
+}
+
+.form-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.form-icon {
+  font-size: 32px;
+  color: var(--color-gold-deep);
+}
+
+.form-title {
+  font-size: 1.4rem;
+  color: var(--color-text-main);
+}
+
+.form-subtitle {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
+.form-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+}
+
+.serene-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-warm-border);
+  background: var(--color-ivory);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  transition: var(--transition-smooth);
+}
+
+.serene-input:focus {
+  outline: none;
+  border-color: var(--color-gold-primary);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(167, 122, 46, 0.15);
+}
+
+.serene-textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.form-row-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Radio Group */
+.radio-group-serene {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--color-sand);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--color-text-main);
+  cursor: pointer;
+}
+
+.radio-option input[type="radio"] {
+  accent-color: var(--color-gold-deep);
+  cursor: pointer;
+}
+
+.form-submit-row {
+  margin-top: 8px;
+}
+
+.submit-btn-full {
+  width: 100%;
+  --md-filled-button-container-color: var(--color-gold-deep);
+  --md-filled-button-container-shape: var(--radius-pill);
+  font-size: 1rem !important;
+  padding: 8px 0;
+}
+
+/* Mensaje de éxito */
+.mensaje-exito {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--color-sage-light);
+  border: 1px solid #C5DAC9;
+  border-radius: var(--radius-md);
+  color: var(--color-sage-deep);
+}
+
+.exito-icon {
+  font-size: 48px;
+  color: var(--color-sage);
+  margin-bottom: 12px;
+}
+
+.mensaje-exito h4 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.mensaje-exito p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Info Cards Derecha */
+.contacto-info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-warm-border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  display: flex;
+  gap: 16px;
+  box-shadow: var(--elevation-1);
+}
+
+.info-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-gold-surface);
+  border: 1px solid var(--color-gold-light);
+  color: var(--color-gold-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.info-card-icon .material-symbols-rounded {
+  font-size: 24px;
+}
+
+.info-card-text h4 {
+  font-size: 1.05rem;
+  color: var(--color-text-main);
+  margin-bottom: 4px;
+}
+
+.highlight-text {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-gold-deep);
+  margin-bottom: 4px;
+}
+
+.sub-text {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.peaceful-quote-card {
+  background: linear-gradient(135deg, #FAF4E9 0%, #F4ECE0 100%);
+  border-color: var(--color-gold-light);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 26px 20px;
+}
+
+.quote-peace-icon {
+  font-size: 28px;
+  color: var(--color-gold-deep);
+  margin-bottom: 8px;
+}
+
+.peaceful-quote-card p {
+  font-family: var(--font-script);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--color-text-main);
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .contacto-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row-two {
+    grid-template-columns: 1fr;
+  }
+}

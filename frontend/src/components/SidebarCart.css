@@ -1,0 +1,535 @@
+/* ==========================================================================
+   SIDEBAR CART & ACTIVIDAD DRAWER - EL BUEN PASTOR
+   ========================================================================== */
+
+/* Fondo oscuro desenfocado */
+.cart-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 27, 24, 0.45);
+  backdrop-filter: blur(3px);
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.cart-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Panel Deslizante Lateral Derecho */
+.sidebar-cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 440px;
+  max-width: 92vw;
+  height: 100vh;
+  background-color: #FFFFFF;
+  z-index: 201;
+  box-shadow: -8px 0 32px rgba(25, 20, 15, 0.16);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.sidebar-cart-drawer.open {
+  transform: translateX(0);
+}
+
+/* Encabezado del Drawer */
+.drawer-header {
+  padding: 20px 22px;
+  background-color: #FAF8F5;
+  border-bottom: 1px solid #EBE4D8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.drawer-icon {
+  font-size: 26px;
+  color: #946A25;
+}
+
+.drawer-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  letter-spacing: 0.1em;
+  color: #23211E;
+  margin: 0;
+}
+
+.drawer-subtitle {
+  font-size: 0.76rem;
+  color: #8C8476;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+}
+
+.drawer-close-btn {
+  background: none;
+  border: none;
+  color: #6C665D;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.drawer-close-btn:hover {
+  background-color: #EBE5DB;
+  color: #23211E;
+}
+
+/* Pestañas: Ítems vs Actividad */
+.drawer-tabs {
+  display: flex;
+  border-bottom: 1px solid #EBE4D8;
+  background-color: #FFFFFF;
+}
+
+.drawer-tab-btn {
+  flex: 1;
+  padding: 12px 8px;
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #7D766C;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-bottom: 2px solid transparent;
+  transition: var(--transition-smooth);
+}
+
+.drawer-tab-btn .material-symbols-rounded {
+  font-size: 18px;
+}
+
+.drawer-tab-btn:hover {
+  color: #946A25;
+}
+
+.drawer-tab-btn.active {
+  color: #23211E;
+  border-bottom-color: #23211E;
+  background-color: #FAF8F5;
+}
+
+.activity-badge-num {
+  background-color: #946A25;
+  color: #FFFFFF;
+  font-size: 0.68rem;
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+}
+
+/* Cuerpo con Scroll */
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* Estado Vacío */
+.cart-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  padding: 40px 20px;
+  gap: 14px;
+}
+
+.empty-cart-icon {
+  font-size: 54px;
+  color: #D4CBBD;
+}
+
+.cart-empty-state h3 {
+  font-size: 1.2rem;
+  color: #23211E;
+}
+
+.cart-empty-state p {
+  font-size: 0.9rem;
+  color: #7C7469;
+  line-height: 1.5;
+  max-width: 280px;
+}
+
+/* Lista de Ítems */
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cart-item-row {
+  display: flex;
+  gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #F0EBE1;
+}
+
+.cart-item-img-wrap {
+  width: 70px;
+  height: 70px;
+  border-radius: var(--radius-sm);
+  background: #F8F5EE;
+  border: 1px solid #EBE4D8;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.cart-item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.cart-item-sku {
+  font-size: 0.68rem;
+  color: #9C9487;
+  font-weight: 600;
+}
+
+.cart-item-delete {
+  background: none;
+  border: none;
+  color: #A39B8F;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.cart-item-delete:hover {
+  color: #B23B2A;
+}
+
+.cart-item-delete .material-symbols-rounded {
+  font-size: 17px;
+}
+
+.cart-item-name {
+  font-family: var(--font-serif);
+  font-size: 0.96rem;
+  color: #23211E;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+
+.cart-item-size {
+  font-size: 0.78rem;
+  color: #7C7469;
+  margin-bottom: 6px;
+}
+
+.wholesale-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #2E6038;
+  background-color: #EDF6EF;
+  border: 1px solid #CBE3D0;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 8px;
+  width: fit-content;
+}
+
+.wholesale-tier-badge .material-symbols-rounded {
+  font-size: 13px;
+}
+
+.cart-item-controls-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+/* Control de Cantidad (+ / -) */
+.qty-control-box {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #DED6C7;
+  border-radius: var(--radius-sm);
+  background-color: #FAF8F5;
+}
+
+.qty-btn {
+  background: none;
+  border: none;
+  width: 26px;
+  height: 26px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #443F38;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.qty-btn:hover {
+  background-color: #EBE4D8;
+}
+
+.qty-value {
+  padding: 0 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #23211E;
+}
+
+.cart-price-block {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.unit-price {
+  font-size: 0.7rem;
+  color: #8C8476;
+}
+
+.item-subtotal {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #23211E;
+}
+
+/* ── Pestaña de Registro de Actividad (Trazabilidad) ── */
+.activity-intro-text {
+  font-size: 0.8rem;
+  color: #8C8476;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.empty-activity {
+  text-align: center;
+  padding: 40px 10px;
+  color: #9C9487;
+}
+
+.empty-activity .material-symbols-rounded {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.activity-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+}
+
+.activity-feed::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 17px;
+  width: 2px;
+  background-color: #EBE5DB;
+}
+
+.activity-log-item {
+  display: flex;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.log-icon-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 2px solid #D8CCB7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #946A25;
+  flex-shrink: 0;
+}
+
+.log-icon-circle .material-symbols-rounded {
+  font-size: 16px;
+}
+
+.log-content {
+  flex: 1;
+  background-color: #FAF8F5;
+  border: 1px solid #EBE4D8;
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 3px;
+}
+
+.log-action {
+  font-size: 0.84rem;
+  color: #23211E;
+}
+
+.log-time {
+  font-size: 0.7rem;
+  color: #9C9487;
+}
+
+.log-desc {
+  font-size: 0.78rem;
+  color: #6C665D;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ── Footer del Drawer ── */
+.drawer-footer {
+  padding: 18px 22px;
+  background-color: #FAF8F5;
+  border-top: 1px solid #EBE4D8;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.cart-totals-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.totals-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.86rem;
+  color: #6C665D;
+}
+
+.discount-row {
+  color: #2A5C33;
+  font-weight: 600;
+}
+
+.discount-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.discount-label .material-symbols-rounded {
+  font-size: 15px;
+}
+
+.grand-total-row {
+  border-top: 1px dashed #DED6C7;
+  padding-top: 8px;
+  margin-top: 4px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #23211E;
+  font-family: var(--font-serif);
+}
+
+.grand-total-amount {
+  color: #23211E;
+}
+
+.checkout-btn-full {
+  width: 100%;
+  --md-filled-button-container-color: #252320;
+  --md-filled-button-container-shape: 4px;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  margin-bottom: 12px;
+}
+
+.footer-aux-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clear-cart-link {
+  background: none;
+  border: none;
+  color: #8C8476;
+  font-size: 0.78rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+
+.clear-cart-link:hover {
+  color: #B23B2A;
+}
+
+.clear-cart-link .material-symbols-rounded {
+  font-size: 15px;
+}
+
+.secure-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.74rem;
+  color: #8C8476;
+}
+
+.secure-badge .material-symbols-rounded {
+  font-size: 14px;
+  color: #946A25;
+}

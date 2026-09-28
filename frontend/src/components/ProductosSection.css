@@ -1,0 +1,515 @@
+/* ==========================================================================
+   PRODUCTOS SECTION - ESTRUCTURA SOBRIA Y AIRE (Inspirado en De Petris)
+   ========================================================================== */
+
+.catalogo-page-wrapper {
+  background-color: #FAF9F5;
+  min-height: 100vh;
+}
+
+/* ── 1. ENCABEZADO SOBRIO DE PÁGINA (PAGE HEADING) ── */
+.page-heading-sober {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E5E0D6;
+  padding: 36px 0 32px 0;
+  text-align: center;
+}
+
+.heading-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.heading-title {
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  letter-spacing: 0.14em;
+  color: #252320;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.breadcrumbs-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #8A847C;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.breadcrumb-item {
+  color: #7A746B;
+}
+
+.breadcrumb-sep {
+  color: #BBB4A8;
+  font-size: 0.75rem;
+}
+
+.breadcrumb-active {
+  color: #926A25;
+  font-weight: 600;
+}
+
+/* Banner de Notificación Serena */
+.peace-banner-notif {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #EEF5F0;
+  border: 1px solid #CADDCF;
+  color: #2D5837;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.peace-banner-notif .material-symbols-rounded {
+  font-size: 18px;
+  color: #3F754C;
+}
+
+/* ── 2. CONTENEDOR PRINCIPAL CON GENEROSO ESPACIADO ── */
+.catalogo-main-container {
+  padding: 44px 24px 80px 24px;
+}
+
+.catalogo-layout-grid {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ── SIDEBAR IZQUIERDA SOBRIA ── */
+.catalogo-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.sidebar-widget {
+  background: #FFFFFF;
+  border: 1px solid #EBE6DC;
+  border-radius: var(--radius-sm);
+  padding: 22px 20px;
+}
+
+.sidebar-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-search-input {
+  width: 100%;
+  padding: 10px 38px 10px 12px;
+  border: 1px solid #DDD6C8;
+  border-radius: var(--radius-sm);
+  background: #FAF8F5;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: #2C2824;
+  transition: var(--transition-smooth);
+}
+
+.sidebar-search-input:focus {
+  outline: none;
+  background: #FFFFFF;
+  border-color: #946A25;
+}
+
+.search-icon-btn {
+  position: absolute;
+  right: 10px;
+  color: #8C8477;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.widget-header {
+  border-bottom: 2px solid #2C2824;
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+}
+
+.widget-title {
+  font-family: var(--font-serif);
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
+  color: #2C2824;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Listas de categorías y facetas (Estilo De Petris con count entre paréntesis) */
+.categories-list,
+.facet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-list-item,
+.facet-item {
+  border-bottom: 1px solid #F0ECE4;
+}
+
+.category-list-item:last-child,
+.facet-item:last-child {
+  border-bottom: none;
+}
+
+.category-btn-link,
+.facet-btn-link {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px;
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: #55504A;
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition-smooth);
+}
+
+.category-btn-link:hover,
+.facet-btn-link:hover {
+  color: #946A25;
+  padding-left: 8px;
+}
+
+.cat-count,
+.facet-count {
+  font-size: 0.78rem;
+  color: #9E968B;
+  font-weight: 500;
+}
+
+.category-list-item.active .category-btn-link,
+.facet-item.active .facet-btn-link {
+  color: #946A25;
+  font-weight: 700;
+  padding-left: 6px;
+  border-left: 3px solid #946A25;
+}
+
+.category-list-item.active .cat-count,
+.facet-item.active .facet-count {
+  color: #946A25;
+}
+
+/* Módulo Institucional en Sidebar */
+.widget-liturgical-callout {
+  background: linear-gradient(180deg, #F8F4EC 0%, #F2EBDE 100%);
+  border: 1px solid #DED4C3;
+  text-align: center;
+  padding: 24px 18px;
+}
+
+.callout-icon-top {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid #D8CCB7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #946A25;
+  margin: 0 auto 12px auto;
+}
+
+.callout-icon-top .material-symbols-rounded {
+  font-size: 22px;
+}
+
+.callout-title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  color: #2C2824;
+  margin-bottom: 6px;
+}
+
+.callout-text {
+  font-size: 0.82rem;
+  color: #6C665D;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.callout-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #946A25;
+}
+
+.callout-phone .material-symbols-rounded {
+  font-size: 16px;
+}
+
+/* ── ÁREA DE PRODUCTOS (COLUMNA DERECHA CON AIRE) ── */
+.catalogo-content-area {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra superior de herramientas */
+.catalogo-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0 20px 0;
+  border-bottom: 1px solid #E5E0D6;
+  margin-bottom: 32px;
+  font-size: 0.86rem;
+  color: #6B655D;
+}
+
+.results-count strong {
+  color: #2C2824;
+}
+
+.toolbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-label {
+  font-size: 0.82rem;
+  color: #7A746B;
+}
+
+.sober-select {
+  padding: 6px 12px;
+  border: 1px solid #D6CEBF;
+  border-radius: var(--radius-sm);
+  background: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  color: #2C2824;
+  cursor: pointer;
+}
+
+.sober-select:focus {
+  outline: none;
+  border-color: #946A25;
+}
+
+/* ── CUADRÍCULA DE PRODUCTOS (3 COLUMNAS CON CENTRADO TOTAL) ── */
+.sober-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 28px;
+  row-gap: 40px;
+}
+
+/* Tarjeta de Producto */
+.sober-product-card {
+  background: #FFFFFF;
+  border: 1px solid #E8E2D6;
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.sober-product-card:hover {
+  border-color: #CBB996;
+  box-shadow: 0 8px 24px rgba(44, 40, 36, 0.07);
+  transform: translateY(-3px);
+}
+
+/* Marco de imagen cuadrado limpio */
+.product-image-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #F7F5F0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sober-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.sober-product-card:hover .sober-product-img {
+  transform: scale(1.03);
+}
+
+.sober-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(37, 35, 32, 0.85);
+  color: #FFFFFF;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+/* Información de Producto CENTRADA */
+.product-info-centered {
+  padding: 22px 18px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.product-cat-tag {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #946A25;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.product-title-centered {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.35;
+  color: #252320;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.product-specs-sub {
+  font-size: 0.82rem;
+  color: #7D776E;
+  margin-bottom: 14px;
+}
+
+/* Precio Centrado */
+.product-pricing-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 18px;
+  padding-top: 10px;
+  border-top: 1px dashed #EDE7DC;
+  width: 100%;
+}
+
+.price-primary-centered {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #252320;
+  font-family: var(--font-serif);
+}
+
+.price-wholesale-sub {
+  font-size: 0.75rem;
+  color: #6C665D;
+}
+
+/* Botón de acción Material Web centrado */
+.product-card-action {
+  width: 100%;
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.sober-action-btn,
+.sober-add-btn {
+  --md-filled-button-container-color: #252320;
+  --md-filled-button-label-text-color: #FFFFFF;
+  --md-outlined-button-outline-color: #D6CEBF;
+  --md-outlined-button-label-text-color: #2C2824;
+  --md-filled-button-container-shape: 4px;
+  --md-outlined-button-container-shape: 4px;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  width: 100%;
+}
+
+.sober-add-btn:hover {
+  --md-filled-button-container-color: #946A25;
+}
+
+.sober-action-btn:hover {
+  --md-outlined-button-outline-color: #946A25;
+  --md-outlined-button-label-text-color: #946A25;
+}
+
+/* Estado sin resultados */
+.no-products-box {
+  background: #FFFFFF;
+  border: 1px dashed #D6CEBF;
+  border-radius: var(--radius-sm);
+  padding: 60px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.empty-icon {
+  font-size: 48px;
+  color: #A39B8F;
+}
+
+.no-products-box h3 {
+  font-size: 1.3rem;
+  color: #2C2824;
+}
+
+.no-products-box p {
+  color: #7A746B;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .sober-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .catalogo-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .catalogo-sidebar {
+    gap: 20px;
+  }
+  
+  .sober-products-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,351 @@
+/* ==========================================================================
+   HEADER SOBRIO CON CONTRACCIÓN AL SCROLL Y ACCESO A CARRITO
+   ========================================================================== */
+
+.site-header-sober {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E5E0D6;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Top Bar Institucional ── */
+.top-bar-sober {
+  background-color: #23211E;
+  color: #BDB7AB;
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  max-height: 42px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.3s ease;
+}
+
+.top-bar-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.liturgical-tagline {
+  color: #DDD6CA;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-link {
+  background: none;
+  border: none;
+  color: #C7C0B3;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.top-link:hover {
+  color: #FFFFFF;
+}
+
+.cart-top-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #E2DBD0;
+  font-weight: 600;
+}
+
+.top-cart-icon {
+  font-size: 14px;
+  color: #CBA258;
+}
+
+.top-bar-divider {
+  color: #555047;
+}
+
+/* ── Área Principal del Header ── */
+.header-main-area {
+  padding: 22px 0 14px 0;
+  transition: padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Marca / Logo Institucional */
+.brand-sober-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.brand-sober-block:hover {
+  opacity: 0.92;
+}
+
+.brand-cross-icon {
+  color: #946A25;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.brand-cross-icon .material-symbols-rounded {
+  font-size: 26px;
+  transition: font-size 0.3s ease;
+}
+
+.brand-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.brand-name-sober {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  letter-spacing: 0.16em;
+  color: #23211E;
+  font-weight: 700;
+  line-height: 1.15;
+  transition: font-size 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.brand-desc-sober {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: #8C8476;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 3px;
+  max-height: 20px;
+  opacity: 1;
+  transition: max-height 0.25s ease, opacity 0.25s ease, margin 0.25s ease;
+}
+
+/* Wrapper de navegación y carrito */
+.nav-and-actions-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-top: 1px solid #F0EBE1;
+  padding-top: 10px;
+}
+
+/* Navegación Centrada con Google Material Web */
+.main-nav-sober {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  transition: all 0.3s ease;
+}
+
+.nav-item-sober {
+  display: inline-flex;
+}
+
+/* Botones Material Web Sobrios */
+.nav-btn-sober {
+  font-family: var(--font-sans) !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.08em !important;
+  font-weight: 600 !important;
+  --md-filled-button-container-shape: 2px;
+  --md-text-button-container-shape: 2px;
+  transition: all 0.25s ease;
+}
+
+.nav-btn-active {
+  --md-filled-button-container-color: #252320;
+  --md-filled-button-label-text-color: #FFFFFF;
+}
+
+.nav-btn-inactive {
+  --md-text-button-label-text-color: #524D46;
+}
+
+.nav-btn-inactive:hover {
+  --md-text-button-label-text-color: #946A25;
+}
+
+/* Botón Trigger del Carrito */
+.header-cart-trigger {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background-color: #FAF8F5;
+  border: 1px solid #DED6C7;
+  border-radius: var(--radius-sm);
+  color: #23211E;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.header-cart-trigger:hover {
+  background-color: #23211E;
+  color: #FFFFFF;
+  border-color: #23211E;
+}
+
+.header-cart-trigger .material-symbols-rounded {
+  font-size: 18px;
+  color: #946A25;
+  transition: color 0.2s;
+}
+
+.header-cart-trigger:hover .material-symbols-rounded {
+  color: #FFFFFF;
+}
+
+.cart-count-badge {
+  background-color: #946A25;
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   ── ESTADO CONTRAÍDO AL SCROLLEAR (.is-collapsed) ──
+   ========================================================================== */
+
+.site-header-sober.is-collapsed {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-bottom-color: #DDD6C8;
+}
+
+.site-header-sober.is-collapsed .top-bar-sober {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+  border: none;
+  pointer-events: none;
+}
+
+.site-header-sober.is-collapsed .header-main-area {
+  padding: 8px 0;
+}
+
+.site-header-sober.is-collapsed .header-main-container {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  gap: 16px;
+}
+
+.site-header-sober.is-collapsed .brand-sober-block {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-header-sober.is-collapsed .brand-cross-icon {
+  margin-bottom: 0;
+}
+
+.site-header-sober.is-collapsed .brand-cross-icon .material-symbols-rounded {
+  font-size: 20px;
+}
+
+.site-header-sober.is-collapsed .brand-text-wrapper {
+  align-items: flex-start;
+}
+
+.site-header-sober.is-collapsed .brand-name-sober {
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+}
+
+.site-header-sober.is-collapsed .brand-desc-sober {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+  overflow: hidden;
+}
+
+.site-header-sober.is-collapsed .nav-and-actions-wrapper {
+  width: auto;
+  border-top: none;
+  padding-top: 0;
+  position: static;
+  gap: 16px;
+}
+
+.site-header-sober.is-collapsed .header-cart-trigger {
+  position: static;
+  transform: none;
+}
+
+.site-header-sober.is-collapsed .nav-links-centered {
+  gap: 4px;
+}
+
+.site-header-sober.is-collapsed .nav-btn-sober {
+  font-size: 0.78rem !important;
+  letter-spacing: 0.06em !important;
+}
+
+@media (max-width: 900px) {
+  .nav-and-actions-wrapper {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .header-cart-trigger {
+    position: static;
+    transform: none;
+    margin-top: 6px;
+  }
+}

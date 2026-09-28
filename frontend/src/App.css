@@ -1,0 +1,11 @@
+/* Layout General de la Aplicación */
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-ivory);
+}
+
+.main-content {
+  flex-grow: 1;
+}
