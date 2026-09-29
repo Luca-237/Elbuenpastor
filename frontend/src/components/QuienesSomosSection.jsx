@@ -43,7 +43,7 @@ export default function QuienesSomosSection({ onIrAProductos, onIrAContacto }) {
 
             <div className="about-hero-actions">
               <md-filled-button onClick={onIrAProductos}>
-                <span slot="icon" className="material-symbols-rounded">category</span>
+                <span slot="icon" className="material-symbols-rounded">store</span>
                 Explorar Catálogo
               </md-filled-button>
 

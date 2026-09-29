@@ -442,25 +442,28 @@
 
 .sober-action-btn,
 .sober-add-btn {
-  --md-filled-button-container-color: #252320;
+  --md-filled-button-container-color: #8E6523;
   --md-filled-button-label-text-color: #FFFFFF;
   --md-outlined-button-outline-color: #D6CEBF;
   --md-outlined-button-label-text-color: #2C2824;
-  --md-filled-button-container-shape: 4px;
-  --md-outlined-button-container-shape: 4px;
-  font-size: 0.82rem !important;
+  --md-filled-button-container-shape: var(--radius-pill);
+  --md-outlined-button-container-shape: var(--radius-pill);
+  font-size: 0.84rem !important;
   font-weight: 600 !important;
   letter-spacing: 0.04em !important;
   width: 100%;
+  box-shadow: 0 2px 8px rgba(142, 101, 35, 0.18);
+  transition: all 0.25s ease;
 }
 
 .sober-add-btn:hover {
-  --md-filled-button-container-color: #946A25;
+  --md-filled-button-container-color: #785217;
+  box-shadow: 0 4px 14px rgba(142, 101, 35, 0.3);
 }
 
 .sober-action-btn:hover {
-  --md-outlined-button-outline-color: #946A25;
-  --md-outlined-button-label-text-color: #946A25;
+  --md-outlined-button-outline-color: #8E6523;
+  --md-outlined-button-label-text-color: #8E6523;
 }
 
 /* Estado sin resultados */

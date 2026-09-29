@@ -38,7 +38,7 @@ const CATALOGO_PRODUCTOS = [
     duracionHoras: 120,
     aromas: ['Miel natural'],
     aromaDefault: 'Miel y Polen',
-    imagen: '/hero-candles.jpg',
+    imagen: '/cirio-pascual.jpg',
     descripcion: 'Cirio consagrado para celebraciones litúrgicas y altares. Llama constante sin humo negro y aroma puro a cera virgen.',
     precioUnitario: 14500,
     preciosPorVolumen: [
@@ -61,7 +61,7 @@ const CATALOGO_PRODUCTOS = [
     duracionHoras: 12,
     aromas: ['Neutro (Sin fragancia)'],
     aromaDefault: 'Neutro para Sagrario',
-    imagen: '/hero-candles.jpg',
+    imagen: '/velas-votivas.jpg',
     descripcion: 'Juego de doce veladoras para capillas, sagrarios y oratorios familiares. Recipiente seguro de aluminio y combustión sin goteo.',
     precioUnitario: 5200,
     preciosPorVolumen: [
@@ -84,7 +84,7 @@ const CATALOGO_PRODUCTOS = [
     duracionHoras: 50,
     aromas: ['Ramas de Olivo', 'Romero Silvestre'],
     aromaDefault: 'Ramas de Olivo',
-    imagen: '/hero-candles.jpg',
+    imagen: '/vela-terracota.jpg',
     descripcion: 'Inspirada en el Cántico de las Criaturas. Hecha a mano en vasija de terracota natural reutilizable con mecha de algodón puro.',
     precioUnitario: 4900,
     preciosPorVolumen: [
@@ -130,7 +130,7 @@ const CATALOGO_PRODUCTOS = [
     duracionHoras: 55,
     aromas: ['Nardo Puro', 'Lirios del Valle'],
     aromaDefault: 'Nardo Puro',
-    imagen: '/hero-candles.jpg',
+    imagen: '/vela-aromatica.jpg',
     descripcion: 'Frasco ámbar que preserva los aceites aromáticos esenciales. Con tapa de madera natural grabada para bendición del hogar cristiano.',
     precioUnitario: 4600,
     preciosPorVolumen: [

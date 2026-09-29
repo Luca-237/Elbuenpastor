@@ -6,6 +6,7 @@ import ContactoSection from './components/ContactoSection';
 import HistorialSection from './components/HistorialSection';
 import SidebarCart from './components/SidebarCart';
 import Footer from './components/Footer';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 import './App.css';
 
 export default function App() {
@@ -26,7 +27,7 @@ export default function App() {
         { min: 5, max: 19, precio: 12800 },
         { min: 20, max: null, precio: 11200 },
       ],
-      imagen: '/hero-candles.jpg',
+      imagen: '/cirio-pascual.jpg',
       duracionHoras: 120,
     },
   ]);
@@ -220,6 +221,9 @@ export default function App() {
 
       {/* Pie de página sereno */}
       <Footer onNavigate={setActiveSection} />
+
+      {/* Botón Flotante Litúrgico de WhatsApp */}
+      <FloatingWhatsApp />
     </div>
   );
 }

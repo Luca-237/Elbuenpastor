@@ -135,7 +135,7 @@ export default function HistorialSection() {
       <div className="section-hero">
         <div className="container">
           <span className="section-eyebrow">
-            <span className="material-symbols-rounded">receipt_long</span>
+            <span className="material-symbols-rounded">description</span>
             Transparencia & Trazabilidad
           </span>
           <h2 className="section-title">Historial & Seguimiento de Pedidos</h2>
@@ -148,7 +148,7 @@ export default function HistorialSection() {
             <span className="material-symbols-rounded search-icon">search</span>
             <input
               type="text"
-              placeholder="Buscar por número de pedido (ej. PED-20240924-0012) o cliente..."
+              placeholder="Buscar por N° pedido o cliente..."
               value={busqueda}
               onChange={(e) => setBusqueda(e.target.value)}
               className="search-input"
@@ -218,8 +218,10 @@ export default function HistorialSection() {
 
                 <div className="detail-badges">
                   <span className={`payment-pill ${pedidoSeleccionado.estadoPago}`}>
-                    <span className="material-symbols-rounded">check_circle</span>
-                    Pago {pedidoSeleccionado.estadoPago}
+                    <span className="material-symbols-rounded">
+                      {pedidoSeleccionado.estadoPago === 'pagado' ? 'check_circle' : 'schedule'}
+                    </span>
+                    {pedidoSeleccionado.estadoPago === 'pagado' ? 'Pago Confirmado' : 'Pago Pendiente'}
                   </span>
                 </div>
               </div>

@@ -66,6 +66,22 @@
   flex-wrap: wrap;
 }
 
+.about-hero-actions md-filled-button {
+  --md-filled-button-container-color: #8E6523;
+  --md-filled-button-label-text-color: #FFFFFF;
+  --md-filled-button-container-shape: var(--radius-pill);
+}
+
+.about-hero-actions md-filled-button:hover {
+  --md-filled-button-container-color: #785217;
+}
+
+.about-hero-actions md-outlined-button {
+  --md-outlined-button-outline-color: #8E6523;
+  --md-outlined-button-label-text-color: #8E6523;
+  --md-outlined-button-container-shape: var(--radius-pill);
+}
+
 /* Imagen con marco sereno */
 .about-hero-image-wrapper {
   position: relative;

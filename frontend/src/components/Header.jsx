@@ -47,7 +47,7 @@ export default function Header({
             <button className="top-link" onClick={() => onNavigate('historial')}>
               SEGUIMIENTO DE PEDIDOS
             </button>
-            <span className="top-bar-divider">|</span>
+            <span className="top-bar-divider top-bar-cart-divider">|</span>
             <button className="top-link cart-top-link" onClick={onOpenCart}>
               <span className="material-symbols-rounded top-cart-icon">shopping_bag</span>
               PEDIDO ({cartCount})

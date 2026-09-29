@@ -180,20 +180,21 @@
   display: inline-flex;
 }
 
-/* Botones Material Web Sobrios */
+/* Botones Material Web Sobrios con Estética Litúrgica */
 .nav-btn-sober {
   font-family: var(--font-sans) !important;
   font-size: 0.82rem !important;
   letter-spacing: 0.08em !important;
   font-weight: 600 !important;
-  --md-filled-button-container-shape: 2px;
-  --md-text-button-container-shape: 2px;
+  --md-filled-button-container-shape: 20px;
+  --md-text-button-container-shape: 20px;
   transition: all 0.25s ease;
 }
 
 .nav-btn-active {
-  --md-filled-button-container-color: #252320;
+  --md-filled-button-container-color: #8E6523;
   --md-filled-button-label-text-color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(142, 101, 35, 0.25);
 }
 
 .nav-btn-inactive {
@@ -201,7 +202,7 @@
 }
 
 .nav-btn-inactive:hover {
-  --md-text-button-label-text-color: #946A25;
+  --md-text-button-label-text-color: #8E6523;
 }
 
 /* Botón Trigger del Carrito */
@@ -216,7 +217,7 @@
   padding: 6px 14px;
   background-color: #FAF8F5;
   border: 1px solid #DED6C7;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
   color: #23211E;
   font-family: var(--font-sans);
   font-size: 0.8rem;
@@ -227,14 +228,15 @@
 }
 
 .header-cart-trigger:hover {
-  background-color: #23211E;
+  background-color: #8E6523;
   color: #FFFFFF;
-  border-color: #23211E;
+  border-color: #8E6523;
+  box-shadow: 0 3px 10px rgba(142, 101, 35, 0.22);
 }
 
 .header-cart-trigger .material-symbols-rounded {
   font-size: 18px;
-  color: #946A25;
+  color: #8E6523;
   transition: color 0.2s;
 }
 
@@ -243,7 +245,7 @@
 }
 
 .cart-count-badge {
-  background-color: #946A25;
+  background-color: #8E6523;
   color: #FFFFFF;
   font-size: 0.72rem;
   font-weight: 700;
@@ -253,6 +255,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.header-cart-trigger:hover .cart-count-badge {
+  background-color: #FFFFFF;
+  color: #8E6523;
 }
 
 /* ==========================================================================
@@ -338,14 +346,113 @@
 }
 
 @media (max-width: 900px) {
-  .nav-and-actions-wrapper {
-    flex-direction: column;
-    gap: 8px;
+  .header-main-area {
+    padding: 14px 0 8px 0;
   }
-  
+
+  .header-main-container {
+    position: relative;
+    gap: 10px;
+  }
+
   .header-cart-trigger {
-    position: static;
+    position: absolute;
+    right: 16px;
+    top: 16px;
     transform: none;
-    margin-top: 6px;
+    padding: 6px 12px;
+    font-size: 0.76rem;
+  }
+
+  .nav-and-actions-wrapper {
+    position: static;
+    width: 100%;
+    border-top: 1px solid #F0EBE1;
+    padding-top: 6px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-nav-sober {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2px 8px;
+  }
+
+  .main-nav-sober::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links-centered {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+    width: max-content;
+    margin: 0 auto;
+  }
+
+  .nav-btn-sober {
+    font-size: 0.74rem !important;
+    white-space: nowrap;
+    letter-spacing: 0.04em !important;
+    --md-filled-button-leading-space: 12px;
+    --md-filled-button-trailing-space: 12px;
+    --md-text-button-leading-space: 10px;
+    --md-text-button-trailing-space: 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .top-bar-left {
+    display: none;
+  }
+
+  .top-bar-flex {
+    justify-content: center;
+  }
+
+  .top-bar-cart-divider,
+  .cart-top-link {
+    display: none;
+  }
+
+  .top-bar-right {
+    gap: 10px;
+  }
+
+  .top-link {
+    font-size: 0.7rem;
+  }
+
+  .brand-sober-block {
+    padding-right: 50px; /* Space for the top-right cart trigger */
+  }
+
+  .brand-name-sober {
+    font-size: 1.25rem;
+    letter-spacing: 0.1em;
+  }
+
+  .brand-desc-sober {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+  }
+
+  .header-cart-trigger .cart-trigger-label {
+    display: none;
+  }
+
+  .header-cart-trigger {
+    right: 12px;
+    top: 10px;
+    padding: 6px 10px;
+  }
+
+  .nav-links-centered {
+    margin: 0;
+    justify-content: flex-start;
   }
 }

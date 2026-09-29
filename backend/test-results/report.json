@@ -1,0 +1,200 @@
+{
+  "consoleLogs": [
+    {
+      "type": "debug",
+      "text": "[vite] connecting..."
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+    },
+    {
+      "type": "warn",
+      "text": "Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information."
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connected."
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connecting..."
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connected."
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+    },
+    {
+      "type": "warn",
+      "text": "Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information."
+    }
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "desktopOverflow": {
+    "docWidth": 1366,
+    "bodyScrollWidth": 1366,
+    "hasHorizontalScroll": false,
+    "overflowingElements": [
+      {
+        "tag": "SPAN",
+        "id": "",
+        "className": "material-symbols-rounded",
+        "scrollWidth": 20,
+        "clientWidth": 18
+      },
+      {
+        "tag": "SPAN",
+        "id": "",
+        "className": "material-symbols-rounded",
+        "scrollWidth": 20,
+        "clientWidth": 18
+      },
+      {
+        "tag": "SPAN",
+        "id": "",
+        "className": "material-symbols-rounded",
+        "scrollWidth": 20,
+        "clientWidth": 18
+      },
+      {
+        "tag": "SPAN",
+        "id": "",
+        "className": "material-symbols-rounded",
+        "scrollWidth": 20,
+        "clientWidth": 18
+      },
+      {
+        "tag": "SPAN",
+        "id": "",
+        "className": "material-symbols-rounded",
+        "scrollWidth": 20,
+        "clientWidth": 18
+      },
+      {
+        "tag": "SPAN",
+        "id": "",
+        "className": "material-symbols-rounded",
+        "scrollWidth": 20,
+        "clientWidth": 18
+      },
+      {
+        "tag": "SPAN",
+        "id": "",
+        "className": "material-symbols-rounded",
+        "scrollWidth": 20,
+        "clientWidth": 18
+      },
+      {
+        "tag": "SPAN",
+        "id": "",
+        "className": "floating-whatsapp-tooltip",
+        "scrollWidth": 281,
+        "clientWidth": 275
+      }
+    ]
+  },
+  "mobileOverflow": {
+    "docWidth": 390,
+    "bodyScrollWidth": 390,
+    "hasHorizontalScroll": false
+  },
+  "uiInspection": {
+    "buttons": [
+      {
+        "text": "ATENCIÓN A PARROQUIAS",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(199, 192, 179)",
+        "border": "0px none rgb(199, 192, 179)"
+      },
+      {
+        "text": "SEGUIMIENTO DE PEDIDOS",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(199, 192, 179)",
+        "border": "0px none rgb(199, 192, 179)"
+      },
+      {
+        "text": "shopping_bagPEDIDO (1)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(226, 219, 208)",
+        "border": "0px none rgb(226, 219, 208)"
+      },
+      {
+        "text": "shopping_bagPEDIDO1",
+        "bg": "rgb(250, 248, 245)",
+        "color": "rgb(35, 33, 30)",
+        "border": "1px solid rgb(222, 214, 199)"
+      },
+      {
+        "text": "close",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(108, 102, 93)",
+        "border": "0px none rgb(108, 102, 93)"
+      },
+      {
+        "text": "inventory_2Ítems del Carrito (1)",
+        "bg": "rgb(250, 248, 245)",
+        "color": "rgb(35, 33, 30)",
+        "border": ""
+      },
+      {
+        "text": "historyActividad Reciente2",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(125, 118, 108)",
+        "border": ""
+      },
+      {
+        "text": "delete",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(163, 155, 143)",
+        "border": "0px none rgb(163, 155, 143)"
+      },
+      {
+        "text": "-",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(68, 63, 56)",
+        "border": "0px none rgb(68, 63, 56)"
+      },
+      {
+        "text": "+",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(68, 63, 56)",
+        "border": "0px none rgb(68, 63, 56)"
+      },
+      {
+        "text": "Enviar Pedido vía WhatsApp",
+        "bg": "rgb(37, 211, 102)",
+        "color": "rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)"
+      },
+      {
+        "text": "delete_sweepVaciar pedido",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(140, 132, 118)",
+        "border": "0px none rgb(140, 132, 118)"
+      },
+      {
+        "text": "chevron_rightCatálogo de Productos",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(189, 181, 169)",
+        "border": "0px none rgb(189, 181, 169)"
+      },
+      {
+        "text": "chevron_rightQuiénes Somos & Vocación",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(189, 181, 169)",
+        "border": "0px none rgb(189, 181, 169)"
+      },
+      {
+        "text": "chevron_rightContacto & Presupuestos",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(189, 181, 169)",
+        "border": "0px none rgb(189, 181, 169)"
+      }
+    ]
+  }
+}

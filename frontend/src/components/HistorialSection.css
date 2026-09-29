@@ -6,6 +6,27 @@
   padding-bottom: 70px;
 }
 
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-gold-surface);
+  border: 1px solid rgba(167, 122, 46, 0.28);
+  color: var(--color-gold-deep);
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+
+.section-eyebrow .material-symbols-rounded {
+  font-size: 16px;
+  color: var(--color-gold-deep);
+}
+
 /* Buscador */
 .search-bar-serene {
   max-width: 580px;
@@ -122,6 +143,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-bottom: 8px;
 }
 
@@ -135,8 +158,10 @@
 .summary-status-pill {
   font-size: 0.72rem;
   font-weight: 600;
-  padding: 3px 8px;
+  padding: 3px 10px;
   border-radius: var(--radius-pill);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .status-en_preparacion {
@@ -498,5 +523,31 @@
   
   .table-row span:nth-child(2) {
     display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .timeline-steps {
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .search-input {
+    font-size: 0.85rem;
+    padding: 12px 38px;
+  }
+
+  .pedido-summary-card {
+    padding: 14px;
+  }
+
+  .pedido-detail-card {
+    padding: 20px 16px;
   }
 }

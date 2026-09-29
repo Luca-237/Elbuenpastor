@@ -487,12 +487,42 @@
 
 .checkout-btn-full {
   width: 100%;
-  --md-filled-button-container-color: #252320;
-  --md-filled-button-container-shape: 4px;
+  --md-filled-button-container-color: #8E6523;
+  --md-filled-button-container-shape: var(--radius-sm);
   font-size: 0.92rem !important;
   font-weight: 600 !important;
   letter-spacing: 0.05em !important;
+  margin-bottom: 8px;
+}
+
+.checkout-btn-full:hover {
+  --md-filled-button-container-color: #785217;
+}
+
+.btn-whatsapp-cart-checkout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #25D366;
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 3px 10px rgba(37, 211, 102, 0.25);
+  width: 100%;
   margin-bottom: 12px;
+}
+
+.btn-whatsapp-cart-checkout:hover {
+  background-color: #1EBE5D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
 }
 
 .footer-aux-actions {
@@ -532,4 +562,29 @@
 .secure-badge .material-symbols-rounded {
   font-size: 14px;
   color: #946A25;
+}
+
+@media (max-width: 500px) {
+  .sidebar-cart-drawer {
+    width: 100vw;
+    max-width: 100vw;
+  }
+
+  .drawer-tab-btn {
+    font-size: 0.75rem;
+    padding: 10px 4px;
+    gap: 4px;
+  }
+
+  .drawer-tab-btn span {
+    white-space: nowrap;
+  }
+
+  .drawer-header {
+    padding: 16px 18px;
+  }
+
+  .drawer-footer {
+    padding: 16px 18px;
+  }
 }
