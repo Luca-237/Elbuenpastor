@@ -105,7 +105,7 @@ const PEDIDOS_DEMO = [
 const PASOS_ESTADO = [
   { id: 'confirmado', label: 'Confirmado' },
   { id: 'en_preparacion', label: 'Elaboración' },
-  { id: 'listo', label: 'Listo / Embalado' },
+  { id: 'listo', label: 'Embalado' },
   { id: 'enviado', label: 'En Camino' },
   { id: 'entregado', label: 'Entregado' },
 ];
@@ -295,9 +295,9 @@ export default function HistorialSection() {
                         <strong className="item-name">{it.modeloNombre}</strong>
                       </div>
                       <span className="item-size">{it.tamanoNombre}</span>
-                      <span className="text-center">{it.cantidad} un.</span>
-                      <span className="text-right">${it.precioUnitario.toLocaleString('es-AR')}</span>
-                      <span className="text-right font-bold">${it.subtotal.toLocaleString('es-AR')}</span>
+                      <span className="item-qty text-center">{it.cantidad} un.</span>
+                      <span className="item-price-unit text-right">${it.precioUnitario.toLocaleString('es-AR')}</span>
+                      <span className="item-subtotal-col text-right font-bold">${it.subtotal.toLocaleString('es-AR')}</span>
                     </div>
                   ))}
                 </div>

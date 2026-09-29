@@ -201,11 +201,6 @@ export default function ProductosSection({ onAddToCart }) {
     return CATALOGO_PRODUCTOS.filter((p) => p.tipoCeraId === ceraId).length;
   };
 
-  const handleConsultar = (producto) => {
-    setMensajeNotificacion(`Has añadido "${producto.modelo}" a tu solicitud de cotización litúrgica.`);
-    setTimeout(() => setMensajeNotificacion(''), 4500);
-  };
-
   return (
     <div className="catalogo-page-wrapper">
       {/* ── 1. ENCABEZADO SOBRIO DE PÁGINA (Estilo De Petris) ── */}
@@ -398,6 +393,8 @@ export default function ProductosSection({ onAddToCart }) {
                           class="sober-add-btn"
                           onClick={() => {
                             if (onAddToCart) onAddToCart(prod);
+                            setMensajeNotificacion(`Has añadido "${prod.modelo}" al pedido litúrgico.`);
+                            setTimeout(() => setMensajeNotificacion(''), 4000);
                           }}
                         >
                           <span slot="icon" className="material-symbols-rounded">add_shopping_cart</span>

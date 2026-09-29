@@ -54,7 +54,7 @@
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  padding: 8px 14px;
+  padding: 8px 16px;
   border-radius: var(--radius-pill);
   white-space: nowrap;
   pointer-events: none;
@@ -63,6 +63,7 @@
   transition: all 0.25s ease;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: content-box;
 }
 
 .floating-whatsapp-tooltip::after {

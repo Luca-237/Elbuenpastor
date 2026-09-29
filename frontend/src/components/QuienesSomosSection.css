@@ -260,3 +260,31 @@
     font-size: 1.8rem;
   }
 }
+
+@media (max-width: 600px) {
+  .about-hero {
+    padding: 32px 0;
+  }
+
+  .about-hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .about-hero-actions md-filled-button,
+  .about-hero-actions md-outlined-button {
+    width: 100%;
+    display: block;
+  }
+
+  .sacred-quote-box {
+    padding: 24px 18px;
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--color-gold-deep);
+  }
+
+  .quote-phrase {
+    font-size: 1.25rem;
+  }
+}

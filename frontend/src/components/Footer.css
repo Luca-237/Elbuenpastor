@@ -61,10 +61,12 @@
 .footer-pill {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  line-height: 1;
   gap: 6px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 4px 12px;
+  padding: 5px 12px;
   border-radius: var(--radius-pill);
   font-size: 0.76rem;
   color: #D6CEBF;
@@ -72,6 +74,7 @@
 
 .footer-pill .material-symbols-rounded {
   font-size: 14px;
+  line-height: 1;
   color: var(--color-gold-light);
 }
 
@@ -170,5 +173,14 @@
   .footer-top-grid {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-bottom-bar {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    gap: 8px;
   }
 }

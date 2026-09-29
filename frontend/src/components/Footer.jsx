@@ -1,6 +1,8 @@
 import React from 'react';
 import './Footer.css';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export default function Footer({ onNavigate }) {
   return (
     <footer className="site-footer">
@@ -91,7 +93,7 @@ export default function Footer({ onNavigate }) {
         {/* Barra Inferior */}
         <div className="footer-bottom-bar">
           <p className="copyright-text">
-            © {new Date().getFullYear()} El Buen Pastor — Todos los derechos reservados. Diseñado con serenidad y Google Material Web.
+            © {CURRENT_YEAR} El Buen Pastor — Todos los derechos reservados. Diseñado con serenidad y Google Material Web.
           </p>
           <div className="footer-peace-blessing">
             <em>«Paz a todos los que están en Cristo»</em>

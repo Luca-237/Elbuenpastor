@@ -66,7 +66,7 @@ export default function SidebarCart({
             <div>
               <h2 className="drawer-title">MI PEDIDO LITÚRGICO</h2>
               <span className="drawer-subtitle">
-                {totalArticulos} {totalArticulos === 1 ? 'artículo' : 'artículos'} seleccionados
+                {totalArticulos} {totalArticulos === 1 ? 'artículo seleccionado' : 'artículos seleccionados'}
               </span>
             </div>
           </div>
@@ -86,14 +86,17 @@ export default function SidebarCart({
             onClick={() => setActiveTab('items')}
           >
             <span className="material-symbols-rounded">inventory_2</span>
-            Ítems del Carrito ({totalArticulos})
+            <span>Ítems del Carrito</span>
+            {totalArticulos > 0 && (
+              <span className="activity-badge-num">{totalArticulos}</span>
+            )}
           </button>
           <button
             className={`drawer-tab-btn ${activeTab === 'actividad' ? 'active' : ''}`}
             onClick={() => setActiveTab('actividad')}
           >
             <span className="material-symbols-rounded">history</span>
-            Actividad Reciente
+            <span>Actividad Reciente</span>
             {activityLog.length > 0 && (
               <span className="activity-badge-num">{activityLog.length}</span>
             )}
@@ -160,7 +163,7 @@ export default function SidebarCart({
                               onClick={() => onUpdateQuantity(item.id, item.cantidad - 1)}
                               aria-label="Disminuir cantidad"
                             >
-                              -
+                              <span className="qty-symbol">−</span>
                             </button>
                             <span className="qty-value">{item.cantidad}</span>
                             <button
@@ -168,7 +171,7 @@ export default function SidebarCart({
                               onClick={() => onUpdateQuantity(item.id, item.cantidad + 1)}
                               aria-label="Aumentar cantidad"
                             >
-                              +
+                              <span className="qty-symbol">+</span>
                             </button>
                           </div>
 
