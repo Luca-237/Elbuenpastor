@@ -1,0 +1,222 @@
+[
+  {
+    "label": "01_initial_0",
+    "targetScrollY": 0,
+    "actualScrollY": 0,
+    "isCollapsed": false,
+    "headerRect": {
+      "top": 0,
+      "height": 217.71875
+    },
+    "topBarRect": {
+      "top": 0,
+      "height": 34.4375,
+      "display": "block",
+      "opacity": "1"
+    },
+    "mainAreaRect": {
+      "top": 34.4375,
+      "height": 182.28125
+    },
+    "containerFlexDir": "column",
+    "gapBetweenTopBarAndMain": 0
+  },
+  {
+    "label": "02_down_25",
+    "targetScrollY": 25,
+    "actualScrollY": 25,
+    "isCollapsed": false,
+    "headerRect": {
+      "top": 0,
+      "height": 217.71875
+    },
+    "topBarRect": {
+      "top": 0,
+      "height": 34.4375,
+      "display": "block",
+      "opacity": "1"
+    },
+    "mainAreaRect": {
+      "top": 34.4375,
+      "height": 182.28125
+    },
+    "containerFlexDir": "column",
+    "gapBetweenTopBarAndMain": 0
+  },
+  {
+    "label": "03_down_45",
+    "targetScrollY": 45,
+    "actualScrollY": 52,
+    "isCollapsed": true,
+    "headerRect": {
+      "top": 0,
+      "height": 106.4375
+    },
+    "topBarRect": {
+      "top": 0,
+      "height": 29.15625,
+      "display": "block",
+      "opacity": "0.488431"
+    },
+    "mainAreaRect": {
+      "top": 29.15625,
+      "height": 76.28125
+    },
+    "containerFlexDir": "row",
+    "gapBetweenTopBarAndMain": 0
+  },
+  {
+    "label": "04_down_150",
+    "targetScrollY": 150,
+    "actualScrollY": 141,
+    "isCollapsed": true,
+    "headerRect": {
+      "top": 0,
+      "height": 57
+    },
+    "topBarRect": {
+      "top": 0,
+      "height": 0,
+      "display": "block",
+      "opacity": "0"
+    },
+    "mainAreaRect": {
+      "top": 0,
+      "height": 56
+    },
+    "containerFlexDir": "row",
+    "gapBetweenTopBarAndMain": 0
+  },
+  {
+    "label": "05_down_300",
+    "targetScrollY": 300,
+    "actualScrollY": 300,
+    "isCollapsed": true,
+    "headerRect": {
+      "top": 0,
+      "height": 57
+    },
+    "topBarRect": {
+      "top": 0,
+      "height": 0,
+      "display": "block",
+      "opacity": "0"
+    },
+    "mainAreaRect": {
+      "top": 0,
+      "height": 56
+    },
+    "containerFlexDir": "row",
+    "gapBetweenTopBarAndMain": 0
+  },
+  {
+    "label": "06_up_150",
+    "targetScrollY": 150,
+    "actualScrollY": 150,
+    "isCollapsed": true,
+    "headerRect": {
+      "top": 0,
+      "height": 57
+    },
+    "topBarRect": {
+      "top": 0,
+      "height": 0,
+      "display": "block",
+      "opacity": "0"
+    },
+    "mainAreaRect": {
+      "top": 0,
+      "height": 56
+    },
+    "containerFlexDir": "row",
+    "gapBetweenTopBarAndMain": 0
+  },
+  {
+    "label": "07_up_45",
+    "targetScrollY": 45,
+    "actualScrollY": 45,
+    "isCollapsed": true,
+    "headerRect": {
+      "top": 0,
+      "height": 57
+    },
+    "topBarRect": {
+      "top": 0,
+      "height": 0,
+      "display": "block",
+      "opacity": "0"
+    },
+    "mainAreaRect": {
+      "top": 0,
+      "height": 56
+    },
+    "containerFlexDir": "row",
+    "gapBetweenTopBarAndMain": 0
+  },
+  {
+    "label": "08_up_35",
+    "targetScrollY": 35,
+    "actualScrollY": 46,
+    "isCollapsed": true,
+    "headerRect": {
+      "top": 0,
+      "height": 68.0625
+    },
+    "topBarRect": {
+      "top": 0,
+      "height": 9.890625,
+      "display": "block",
+      "opacity": "0.33503"
+    },
+    "mainAreaRect": {
+      "top": 9.890625,
+      "height": 57.171875
+    },
+    "containerFlexDir": "row",
+    "gapBetweenTopBarAndMain": 0
+  },
+  {
+    "label": "09_up_10",
+    "targetScrollY": 10,
+    "actualScrollY": 39,
+    "isCollapsed": false,
+    "headerRect": {
+      "top": 0,
+      "height": 173.15625
+    },
+    "topBarRect": {
+      "top": 0,
+      "height": 22.40625,
+      "display": "block",
+      "opacity": "0.66231"
+    },
+    "mainAreaRect": {
+      "top": 22.40625,
+      "height": 149.75
+    },
+    "containerFlexDir": "column",
+    "gapBetweenTopBarAndMain": 0
+  },
+  {
+    "label": "10_up_0",
+    "targetScrollY": 0,
+    "actualScrollY": 0,
+    "isCollapsed": false,
+    "headerRect": {
+      "top": 0,
+      "height": 217.6875
+    },
+    "topBarRect": {
+      "top": 0,
+      "height": 34.4375,
+      "display": "block",
+      "opacity": "1"
+    },
+    "mainAreaRect": {
+      "top": 34.4375,
+      "height": 182.25
+    },
+    "containerFlexDir": "column",
+    "gapBetweenTopBarAndMain": 0
+  }
+]

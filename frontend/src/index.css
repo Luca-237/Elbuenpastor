@@ -72,6 +72,11 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-anchor: none;
+}
+
+body {
+  overflow-anchor: none;
 }
 
 body {
