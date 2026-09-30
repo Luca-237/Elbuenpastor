@@ -167,6 +167,32 @@
   font-family: var(--font-script);
   font-size: 1.05rem;
   color: var(--color-gold-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-admin-lock-btn {
+  background: transparent;
+  border: none;
+  color: #555048;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0.4;
+}
+
+.footer-admin-lock-btn:hover {
+  opacity: 1;
+  color: var(--color-gold-light);
+}
+
+.footer-admin-lock-btn .material-symbols-rounded {
+  font-size: 16px;
 }
 
 @media (max-width: 900px) {

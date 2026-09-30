@@ -97,6 +97,14 @@ export default function Footer({ onNavigate }) {
           </p>
           <div className="footer-peace-blessing">
             <em>«Paz a todos los que están en Cristo»</em>
+            <button 
+              className="footer-admin-lock-btn" 
+              onClick={() => onNavigate('admin')}
+              title="Acceso Restringido Taller / Superusuario"
+              aria-label="Acceso Administrador"
+            >
+              <span className="material-symbols-rounded">lock</span>
+            </button>
           </div>
         </div>
       </div>

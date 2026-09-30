@@ -451,7 +451,8 @@
 }
 
 .sober-action-btn,
-.sober-add-btn {
+.sober-add-btn,
+.sober-detail-btn {
   --md-filled-button-container-color: #8E6523;
   --md-filled-button-label-text-color: #FFFFFF;
   --md-outlined-button-outline-color: #D6CEBF;
@@ -466,7 +467,8 @@
   transition: all 0.25s ease;
 }
 
-.sober-add-btn:hover {
+.sober-add-btn:hover,
+.sober-detail-btn:hover {
   --md-filled-button-container-color: #785217;
   box-shadow: 0 4px 14px rgba(142, 101, 35, 0.3);
 }

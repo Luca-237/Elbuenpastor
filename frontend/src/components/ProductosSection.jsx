@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import ProductoDetalleModal from './ProductoDetalleModal';
 import './ProductosSection.css';
 
 // Catálogo maestro estructurado según la base de datos de El Buen Pastor
@@ -16,12 +17,20 @@ const CATALOGO_PRODUCTOS = [
     aromas: ['Incienso Sagrado', 'Mirra', 'Sándalo'],
     aromaDefault: 'Incienso Sagrado',
     imagen: '/hero-candles.jpg',
-    descripcion: 'Vela de combustión lenta y serena. Elaborada artesanalmente con cera de soja vegetal que favorece el recogimiento y la oración.',
+    descripcion: 'Vela de combustión lenta y serena. Elaborada artesanalmente con cera de soja vegetal pura que favorece el recogimiento y la oración.',
     precioUnitario: 3800,
     preciosPorVolumen: [
       { min: 1, max: 9, precio: 3800 },
       { min: 10, max: 49, precio: 3300 },
       { min: 50, max: null, precio: 2900 },
+    ],
+    tamanosPorNumero: [
+      { numero: 1, label: 'Nº 1', dimensiones: '5 × 7 cm', duracionHoras: 25, precioUnitario: 2800 },
+      { numero: 2, label: 'Nº 2', dimensiones: '6 × 8 cm', duracionHoras: 35, precioUnitario: 3300 },
+      { numero: 3, label: 'Nº 3', dimensiones: '8 × 10 cm', duracionHoras: 45, precioUnitario: 3800, isDefault: true },
+      { numero: 4, label: 'Nº 4', dimensiones: '10 × 12 cm', duracionHoras: 65, precioUnitario: 4900 },
+      { numero: 5, label: 'Nº 5', dimensiones: '10 × 18 cm', duracionHoras: 90, precioUnitario: 6800 },
+      { numero: 6, label: 'Nº 6', dimensiones: '10 × 25 cm', duracionHoras: 110, precioUnitario: 9200 },
     ],
     stock: 24,
     destacado: true,
@@ -37,7 +46,7 @@ const CATALOGO_PRODUCTOS = [
     tamano: 'Grande (10 × 35 cm)',
     duracionHoras: 120,
     aromas: ['Miel natural'],
-    aromaDefault: 'Miel y Polen',
+    aromaDefault: 'Miel natural',
     imagen: '/cirio-pascual.jpg',
     descripcion: 'Cirio consagrado para celebraciones litúrgicas y altares. Llama constante sin humo negro y aroma puro a cera virgen.',
     precioUnitario: 14500,
@@ -46,13 +55,21 @@ const CATALOGO_PRODUCTOS = [
       { min: 5, max: 19, precio: 12800 },
       { min: 20, max: null, precio: 11200 },
     ],
+    tamanosPorNumero: [
+      { numero: 1, label: 'Nº 1', dimensiones: '5 × 15 cm', duracionHoras: 40, precioUnitario: 5900 },
+      { numero: 2, label: 'Nº 2', dimensiones: '6 × 20 cm', duracionHoras: 60, precioUnitario: 7800 },
+      { numero: 3, label: 'Nº 3', dimensiones: '8 × 25 cm', duracionHoras: 85, precioUnitario: 10500 },
+      { numero: 4, label: 'Nº 4', dimensiones: '10 × 30 cm', duracionHoras: 105, precioUnitario: 12800 },
+      { numero: 5, label: 'Nº 5', dimensiones: '10 × 35 cm', duracionHoras: 120, precioUnitario: 14500, isDefault: true },
+      { numero: 6, label: 'Nº 6', dimensiones: '12 × 45 cm', duracionHoras: 160, precioUnitario: 19800 },
+    ],
     stock: 12,
     destacado: true,
   },
   {
     id: 'prod-03',
     sku: 'VOT-LGT-X12-003',
-    modelo: 'Caja ×12 Velas Votivas de Oración',
+    modelo: 'Caja Velas Votivas de Oración',
     categoriaId: 'votivas',
     categoriaNombre: 'Velas Votivas & Sagrario',
     tipoCeraId: 'parafina',
@@ -62,12 +79,18 @@ const CATALOGO_PRODUCTOS = [
     aromas: ['Neutro (Sin fragancia)'],
     aromaDefault: 'Neutro para Sagrario',
     imagen: '/velas-votivas.jpg',
-    descripcion: 'Juego de doce veladoras para capillas, sagrarios y oratorios familiares. Recipiente seguro de aluminio y combustión sin goteo.',
+    descripcion: 'Juego de veladoras para capillas, sagrarios y oratorios familiares. Recipiente seguro de aluminio y combustión limpia sin goteo.',
     precioUnitario: 5200,
     preciosPorVolumen: [
       { min: 1, max: 9, precio: 5200 },
       { min: 10, max: 29, precio: 4600 },
       { min: 30, max: null, precio: 3950 },
+    ],
+    tamanosPorNumero: [
+      { numero: 1, label: 'Nº 1', dimensiones: 'Pack ×6 (4 × 4 cm)', duracionHoras: 8, precioUnitario: 3100 },
+      { numero: 2, label: 'Nº 2', dimensiones: 'Pack ×12 (4 × 5 cm)', duracionHoras: 12, precioUnitario: 5200, isDefault: true },
+      { numero: 3, label: 'Nº 3', dimensiones: 'Pack ×24 (4 × 5 cm)', duracionHoras: 12, precioUnitario: 9800 },
+      { numero: 4, label: 'Nº 4', dimensiones: 'Pack ×48 (4 × 5 cm)', duracionHoras: 12, precioUnitario: 18500 },
     ],
     stock: 45,
     destacado: false,
@@ -92,6 +115,12 @@ const CATALOGO_PRODUCTOS = [
       { min: 10, max: 39, precio: 4200 },
       { min: 40, max: null, precio: 3700 },
     ],
+    tamanosPorNumero: [
+      { numero: 1, label: 'Nº 1', dimensiones: 'Chica (7 × 7 cm)', duracionHoras: 30, precioUnitario: 3700 },
+      { numero: 2, label: 'Nº 2', dimensiones: 'Mediana (9 × 9 cm)', duracionHoras: 50, precioUnitario: 4900, isDefault: true },
+      { numero: 3, label: 'Nº 3', dimensiones: 'Grande (12 × 12 cm)', duracionHoras: 80, precioUnitario: 7200 },
+      { numero: 4, label: 'Nº 4', dimensiones: 'Extra Grande (15 × 15 cm)', duracionHoras: 120, precioUnitario: 10800 },
+    ],
     stock: 18,
     destacado: true,
   },
@@ -114,6 +143,12 @@ const CATALOGO_PRODUCTOS = [
       { min: 1, max: 19, precio: 1900 },
       { min: 20, max: 99, precio: 1600 },
       { min: 100, max: null, precio: 1350 },
+    ],
+    tamanosPorNumero: [
+      { numero: 1, label: 'Nº 1', dimensiones: 'Fino (2.0 × 20 cm)', duracionHoras: 12, precioUnitario: 1400 },
+      { numero: 2, label: 'Nº 2', dimensiones: 'Estándar (2.5 × 25 cm)', duracionHoras: 18, precioUnitario: 1900, isDefault: true },
+      { numero: 3, label: 'Nº 3', dimensiones: 'Procesional (3.0 × 30 cm)', duracionHoras: 26, precioUnitario: 2600 },
+      { numero: 4, label: 'Nº 4', dimensiones: 'Procesional (4.0 × 35 cm)', duracionHoras: 38, precioUnitario: 3800 },
     ],
     stock: 80,
     destacado: false,
@@ -138,6 +173,12 @@ const CATALOGO_PRODUCTOS = [
       { min: 10, max: 39, precio: 3950 },
       { min: 40, max: null, precio: 3450 },
     ],
+    tamanosPorNumero: [
+      { numero: 1, label: 'Nº 1', dimensiones: 'Frasco (150g)', duracionHoras: 35, precioUnitario: 3400 },
+      { numero: 2, label: 'Nº 2', dimensiones: 'Frasco Ámbar (250g)', duracionHoras: 55, precioUnitario: 4600, isDefault: true },
+      { numero: 3, label: 'Nº 3', dimensiones: 'Frasco Ámbar (400g)', duracionHoras: 85, precioUnitario: 6900 },
+      { numero: 4, label: 'Nº 4', dimensiones: 'Vasija Especial (600g)', duracionHoras: 120, precioUnitario: 9800 },
+    ],
     stock: 30,
     destacado: true,
   },
@@ -160,16 +201,20 @@ const FILTROS_CERA = [
   { id: 'parafina', label: 'Soja & Mezcla Refinada' },
 ];
 
-export default function ProductosSection({ onAddToCart }) {
+export default function ProductosSection({ productos = CATALOGO_PRODUCTOS, onAddToCart }) {
+  const listaProductos = productos || CATALOGO_PRODUCTOS;
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('todas');
   const [ceraSeleccionada, setCeraSeleccionada] = useState('todos');
   const [busqueda, setBusqueda] = useState('');
   const [orden, setOrden] = useState('destacados');
   const [mensajeNotificacion, setMensajeNotificacion] = useState('');
 
+  // Estado para el modal de detalle del producto seleccionado
+  const [productoParaDetalle, setProductoParaDetalle] = useState(null);
+
   // Filtrado y ordenamiento de productos
   const productosFiltrados = useMemo(() => {
-    let prods = CATALOGO_PRODUCTOS.filter((p) => {
+    let prods = listaProductos.filter((p) => {
       const coincideCat = categoriaSeleccionada === 'todas' || p.categoriaId === categoriaSeleccionada;
       const coincideCera = ceraSeleccionada === 'todos' || p.tipoCeraId === ceraSeleccionada;
       const coincideBusqueda =
@@ -187,23 +232,23 @@ export default function ProductosSection({ onAddToCart }) {
       prods.sort((a, b) => a.modelo.localeCompare(b.modelo));
     }
     return prods;
-  }, [categoriaSeleccionada, ceraSeleccionada, busqueda, orden]);
+  }, [listaProductos, categoriaSeleccionada, ceraSeleccionada, busqueda, orden]);
 
   // Contar productos por categoría
   const conteoPorCategoria = (catId) => {
-    if (catId === 'todas') return CATALOGO_PRODUCTOS.length;
-    return CATALOGO_PRODUCTOS.filter((p) => p.categoriaId === catId).length;
+    if (catId === 'todas') return listaProductos.length;
+    return listaProductos.filter((p) => p.categoriaId === catId).length;
   };
 
   // Contar productos por tipo de cera
   const conteoPorCera = (ceraId) => {
-    if (ceraId === 'todos') return CATALOGO_PRODUCTOS.length;
-    return CATALOGO_PRODUCTOS.filter((p) => p.tipoCeraId === ceraId).length;
+    if (ceraId === 'todos') return listaProductos.length;
+    return listaProductos.filter((p) => p.tipoCeraId === ceraId).length;
   };
 
   return (
     <div className="catalogo-page-wrapper">
-      {/* ── 1. ENCABEZADO SOBRIO DE PÁGINA (Estilo De Petris) ── */}
+      {/* ── 1. ENCABEZADO SOBRIO DE PÁGINA ── */}
       <div className="page-heading-sober">
         <div className="container">
           <div className="heading-inner">
@@ -357,7 +402,11 @@ export default function ProductosSection({ onAddToCart }) {
                 {productosFiltrados.map((prod) => (
                   <article key={prod.id} className="sober-product-card">
                     {/* Imagen Cuadrada Limpia con fondo neutral */}
-                    <div className="product-image-frame">
+                    <div 
+                      className="product-image-frame"
+                      onClick={() => setProductoParaDetalle(prod)}
+                      style={{ cursor: 'pointer' }}
+                    >
                       <img
                         src={prod.imagen}
                         alt={prod.modelo}
@@ -369,36 +418,38 @@ export default function ProductosSection({ onAddToCart }) {
                       )}
                     </div>
 
-                    {/* Contenido COMPLETAMENTE CENTRADO (Estilo De Petris) */}
+                    {/* Contenido COMPLETAMENTE CENTRADO */}
                     <div className="product-info-centered">
                       <span className="product-cat-tag">{prod.categoriaNombre}</span>
                       
-                      <h3 className="product-title-centered">{prod.modelo}</h3>
+                      <h3 
+                        className="product-title-centered"
+                        onClick={() => setProductoParaDetalle(prod)}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        {prod.modelo}
+                      </h3>
                       
-                      <p className="product-specs-sub">{prod.tamano} · ~{prod.duracionHoras}h</p>
+                      <p className="product-specs-sub">Tamaños por número disponibles (Nº 1 al Nº 6)</p>
 
                       {/* Escala de precios sobria centrada */}
                       <div className="product-pricing-centered">
                         <span className="price-primary-centered">
-                          ${prod.precioUnitario.toLocaleString('es-AR')}
+                          Desde ${prod.tamanosPorNumero[0].precioUnitario.toLocaleString('es-AR')}
                         </span>
                         <span className="price-wholesale-sub">
-                          Por mayor desde ${prod.preciosPorVolumen[prod.preciosPorVolumen.length - 1].precio.toLocaleString('es-AR')}
+                          Elegir tamaño por número y ver escala mayorista
                         </span>
                       </div>
 
-                      {/* Botón sobrio Material Web centrado */}
+                      {/* Botón CAMBIADO A "VER DETALLE" */}
                       <div className="product-card-action">
                         <md-filled-button
-                          class="sober-add-btn"
-                          onClick={() => {
-                            if (onAddToCart) onAddToCart(prod);
-                            setMensajeNotificacion(`Has añadido "${prod.modelo}" al pedido litúrgico.`);
-                            setTimeout(() => setMensajeNotificacion(''), 4000);
-                          }}
+                          class="sober-detail-btn"
+                          onClick={() => setProductoParaDetalle(prod)}
                         >
-                          <span slot="icon" className="material-symbols-rounded">add_shopping_cart</span>
-                          Añadir al Pedido
+                          <span slot="icon" className="material-symbols-rounded">visibility</span>
+                          Ver Detalle
                         </md-filled-button>
                       </div>
                     </div>
@@ -409,6 +460,21 @@ export default function ProductosSection({ onAddToCart }) {
           </main>
         </div>
       </div>
+
+      {/* ── MODAL DE DETALLE DEL PRODUCTO (SELECCIÓN DE TAMAÑO POR NÚMERO) ── */}
+      {productoParaDetalle && (
+        <ProductoDetalleModal
+          producto={productoParaDetalle}
+          onClose={() => setProductoParaDetalle(null)}
+          onAddToCart={(itemConfigurado) => {
+            if (onAddToCart) onAddToCart(itemConfigurado);
+            setMensajeNotificacion(
+              `Has añadido "${itemConfigurado.modelo} - ${itemConfigurado.tamano}" al pedido.`
+            );
+            setTimeout(() => setMensajeNotificacion(''), 4500);
+          }}
+        />
+      )}
     </div>
   );
 }

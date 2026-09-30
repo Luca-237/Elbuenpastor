@@ -3,20 +3,22 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/database');
 const whatsappRoutes = require('./routes/whatsappRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middlewares
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '15mb' }));
+app.use(express.urlencoded({ extended: true, limit: '15mb' }));
 
 // Conectar Base de Datos MongoDB
 connectDB();
 
 // Rutas API
 app.use('/api/whatsapp', whatsappRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // Health Check
 app.get('/api/health', (req, res) => {
