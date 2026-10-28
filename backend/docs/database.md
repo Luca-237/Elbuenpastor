@@ -126,20 +126,26 @@ Registro maestro de clientes. La dirección se **embebe** (no tiene sentido fuer
 
 **Modelo:** `Tamano` · **Archivo:** `src/models/Tamano.js`
 
-Tabla de lookup estandarizada de tamaños de vela. Se referencia desde `productos`. El nombre también se cachea en `productos.tamanoNombre` para evitar populate en listados.
+Tabla de lookup estandarizada de tamaños de vela dividida según las 3 categorías principales (**Velas Litúrgicas**, **Velones**, **Cirios**). La dimensión se estandariza en **diámetro (mm)** y **largo/altura (cm)**.
 
 | Campo | Tipo | Requerido | Descripción |
 |---|---|---|---|
 | `_id` | ObjectId | auto | Identificador único |
-| `nombre` | String | ✅ | Nombre único. Ej: `"Chica"`, `"Grande"`, `"500g"` |
+| `nombre` | String | ✅ | Nombre/formato único. Ej: `"50 mm × 85 cm"`, `"29 mm × 30 cm"` |
+| `categoriaId` | String | ❌ | Categoría asociada (`cirios`, `velas-liturgicas`, `velones`) |
+| `diametroMm` | Number | ✅ | Diámetro físico en milímetros (mm) |
+| `largoCm` | Number | ✅ | Largo o altura física en centímetros (cm) |
 | `descripcion` | String | ❌ | Descripción libre |
 | `pesoGramos` | Number | ❌ | Peso en gramos (para cálculo de envío) |
-| `alturaCm` | Number | ❌ | Altura en centímetros |
-| `diametroCm` | Number | ❌ | Diámetro en centímetros |
 | `duracionHoras` | Number | ❌ | Tiempo de combustión estimado en horas |
 | `activo` | Boolean | ❌ | Default: `true` |
 | `createdAt` | Date | auto | Timestamp de creación |
 | `updatedAt` | Date | auto | Timestamp de última modificación |
+
+#### Medidas canónicas del taller:
+- **Cirios:** `50 mm × 85 cm`, `60 mm × 85 cm`, `70 mm × 85 cm`, `70 mm × 100 cm`, `100 mm × 100 cm`
+- **Velas Litúrgicas:** `29 mm × 30 cm`, `35 mm × 30 cm`, `42 mm × 30 cm`, `50 mm × 30 cm`
+- **Velones:** Medidas especiales configurables desde el panel de superusuario.
 
 ---
 

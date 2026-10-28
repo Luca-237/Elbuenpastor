@@ -30,6 +30,13 @@ const modeloVelaSchema = new Schema(
       type: String,
       trim: true,
     },
+    // Categoría principal del modelo
+    categoria: {
+      type: String,
+      required: [true, 'La categoría es obligatoria'],
+      default: 'velas-liturgicas',
+      trim: true,
+    },
     // Tipo de material/cera principal
     tipoCera: {
       type: String,

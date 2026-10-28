@@ -96,6 +96,21 @@ const productoSchema = new Schema(
       required: true,
       trim: true,
     },
+    categoriaId: {
+      type: String,
+      default: 'velas-liturgicas',
+      trim: true,
+    },
+    categoriaNombre: {
+      type: String,
+      default: 'Velas Litúrgicas',
+      trim: true,
+    },
+    // Dimensiones en mm y cm
+    tamanoMedida: {
+      diametroMm: { type: Number },
+      largoCm: { type: Number },
+    },
 
     // ── IDENTIFICADORES ───────────────────────────────────────────────────
     sku: {

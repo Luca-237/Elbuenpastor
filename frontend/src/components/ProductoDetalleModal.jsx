@@ -2,24 +2,27 @@ import React, { useState } from 'react';
 import './ProductoDetalleModal.css';
 
 export default function ProductoDetalleModal({ producto, onClose, onAddToCart }) {
-  // Lista de tamaños por número disponibles (o valores por defecto)
-  const tamanosDisponibles = producto?.tamanosPorNumero || [
-    { numero: 1, label: 'Nº 1', dimensiones: '5 × 7 cm', duracionHoras: 25, precioUnitario: Math.round((producto?.precioUnitario || 3800) * 0.75) },
-    { numero: 2, label: 'Nº 2', dimensiones: '6 × 8 cm', duracionHoras: 35, precioUnitario: Math.round((producto?.precioUnitario || 3800) * 0.88) },
-    { numero: 3, label: 'Nº 3', dimensiones: producto?.tamano || '8 × 10 cm', duracionHoras: producto?.duracionHoras || 45, precioUnitario: producto?.precioUnitario || 3800, isDefault: true },
-    { numero: 4, label: 'Nº 4', dimensiones: '10 × 12 cm', duracionHoras: 65, precioUnitario: Math.round((producto?.precioUnitario || 3800) * 1.3) },
-    { numero: 5, label: 'Nº 5', dimensiones: '10 × 18 cm', duracionHoras: 90, precioUnitario: Math.round((producto?.precioUnitario || 3800) * 1.8) },
-    { numero: 6, label: 'Nº 6', dimensiones: '10 × 25 cm', duracionHoras: 110, precioUnitario: Math.round((producto?.precioUnitario || 3800) * 2.5) },
-  ];
+  // Lista de medidas y tamaños disponibles
+  const tamanosDisponibles = producto?.tamanosPorNumero || [];
 
-  // Tamaño por defecto (Nº 3 o el primero)
-  const [tamanoSeleccionado, setTamanoSeleccionado] = useState(
-    () => tamanosDisponibles.find((t) => t.isDefault) || tamanosDisponibles[2] || tamanosDisponibles[0]
-  );
+  // Tamaño por defecto (el marcado como isDefault o el primero)
+  const [tamanoSeleccionado, setTamanoSeleccionado] = useState(() => {
+    return (
+      tamanosDisponibles.find((t) => t.isDefault) ||
+      tamanosDisponibles[0] || {
+        diametroMm: 70,
+        largoCm: 85,
+        dimensiones: 'Ø 70 mm × 85 cm',
+        label: '70 mm × 85 cm',
+        duracionHoras: 160,
+        precioUnitario: producto?.precioUnitario || 15000,
+      }
+    );
+  });
 
   // Aroma por defecto
   const [aromaSeleccionado, setAromaSeleccionado] = useState(
-    () => producto?.aromaDefault || (producto?.aromas && producto.aromas[0]) || 'Estándar'
+    () => producto?.aromaDefault || (producto?.aromas && producto.aromas[0]) || 'Cera Virgen Natural'
   );
 
   // Cantidad seleccionada
@@ -30,10 +33,10 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
 
   if (!producto) return null;
 
-  // Calcular precio unitario base según tamaño
-  const precioUnitarioBase = tamanoSeleccionado ? tamanoSeleccionado.precioUnitario : producto.precioUnitario;
+  // Precio unitario base para la medida seleccionada
+  const precioUnitarioBase = tamanoSeleccionado.precioUnitario || producto.precioUnitario;
 
-  // Calcular precios por volumen dinámicos según el tamaño seleccionado
+  // Escalar tramos mayoristas según la medida elegida
   const factorEscala = precioUnitarioBase / (producto.precioUnitario || 1);
   const preciosPorVolumenDinamicos = (producto.preciosPorVolumen || [
     { min: 1, max: 9, precio: producto.precioUnitario },
@@ -44,21 +47,23 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
     precio: Math.round(tramo.precio * factorEscala),
   }));
 
-  // Obtener precio unitario aplicado según cantidad y escala
+  // Obtener precio unitario efectivo según cantidad elegida
   const tramoActual = preciosPorVolumenDinamicos.find(
     (t) => cantidad >= t.min && (t.max === null || cantidad <= t.max)
   );
   const precioAplicadoUnitario = tramoActual ? tramoActual.precio : precioUnitarioBase;
   const precioTotal = precioAplicadoUnitario * cantidad;
 
-  // Manejador para añadir al carrito
+  // Manejador para añadir al pedido
   const handleAddToCartClick = () => {
+    const medidaLabel = tamanoSeleccionado.dimensiones || `${tamanoSeleccionado.diametroMm} mm × ${tamanoSeleccionado.largoCm} cm`;
     const itemConfigurado = {
       ...producto,
-      cartItemId: `${producto.id}-N${tamanoSeleccionado.numero}-${aromaSeleccionado.replace(/\s+/g, '')}`,
-      sku: `${producto.sku}-N${tamanoSeleccionado.numero}`,
-      tamano: `Nº ${tamanoSeleccionado.numero} (${tamanoSeleccionado.dimensiones})`,
-      tamanoNumero: tamanoSeleccionado.numero,
+      cartItemId: `${producto.id}-${tamanoSeleccionado.diametroMm}x${tamanoSeleccionado.largoCm}-${aromaSeleccionado.replace(/\s+/g, '')}`,
+      sku: `${producto.sku}-${tamanoSeleccionado.diametroMm}x${tamanoSeleccionado.largoCm}`,
+      tamano: medidaLabel,
+      diametroMm: tamanoSeleccionado.diametroMm,
+      largoCm: tamanoSeleccionado.largoCm,
       duracionHoras: tamanoSeleccionado.duracionHoras,
       precioUnitario: precioUnitarioBase,
       preciosPorVolumen: preciosPorVolumenDinamicos,
@@ -73,7 +78,7 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
     setMensajeExito(true);
     setTimeout(() => {
       setMensajeExito(false);
-    }, 3000);
+    }, 2800);
   };
 
   return (
@@ -100,10 +105,14 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
           <div className="modal-media-col">
             <div className="modal-image-wrapper">
               <img src={producto.imagen} alt={producto.modelo} className="modal-product-image" />
-              {producto.destacado && <span className="modal-badge-destacado">Destacado</span>}
+              {producto.destacado && <span className="modal-badge-destacado">Destacado Litúrgico</span>}
             </div>
 
             <div className="modal-spec-chips">
+              <div className="spec-chip">
+                <span className="material-symbols-rounded">wb_incandescent</span>
+                <span>{producto.categoriaNombre}</span>
+              </div>
               <div className="spec-chip">
                 <span className="material-symbols-rounded">energy_savings_leaf</span>
                 <span>{producto.tipoCeraNombre}</span>
@@ -113,40 +122,75 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
                 <span>Duración estimada: ~{tamanoSeleccionado.duracionHoras}h</span>
               </div>
               <div className="spec-chip">
-                <span className="material-symbols-rounded">inventory</span>
-                <span>Código SKU: {producto.sku}-N{tamanoSeleccionado.numero}</span>
+                <span className="material-symbols-rounded">straighten</span>
+                <span>Calibre: Ø {tamanoSeleccionado.diametroMm} mm × {tamanoSeleccionado.largoCm} cm</span>
               </div>
+            </div>
+
+            {/* Esquema visual de la vela */}
+            <div className="candle-schematic-box">
+              <div className="candle-flame-icon">
+                <span className="material-symbols-rounded">local_fire_department</span>
+              </div>
+              <div className="candle-silhouette-preview">
+                <div 
+                  className="candle-cylinder"
+                  style={{
+                    width: `${Math.min(90, Math.max(28, (tamanoSeleccionado.diametroMm || 50) * 0.85))}px`,
+                    height: `${Math.min(140, Math.max(50, (tamanoSeleccionado.largoCm || 50) * 1.1))}px`,
+                  }}
+                >
+                  <span className="cylinder-diam-label">{tamanoSeleccionado.diametroMm} mm</span>
+                </div>
+                <span className="cylinder-height-label">{tamanoSeleccionado.largoCm} cm de altura</span>
+              </div>
+              <p className="candle-silhouette-note">
+                Proporción física real: diámetro de {tamanoSeleccionado.diametroMm} mm y largo de {tamanoSeleccionado.largoCm} cm.
+              </p>
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: Títulos, Selector de Tamaño por Número, Aroma y Botón de Carrito */}
+          {/* COLUMNA DERECHA: Títulos, Selector de Medida, Aroma y Pedido */}
           <div className="modal-content-col">
-            <span className="modal-category-tag">{producto.categoriaNombre}</span>
+            <div className="category-pill-header">
+              <span className="material-symbols-rounded">church</span>
+              <span>{producto.categoriaNombre}</span>
+            </div>
+            
             <h2 className="modal-product-title">{producto.modelo}</h2>
 
             <p className="modal-product-description">{producto.descripcion}</p>
 
-            {/* ── 1. SELECTOR DE TAMAÑO POR NÚMERO ── */}
+            {/* ── 1. SELECTOR DE MEDIDA (DIÁMETRO EN MM × LARGO EN CM) ── */}
             <div className="modal-section-group">
               <div className="section-label-row">
-                <span className="section-title">Elegir Tamaño de Vela (por Número):</span>
+                <span className="section-title">
+                  <span className="material-symbols-rounded">straighten</span>
+                  Seleccionar Medida (Diámetro × Largo):
+                </span>
                 <span className="selected-size-highlight">
-                  Nº {tamanoSeleccionado.numero} — {tamanoSeleccionado.dimensiones}
+                  {tamanoSeleccionado.dimensiones || `${tamanoSeleccionado.diametroMm} mm × ${tamanoSeleccionado.largoCm} cm`}
                 </span>
               </div>
 
               <div className="size-number-grid">
-                {tamanosDisponibles.map((tam) => {
-                  const isSelected = tamanoSeleccionado.numero === tam.numero;
+                {tamanosDisponibles.map((tam, idx) => {
+                  const isSelected =
+                    tamanoSeleccionado.diametroMm === tam.diametroMm &&
+                    tamanoSeleccionado.largoCm === tam.largoCm;
                   return (
                     <button
-                      key={tam.numero}
+                      key={tam.id || idx}
                       type="button"
                       className={`size-number-btn ${isSelected ? 'active' : ''}`}
                       onClick={() => setTamanoSeleccionado(tam)}
                     >
-                      <span className="size-num-title">Nº {tam.numero}</span>
-                      <span className="size-num-dims">{tam.dimensiones}</span>
+                      <span className="size-dim-badge">
+                        <span className="diam-tag">Ø {tam.diametroMm} mm</span>
+                        <span className="cross-sep">×</span>
+                        <span className="len-tag">{tam.largoCm} cm</span>
+                      </span>
+                      <span className="size-burn-time">~{tam.duracionHoras}h combustión</span>
                       <span className="size-num-price">${tam.precioUnitario.toLocaleString('es-AR')}</span>
                     </button>
                   );
@@ -154,17 +198,20 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
               </div>
 
               <div className="size-info-banner">
-                <span className="material-symbols-rounded">straighten</span>
+                <span className="material-symbols-rounded">check_circle</span>
                 <span>
-                  <strong>Tamaño seleccionado: Nº {tamanoSeleccionado.numero}</strong> — Medidas ({tamanoSeleccionado.dimensiones}). Rendimiento estimado de combustión: ~{tamanoSeleccionado.duracionHoras} horas.
+                  <strong>Medida activa: Ø {tamanoSeleccionado.diametroMm} mm × {tamanoSeleccionado.largoCm} cm</strong> · Combustión constante estimada en ~{tamanoSeleccionado.duracionHoras} horas sin ahumar.
                 </span>
               </div>
             </div>
 
-            {/* ── 2. SELECCIÓN DE AROMA / FRAGANCIA (Si aplica) ── */}
+            {/* ── 2. SELECCIÓN DE AROMA / FRAGANCIA SACRA ── */}
             {producto.aromas && producto.aromas.length > 0 && (
               <div className="modal-section-group">
-                <span className="section-title">Aroma / Fragancia Sacra:</span>
+                <span className="section-title">
+                  <span className="material-symbols-rounded">local_florist</span>
+                  Aroma / Fragancia Sacra:
+                </span>
                 <div className="aroma-options-wrap">
                   {producto.aromas.map((aroma) => (
                     <button
@@ -173,7 +220,7 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
                       className={`aroma-pill-btn ${aromaSeleccionado === aroma ? 'active' : ''}`}
                       onClick={() => setAromaSeleccionado(aroma)}
                     >
-                      <span className="material-symbols-rounded">local_florist</span>
+                      <span className="material-symbols-rounded">spa</span>
                       {aroma}
                     </button>
                   ))}
@@ -181,12 +228,16 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
               </div>
             )}
 
-            {/* ── 3. PRECIOS Y ESCALA POR VOLUMEN (DINÁMICOS) ── */}
+            {/* ── 3. PRECIOS Y ESCALA POR VOLUMEN ── */}
             <div className="modal-section-group wholesale-box-group">
-              <span className="section-title">Precios e Incentivos por Cantidad:</span>
+              <span className="section-title">
+                <span className="material-symbols-rounded">sell</span>
+                Precios e Incentivos por Volumen (Parroquias y Distribuidores):
+              </span>
               <div className="wholesale-tiers-flex">
                 {preciosPorVolumenDinamicos.map((tramo, idx) => {
-                  const isCurrentTier = cantidad >= tramo.min && (tramo.max === null || cantidad <= tramo.max);
+                  const isCurrentTier =
+                    cantidad >= tramo.min && (tramo.max === null || cantidad <= tramo.max);
                   return (
                     <div
                       key={idx}
@@ -203,51 +254,58 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
               </div>
             </div>
 
-            {/* ── 4. CANTIDAD Y BOTÓN AÑADIR AL CARRITO ── */}
-            <div className="modal-action-bar">
-              <div className="modal-qty-selector">
-                <label htmlFor="modal-qty-input" className="qty-label">Cantidad:</label>
-                <div className="qty-stepper">
-                  <button
-                    type="button"
-                    className="stepper-btn"
-                    onClick={() => setCantidad((prev) => Math.max(1, prev - 1))}
-                    aria-label="Disminuir"
-                  >
-                    −
-                  </button>
-                  <span className="stepper-value" id="modal-qty-input">{cantidad}</span>
-                  <button
-                    type="button"
-                    className="stepper-btn"
-                    onClick={() => setCantidad((prev) => prev + 1)}
-                    aria-label="Aumentar"
-                  >
-                    +
-                  </button>
+            {/* ── 4. RESUMEN Y BOTÓN AÑADIR AL PEDIDO ── */}
+            <div className="modal-action-box">
+              <div className="qty-and-pricing-row">
+                {/* Control de Cantidad */}
+                <div className="modal-qty-control">
+                  <span className="qty-label">Cantidad:</span>
+                  <div className="qty-stepper">
+                    <button
+                      type="button"
+                      className="qty-step-btn"
+                      onClick={() => setCantidad((prev) => Math.max(1, prev - 1))}
+                      aria-label="Disminuir"
+                    >
+                      -
+                    </button>
+                    <span className="qty-value">{cantidad}</span>
+                    <button
+                      type="button"
+                      className="qty-step-btn"
+                      onClick={() => setCantidad((prev) => prev + 1)}
+                      aria-label="Aumentar"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                {/* Precio Total y Desglose */}
+                <div className="modal-price-summary">
+                  <span className="price-unit-note">
+                    ${precioAplicadoUnitario.toLocaleString('es-AR')} c/u
+                  </span>
+                  <strong className="price-grand-total">
+                    ${precioTotal.toLocaleString('es-AR')}
+                  </strong>
                 </div>
               </div>
 
-              <div className="modal-price-total-block">
-                <span className="total-label">Total estimado:</span>
-                <strong className="total-amount">${precioTotal.toLocaleString('es-AR')}</strong>
-                {precioAplicadoUnitario < precioUnitarioBase && (
-                  <span className="discount-applied-tag">Descuento mayorista incluido</span>
-                )}
-              </div>
-            </div>
-
-            {/* Botón Principal Añadir al Carrito */}
-            <div className="modal-submit-row">
-              <md-filled-button class="modal-add-cart-btn" onClick={handleAddToCartClick}>
-                <span slot="icon" className="material-symbols-rounded">add_shopping_cart</span>
-                Añadir {cantidad} {cantidad === 1 ? 'Unidad' : 'Unidades'} al Pedido
-              </md-filled-button>
+              {/* Botón Principal para Añadir */}
+              <button
+                type="button"
+                className="modal-add-to-cart-btn"
+                onClick={handleAddToCartClick}
+              >
+                <span className="material-symbols-rounded">add_shopping_cart</span>
+                <span>Añadir al Pedido Litúrgico</span>
+              </button>
 
               {mensajeExito && (
-                <div className="modal-success-banner animate-fade-in">
-                  <span className="material-symbols-rounded">check_circle</span>
-                  <span>¡Producto (Nº {tamanoSeleccionado.numero}) añadido a tu pedido con éxito!</span>
+                <div className="modal-toast-success animate-fade-in">
+                  <span className="material-symbols-rounded">check</span>
+                  ¡Añadido! {cantidad} {cantidad === 1 ? 'unidad' : 'unidades'} ({tamanoSeleccionado.diametroMm} mm × {tamanoSeleccionado.largoCm} cm) agregadas al pedido.
                 </div>
               )}
             </div>

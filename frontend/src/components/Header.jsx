@@ -62,6 +62,11 @@ export default function Header({
             <button className="top-link" onClick={() => onNavigate('historial')}>
               SEGUIMIENTO DE PEDIDOS
             </button>
+            <span className="top-bar-divider">|</span>
+            <button className="top-link" onClick={() => onNavigate('admin')} title="Panel de Superusuario">
+              <span className="material-symbols-rounded" style={{ fontSize: '15px', marginRight: '4px', verticalAlign: 'middle' }}>admin_panel_settings</span>
+              ADMIN
+            </button>
             <span className="top-bar-divider top-bar-cart-divider">|</span>
             <button className="top-link cart-top-link" onClick={onOpenCart}>
               <span className="material-symbols-rounded top-cart-icon">shopping_bag</span>

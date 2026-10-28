@@ -33,14 +33,28 @@ const tamanoSchema = new Schema(
       type: Number,
       min: [1, 'El peso debe ser mayor a 0'],
     },
-    // Dimensiones físicas
-    alturaСm: {
+    // Dimensiones físicas estandarizadas (Diámetro en mm y Largo/Altura en cm)
+    diametroMm: {
+      type: Number,
+      min: [1, 'El diámetro debe ser mayor a 0 mm'],
+    },
+    largoCm: {
+      type: Number,
+      min: [1, 'El largo debe ser mayor a 0 cm'],
+    },
+    // Compatibilidad retroactiva
+    alturaCm: {
       type: Number,
       min: [0, 'La altura no puede ser negativa'],
     },
     diametroCm: {
       type: Number,
       min: [0, 'El diámetro no puede ser negativo'],
+    },
+    // Categoría a la que pertenece esta medida estándar (velas-liturgicas, velones, cirios)
+    categoriaId: {
+      type: String,
+      trim: true,
     },
     // Tiempo de combustión en horas (específico para velas)
     duracionHoras: {
