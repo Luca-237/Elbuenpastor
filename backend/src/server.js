@@ -4,6 +4,9 @@ const cors = require('cors');
 const connectDB = require('./config/database');
 const whatsappRoutes = require('./routes/whatsappRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const pedidoRoutes = require('./routes/pedidoRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const productoRoutes = require('./routes/productoRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -19,6 +22,9 @@ connectDB();
 // Rutas API
 app.use('/api/whatsapp', whatsappRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/pedidos', pedidoRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/productos', productoRoutes);
 
 // Health Check
 app.get('/api/health', (req, res) => {

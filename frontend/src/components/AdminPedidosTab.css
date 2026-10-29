@@ -1,0 +1,550 @@
+/* ==========================================================================
+   ADMIN PEDIDOS & COTIZACIONES - ESTILOS LITÚRGICOS MONÁSTICOS
+   ========================================================================== */
+
+.admin-pedidos-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── MÉTRICAS SUPERIORES DE PEDIDOS ── */
+.pedidos-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.kpi-card {
+  background: #FFFFFF;
+  border: 1px solid #E8E0D2;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 12px rgba(44, 40, 36, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(44, 40, 36, 0.07);
+}
+
+.kpi-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kpi-icon-wrap .material-symbols-rounded {
+  font-size: 26px;
+}
+
+.kpi-icon-total {
+  background: #F4EFE6;
+  color: #7A5820;
+}
+
+.kpi-icon-pending {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.kpi-icon-workshop {
+  background: #E0E7FF;
+  color: #4338CA;
+}
+
+.kpi-icon-delivered {
+  background: #DEF7EC;
+  color: #03543F;
+}
+
+.kpi-icon-revenue {
+  background: #FEF08A;
+  color: #854D0E;
+}
+
+.kpi-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-value {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #231F1C;
+  line-height: 1.1;
+}
+
+.kpi-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #7A7265;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* ── BARRA DE CONTROLES: FILTROS Y BÚSQUEDA ── */
+.pedidos-toolbar {
+  background: #FFFFFF;
+  border: 1px solid #E8E0D2;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 4px 12px rgba(44, 40, 36, 0.03);
+}
+
+.pedidos-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.filter-chip-btn {
+  background: #FAF8F5;
+  border: 1px solid #DED7C8;
+  color: #5A5348;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.18s ease;
+}
+
+.filter-chip-btn:hover {
+  background: #F0E9DC;
+  border-color: #BBAF9B;
+  color: #2C261F;
+}
+
+.filter-chip-btn.active {
+  background: #8A6424;
+  border-color: #8A6424;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(138, 100, 36, 0.28);
+}
+
+.chip-count {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 1px 7px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.filter-chip-btn.active .chip-count {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+.pedidos-search-wrap {
+  position: relative;
+  min-width: 280px;
+  flex-grow: 1;
+  max-width: 400px;
+}
+
+.pedidos-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9E9588;
+  font-size: 20px;
+  pointer-events: none;
+}
+
+.pedidos-search-input {
+  width: 100%;
+  padding: 9px 12px 9px 38px;
+  border: 1px solid #D6CCBC;
+  border-radius: 8px;
+  background: #FAF8F5;
+  font-size: 0.86rem;
+  color: #2C261F;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.pedidos-search-input:focus {
+  border-color: #8A6424;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(138, 100, 36, 0.12);
+}
+
+/* ── LISTA DE PEDIDOS ── */
+.pedidos-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pedido-admin-card {
+  background: #FFFFFF;
+  border: 1px solid #E8E0D2;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(44, 40, 36, 0.04);
+  transition: border-color 0.2s ease;
+}
+
+.pedido-admin-card:hover {
+  border-color: #CFC2AE;
+}
+
+/* Encabezado del Pedido */
+.pedido-card-header {
+  background: #FAF8F5;
+  border-bottom: 1px solid #EFEAE0;
+  padding: 14px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pedido-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.pedido-code {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #2C261F;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pedido-code-icon {
+  color: #8A6424;
+  font-size: 20px;
+}
+
+.pedido-date-badge {
+  font-size: 0.78rem;
+  color: #7A7265;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pedido-status-selector-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.status-badge-pendiente {
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FCD34D;
+}
+
+.status-badge-en_preparacion {
+  background: #E0E7FF;
+  color: #3730A3;
+  border: 1px solid #C7D2FE;
+}
+
+.status-badge-despachado,
+.status-badge-enviado {
+  background: #F3E8FF;
+  color: #6B21A8;
+  border: 1px solid #E9D5FF;
+}
+
+.status-badge-entregado {
+  background: #DEF7EC;
+  color: #03543F;
+  border: 1px solid #BCF0DA;
+}
+
+.status-badge-cancelado {
+  background: #FDE8E8;
+  color: #9B1C1C;
+  border: 1px solid #F8B4B4;
+}
+
+.status-select-native {
+  padding: 5px 8px;
+  border: 1px solid #D6CCBC;
+  border-radius: 6px;
+  background: #FFFFFF;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #443D35;
+  cursor: pointer;
+  outline: none;
+}
+
+.status-select-native:focus {
+  border-color: #8A6424;
+}
+
+/* Cuerpo del Pedido: Cliente e Ítems */
+.pedido-card-body {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .pedido-card-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pedido-customer-info {
+  background: #FAF8F5;
+  border: 1px solid #EFEAE0;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.customer-heading {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #7A7265;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.customer-name {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #231F1C;
+}
+
+.customer-detail-line {
+  font-size: 0.84rem;
+  color: #554D41;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  word-break: break-word;
+}
+
+.customer-detail-line .material-symbols-rounded {
+  font-size: 17px;
+  color: #8A6424;
+  flex-shrink: 0;
+}
+
+.pedido-notes-box {
+  background: #FFFDF9;
+  border-left: 3px solid #8A6424;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #5A5348;
+  border-radius: 0 4px 4px 0;
+  margin-top: 4px;
+}
+
+/* Tabla de Ítems del Pedido */
+.pedido-items-table-wrap {
+  overflow-x: auto;
+}
+
+.pedido-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.pedido-items-table th {
+  background: #FAF8F5;
+  padding: 10px 12px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #7A7265;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid #EAE3D5;
+  text-align: left;
+}
+
+.pedido-items-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #F3EFE7;
+  color: #373129;
+  vertical-align: middle;
+}
+
+.item-name-cell {
+  font-weight: 600;
+  color: #231F1C;
+}
+
+.item-sku-tag {
+  font-size: 0.72rem;
+  color: #8A8173;
+  margin-left: 6px;
+}
+
+.item-size-pill {
+  display: inline-block;
+  background: #F4EFE6;
+  border: 1px solid #E4DAC9;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6C5B3D;
+}
+
+/* Pie del Pedido */
+.pedido-card-footer {
+  background: #FAF8F5;
+  border-top: 1px solid #EFEAE0;
+  padding: 14px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pedido-total-block {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.pedido-total-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #6C6457;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pedido-total-amount {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #7A5820;
+}
+
+.pedido-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-whatsapp-order {
+  background: #25D366;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.18s ease, transform 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-whatsapp-order:hover {
+  background: #1EBE5D;
+  transform: translateY(-1px);
+}
+
+.btn-delete-order {
+  background: #FAF8F5;
+  border: 1px solid #E8D3D3;
+  color: #A83232;
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.18s ease;
+}
+
+.btn-delete-order:hover {
+  background: #FEE8E8;
+  border-color: #F8B4B4;
+  color: #DC2626;
+}
+
+/* Estado Vacío de Pedidos */
+.no-pedidos-banner {
+  background: #FFFFFF;
+  border: 1.5px dashed #DED5C5;
+  border-radius: 12px;
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.no-pedidos-icon {
+  font-size: 48px;
+  color: #A39989;
+}
+
+.no-pedidos-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: #3A332B;
+}
+
+.no-pedidos-desc {
+  font-size: 0.88rem;
+  color: #7A7265;
+  max-width: 440px;
+}

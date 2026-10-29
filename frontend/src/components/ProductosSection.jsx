@@ -3,14 +3,6 @@ import ProductoDetalleModal from './ProductoDetalleModal';
 import { INITIAL_CATEGORIES, INITIAL_PRODUCTOS } from '../data/catalogoData';
 import './ProductosSection.css';
 
-// Filtros por materia prima
-const FILTROS_CERA = [
-  { id: 'todos', label: 'Cualquier composición' },
-  { id: 'abeja', label: '100% Cera Pura de Abejas' },
-  { id: 'soja', label: 'Cera de Soja Vegetal' },
-  { id: 'parafina', label: 'Parafina Litúrgica Purificada' },
-];
-
 export default function ProductosSection({
   productos = INITIAL_PRODUCTOS,
   categories = INITIAL_CATEGORIES,
@@ -21,7 +13,6 @@ export default function ProductosSection({
 
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('todas');
   const [medidaSeleccionada, setMedidaSeleccionada] = useState('todas');
-  const [ceraSeleccionada, setCeraSeleccionada] = useState('todos');
   const [busqueda, setBusqueda] = useState('');
   const [orden, setOrden] = useState('destacados');
   const [mensajeNotificacion, setMensajeNotificacion] = useState('');
@@ -75,13 +66,10 @@ export default function ProductosSection({
   // Filtrado de productos
   const productosFiltrados = useMemo(() => {
     let prods = listaProductos.filter((p) => {
-      // 1. Filtro por categoría
+      // 1. Filtro por categoría canónica
       const coincideCat = categoriaSeleccionada === 'todas' || p.categoriaId === categoriaSeleccionada;
 
-      // 2. Filtro por tipo de cera
-      const coincideCera = ceraSeleccionada === 'todos' || p.tipoCeraId === ceraSeleccionada;
-
-      // 3. Filtro por medida (diámetro y largo)
+      // 2. Filtro por medida (diámetro y largo)
       let coincideMedida = true;
       if (medidaSeleccionada !== 'todas') {
         const [dMm, lCm] = medidaSeleccionada.split('x').map(Number);
@@ -90,14 +78,14 @@ export default function ProductosSection({
         );
       }
 
-      // 4. Búsqueda por texto
+      // 3. Búsqueda por texto
       const coincideBusqueda =
         p.modelo.toLowerCase().includes(busqueda.toLowerCase()) ||
         p.descripcion.toLowerCase().includes(busqueda.toLowerCase()) ||
         p.sku.toLowerCase().includes(busqueda.toLowerCase()) ||
         (p.categoriaNombre || '').toLowerCase().includes(busqueda.toLowerCase());
 
-      return coincideCat && coincideCera && coincideMedida && coincideBusqueda;
+      return coincideCat && coincideMedida && coincideBusqueda;
     });
 
     // Ordenamiento
@@ -118,18 +106,12 @@ export default function ProductosSection({
     }
 
     return prods;
-  }, [listaProductos, categoriaSeleccionada, ceraSeleccionada, medidaSeleccionada, busqueda, orden]);
+  }, [listaProductos, categoriaSeleccionada, medidaSeleccionada, busqueda, orden]);
 
   // Conteo de productos por categoría
   const conteoPorCategoria = (catId) => {
     if (catId === 'todas') return listaProductos.length;
     return listaProductos.filter((p) => p.categoriaId === catId).length;
-  };
-
-  // Conteo de productos por cera
-  const conteoPorCera = (ceraId) => {
-    if (ceraId === 'todos') return listaProductos.length;
-    return listaProductos.filter((p) => p.tipoCeraId === ceraId).length;
   };
 
   return (
@@ -296,31 +278,7 @@ export default function ProductosSection({
               </ul>
             </div>
 
-            {/* Filtro por Materia Prima / Cera */}
-            <div className="sidebar-widget">
-              <div className="widget-header">
-                <h3 className="widget-title">
-                  <span className="material-symbols-rounded widget-title-icon">energy_savings_leaf</span>
-                  MATERIA PRIMA
-                </h3>
-              </div>
-              <ul className="facet-list">
-                {FILTROS_CERA.map((cera) => {
-                  const isSelected = ceraSeleccionada === cera.id;
-                  return (
-                    <li key={cera.id} className={`facet-item ${isSelected ? 'active' : ''}`}>
-                      <button
-                        className="facet-btn-link"
-                        onClick={() => setCeraSeleccionada(cera.id)}
-                      >
-                        <span className="facet-label">{cera.label}</span>
-                        <span className="facet-count">({conteoPorCera(cera.id)})</span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+
 
             {/* Módulo Litúrgico */}
             <div className="sidebar-widget widget-liturgical-callout">
@@ -381,14 +339,13 @@ export default function ProductosSection({
               <div className="no-products-box">
                 <span className="material-symbols-rounded empty-icon">sentiment_dissatisfied</span>
                 <h3>No hay productos con los filtros seleccionados</h3>
-                <p>Prueba seleccionando "Todas las medidas" o restableciendo los filtros de cera.</p>
+                <p>Prueba seleccionando "Todas las medidas" o restableciendo los filtros de búsqueda.</p>
                 <button
                   type="button"
                   className="reset-filters-btn"
                   onClick={() => {
                     setCategoriaSeleccionada('todas');
                     setMedidaSeleccionada('todas');
-                    setCeraSeleccionada('todos');
                     setBusqueda('');
                   }}
                 >
