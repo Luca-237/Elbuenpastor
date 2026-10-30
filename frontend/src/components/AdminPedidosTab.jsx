@@ -10,45 +10,49 @@ export default function AdminPedidosTab({
   const [filtroEstado, setFiltroEstado] = useState('todos');
   const [busqueda, setBusqueda] = useState('');
 
-  // ── ESTADOS Y TRADUCCIONES CANÓNICAS ──
+  // ── ESTADOS CANÓNICOS: Recibido | En camino | Entregado ──
   const ESTADOS_MAP = {
-    pendiente: { label: 'Pendiente', icon: 'pending_actions', class: 'status-badge-pendiente' },
-    en_preparacion: { label: 'En Taller', icon: 'precision_manufacturing', class: 'status-badge-en_preparacion' },
-    despachado: { label: 'Despachado', icon: 'local_shipping', class: 'status-badge-despachado' },
-    enviado: { label: 'Despachado', icon: 'local_shipping', class: 'status-badge-despachado' },
-    entregado: { label: 'Entregado', icon: 'check_circle', class: 'status-badge-entregado' },
+    recibido: { label: 'Recibido', icon: 'inbox', class: 'status-badge-recibido' },
+    en_camino: { label: 'En camino', icon: 'local_shipping', class: 'status-badge-en_camino' },
+    entregado: { label: 'Entregado', icon: 'task_alt', class: 'status-badge-entregado' },
+    // Aliases para retrocompatibilidad
+    pendiente: { label: 'Recibido', icon: 'inbox', class: 'status-badge-recibido' },
+    borrador: { label: 'Recibido', icon: 'inbox', class: 'status-badge-recibido' },
+    en_preparacion: { label: 'En camino', icon: 'local_shipping', class: 'status-badge-en_camino' },
+    confirmado: { label: 'En camino', icon: 'local_shipping', class: 'status-badge-en_camino' },
+    despachado: { label: 'En camino', icon: 'local_shipping', class: 'status-badge-en_camino' },
+    enviado: { label: 'En camino', icon: 'local_shipping', class: 'status-badge-en_camino' },
     cancelado: { label: 'Cancelado', icon: 'cancel', class: 'status-badge-cancelado' },
-    borrador: { label: 'Borrador', icon: 'edit_note', class: 'status-badge-pendiente' },
+  };
+
+  const normalizarEstado = (estado) => {
+    if (!estado || estado === 'pendiente' || estado === 'borrador') return 'recibido';
+    if (estado === 'en_preparacion' || estado === 'confirmado' || estado === 'despachado' || estado === 'enviado') return 'en_camino';
+    if (estado === 'entregado') return 'entregado';
+    return estado;
   };
 
   // ── CÁLCULO DE KPIS Y MÉTRICAS ──
   const kpis = useMemo(() => {
     const total = pedidos.length;
-    const pendientes = pedidos.filter((p) => p.estado === 'pendiente' || p.estado === 'borrador').length;
-    const enTaller = pedidos.filter((p) => p.estado === 'en_preparacion' || p.estado === 'confirmado').length;
-    const entregados = pedidos.filter((p) => p.estado === 'entregado').length;
+    const recibidos = pedidos.filter((p) => normalizarEstado(p.estado) === 'recibido').length;
+    const enCamino = pedidos.filter((p) => normalizarEstado(p.estado) === 'en_camino').length;
+    const entregados = pedidos.filter((p) => normalizarEstado(p.estado) === 'entregado').length;
     const totalFacturado = pedidos
       .filter((p) => p.estado !== 'cancelado')
       .reduce((sum, p) => sum + (Number(p.total) || 0), 0);
 
-    return { total, pendientes, enTaller, entregados, totalFacturado };
+    return { total, recibidos, enCamino, entregados, totalFacturado };
   }, [pedidos]);
 
   // ── FILTRADO Y BÚSQUEDA ──
   const pedidosFiltrados = useMemo(() => {
     return pedidos.filter((p) => {
-      // Filtro por estado
-      if (filtroEstado !== 'todos') {
-        if (filtroEstado === 'en_preparacion') {
-          if (p.estado !== 'en_preparacion' && p.estado !== 'confirmado') return false;
-        } else if (filtroEstado === 'despachado') {
-          if (p.estado !== 'despachado' && p.estado !== 'enviado') return false;
-        } else if (p.estado !== filtroEstado) {
-          return false;
-        }
+      const estNorm = normalizarEstado(p.estado);
+      if (filtroEstado !== 'todos' && estNorm !== filtroEstado) {
+        return false;
       }
 
-      // Filtro por búsqueda
       if (busqueda.trim()) {
         const q = busqueda.toLowerCase().trim();
         const num = (p.numeroPedido || '').toLowerCase();
@@ -89,7 +93,7 @@ export default function AdminPedidosTab({
   const getWhatsAppLink = (pedido) => {
     const rawTel = pedido.clienteTelefono || pedido.cliente?.telefono || '5491140008800';
     const cleanTel = rawTel.replace(/\D/g, '');
-    const estadoObj = ESTADOS_MAP[pedido.estado] || { label: pedido.estado };
+    const estadoObj = ESTADOS_MAP[normalizarEstado(pedido.estado)] || { label: pedido.estado };
 
     const itemsResumen = (pedido.items || [])
       .map((it) => `• ${it.cantidad}x ${it.modeloNombre} (${it.tamanoNombre})`)
@@ -112,7 +116,7 @@ Quedamos a su entera disposición ante cualquier consulta para la celebración s
 
   return (
     <div className="admin-pedidos-wrapper animate-fade-in">
-      {/* ── KPI METRICS BAR ── */}
+      {/* ── KPI METRICS BAR: Recibidos, En camino, Entregados ── */}
       <div className="pedidos-kpi-grid">
         <div className="kpi-card">
           <div className="kpi-icon-wrap kpi-icon-total">
@@ -125,22 +129,22 @@ Quedamos a su entera disposición ante cualquier consulta para la celebración s
         </div>
 
         <div className="kpi-card">
-          <div className="kpi-icon-wrap kpi-icon-pending">
-            <span className="material-symbols-rounded">pending_actions</span>
+          <div className="kpi-icon-wrap kpi-icon-received">
+            <span className="material-symbols-rounded">inbox</span>
           </div>
           <div className="kpi-content">
-            <span className="kpi-value">{kpis.pendientes}</span>
-            <span className="kpi-label">Pendientes</span>
+            <span className="kpi-value">{kpis.recibidos}</span>
+            <span className="kpi-label">Recibidos</span>
           </div>
         </div>
 
         <div className="kpi-card">
-          <div className="kpi-icon-wrap kpi-icon-workshop">
-            <span className="material-symbols-rounded">precision_manufacturing</span>
+          <div className="kpi-icon-wrap kpi-icon-onway">
+            <span className="material-symbols-rounded">local_shipping</span>
           </div>
           <div className="kpi-content">
-            <span className="kpi-value">{kpis.enTaller}</span>
-            <span className="kpi-label">En Taller</span>
+            <span className="kpi-value">{kpis.enCamino}</span>
+            <span className="kpi-label">En camino</span>
           </div>
         </div>
 
@@ -179,35 +183,22 @@ Quedamos a su entera disposición ante cualquier consulta para la celebración s
 
           <button
             type="button"
-            className={`filter-chip-btn ${filtroEstado === 'pendiente' ? 'active' : ''}`}
-            onClick={() => setFiltroEstado('pendiente')}
+            className={`filter-chip-btn ${filtroEstado === 'recibido' ? 'active' : ''}`}
+            onClick={() => setFiltroEstado('recibido')}
           >
-            <span>Pendientes</span>
-            <span className="chip-count">
-              {pedidos.filter((p) => p.estado === 'pendiente' || p.estado === 'borrador').length}
-            </span>
+            <span className="material-symbols-rounded" style={{ fontSize: '15px' }}>inbox</span>
+            <span>Recibidos</span>
+            <span className="chip-count">{kpis.recibidos}</span>
           </button>
 
           <button
             type="button"
-            className={`filter-chip-btn ${filtroEstado === 'en_preparacion' ? 'active' : ''}`}
-            onClick={() => setFiltroEstado('en_preparacion')}
+            className={`filter-chip-btn ${filtroEstado === 'en_camino' ? 'active' : ''}`}
+            onClick={() => setFiltroEstado('en_camino')}
           >
-            <span>En Taller</span>
-            <span className="chip-count">
-              {pedidos.filter((p) => p.estado === 'en_preparacion' || p.estado === 'confirmado').length}
-            </span>
-          </button>
-
-          <button
-            type="button"
-            className={`filter-chip-btn ${filtroEstado === 'despachado' ? 'active' : ''}`}
-            onClick={() => setFiltroEstado('despachado')}
-          >
-            <span>Despachados</span>
-            <span className="chip-count">
-              {pedidos.filter((p) => p.estado === 'despachado' || p.estado === 'enviado').length}
-            </span>
+            <span className="material-symbols-rounded" style={{ fontSize: '15px' }}>local_shipping</span>
+            <span>En camino</span>
+            <span className="chip-count">{kpis.enCamino}</span>
           </button>
 
           <button
@@ -215,10 +206,9 @@ Quedamos a su entera disposición ante cualquier consulta para la celebración s
             className={`filter-chip-btn ${filtroEstado === 'entregado' ? 'active' : ''}`}
             onClick={() => setFiltroEstado('entregado')}
           >
+            <span className="material-symbols-rounded" style={{ fontSize: '15px' }}>task_alt</span>
             <span>Entregados</span>
-            <span className="chip-count">
-              {pedidos.filter((p) => p.estado === 'entregado').length}
-            </span>
+            <span className="chip-count">{kpis.entregados}</span>
           </button>
         </div>
 
@@ -262,10 +252,11 @@ Quedamos a su entera disposición ante cualquier consulta para la celebración s
         <div className="pedidos-cards-stack">
           {pedidosFiltrados.map((pedido) => {
             const pedidoId = pedido._id || pedido.id;
-            const estadoConfig = ESTADOS_MAP[pedido.estado] || {
-              label: pedido.estado,
+            const estadoNorm = normalizarEstado(pedido.estado);
+            const estadoConfig = ESTADOS_MAP[estadoNorm] || {
+              label: estadoNorm,
               icon: 'help',
-              class: 'status-badge-pendiente',
+              class: 'status-badge-recibido',
             };
 
             return (
@@ -293,15 +284,13 @@ Quedamos a su entera disposición ante cualquier consulta para la celebración s
 
                     <select
                       className="status-select-native"
-                      value={pedido.estado}
+                      value={estadoNorm}
                       onChange={(e) => onUpdatePedidoEstado(pedidoId, e.target.value)}
                       title="Cambiar estado del pedido"
                     >
-                      <option value="pendiente">🟡 Pendiente</option>
-                      <option value="en_preparacion">🔵 En Taller</option>
-                      <option value="despachado">🟣 Despachado</option>
-                      <option value="entregado">🟢 Entregado</option>
-                      <option value="cancelado">🔴 Cancelado</option>
+                      <option value="recibido">📥 Recibido</option>
+                      <option value="en_camino">🚚 En camino</option>
+                      <option value="entregado">✅ Entregado</option>
                     </select>
                   </div>
                 </div>

@@ -103,24 +103,26 @@ const pedidoSchema = new Schema(
       required: true,
     },
 
-    // ── ESTADO DEL PEDIDO ─────────────────────────────────────────────────
     estado: {
       type: String,
       required: true,
       enum: {
         values: [
+          'recibido',
+          'en_camino',
+          'entregado',
+          // Estados legados mantenidos para compatibilidad de base de datos
           'borrador',
           'pendiente',
           'confirmado',
           'en_preparacion',
           'listo',
           'enviado',
-          'entregado',
           'cancelado',
         ],
         message: 'Estado de pedido no válido: {VALUE}',
       },
-      default: 'pendiente',
+      default: 'recibido',
     },
 
     // ── ÍTEMS (SNAPSHOT EMBEBIDO) ─────────────────────────────────────────

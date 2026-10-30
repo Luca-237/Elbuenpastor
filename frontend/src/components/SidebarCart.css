@@ -41,11 +41,11 @@
   transform: translateX(0);
 }
 
-/* Encabezado del Drawer */
+/* Encabezado del Drawer (Azul Noche y Oro) */
 .drawer-header {
-  padding: 20px 22px;
-  background-color: #FAF8F5;
-  border-bottom: 1px solid #EBE4D8;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, #0C2340 0%, #071524 100%);
+  border-bottom: 2px solid #C5A059;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,25 +57,42 @@
   gap: 12px;
 }
 
-.drawer-icon {
-  font-size: 26px;
-  color: #946A25;
+.drawer-shepherd-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid #C5A059;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
+  background: #0C2340;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.drawer-shepherd-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .drawer-title {
   font-family: var(--font-serif);
   font-size: 1.05rem;
   letter-spacing: 0.1em;
-  color: #23211E;
+  color: #F8E6BE;
   margin: 0;
+  font-weight: 700;
 }
 
 .drawer-subtitle {
-  font-size: 0.76rem;
-  color: #8C8476;
+  font-size: 0.74rem;
+  color: #DCC89F;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   display: block;
+  margin-top: 2px;
 }
 
 .drawer-close-btn {

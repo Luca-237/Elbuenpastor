@@ -6,28 +6,63 @@ const CURRENT_YEAR = new Date().getFullYear();
 export default function Footer({ onNavigate }) {
   return (
     <footer className="site-footer">
+      {/* ── Cinta de Compromiso Litúrgico (Inspirada en el Folleto Oficial) ── */}
+      <div className="footer-pillars-strip">
+        <div className="container footer-pillars-flex">
+          <div className="pillar-item">
+            <span className="material-symbols-rounded pillar-icon">favorite</span>
+            <div className="pillar-text">
+              <span className="pillar-title">Devoción & Silencio</span>
+              <span className="pillar-sub">Hecho a mano con devoción y calidad</span>
+            </div>
+          </div>
+          <div className="pillar-divider"></div>
+          <div className="pillar-item">
+            <span className="material-symbols-rounded pillar-icon">share</span>
+            <div className="pillar-text">
+              <span className="pillar-title">Comunidad Litúrgica</span>
+              <span className="pillar-sub">Síguenos: @velasbuenpastor</span>
+            </div>
+          </div>
+          <div className="pillar-divider"></div>
+          <div className="pillar-item">
+            <span className="material-symbols-rounded pillar-icon">support_agent</span>
+            <div className="pillar-text">
+              <span className="pillar-title">Pedidos & Parroquias</span>
+              <span className="pillar-sub">+54 9 11 4000-8800</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="container footer-content">
         <div className="footer-top-grid">
           {/* Columna Marca */}
           <div className="footer-brand-col">
             <div className="footer-brand-header">
-              <span className="material-symbols-rounded footer-cross">spa</span>
+              <div className="footer-medallion-frame">
+                <img
+                  src="/logo-medallion-navy.png"
+                  alt="Sello Velas Buen Pastor"
+                  className="footer-medallion-img"
+                />
+              </div>
               <div>
-                <span className="footer-brand-name">EL BUEN PASTOR</span>
-                <span className="footer-brand-tagline">Ceras & Artículos Religiosos</span>
+                <span className="footer-brand-name">VELAS BUEN PASTOR</span>
+                <span className="footer-brand-tagline">ILUMINA TU FE CON LA LUZ DEL BUEN PASTOR</span>
               </div>
             </div>
             <p className="footer-bio">
-              Taller dedicado al arte sagrado de la cerería. Elaboración con cera pura de soja y cera virgen de abejas para dignificar el culto litúrgico y el rincón de oración familiar.
+              Taller canónico de velas sagradas y cirios pascuales. Elaboración artesanal para dignificar la liturgia del altar y la oración en templos, capillas y hogares de todo el país.
             </p>
             <div className="footer-badges">
               <span className="footer-pill">
-                <span className="material-symbols-rounded">eco</span>
-                100% Biodegradable
+                <span className="material-symbols-rounded">flare</span>
+                Luz y Devoción Sacra
               </span>
               <span className="footer-pill">
-                <span className="material-symbols-rounded">favorite</span>
-                Hecho con Silencio y Fe
+                <span className="material-symbols-rounded">church</span>
+                Calibre Litúrgico Canónico
               </span>
             </div>
           </div>

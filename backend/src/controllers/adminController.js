@@ -47,14 +47,19 @@ const loginAdmin = async (req, res) => {
  */
 const getMetricasAdmin = async (req, res) => {
   try {
-    const [totalPedidos, pedidosPendientes, pedidosEnPreparacion, pedidosEntregados, totalClientes] =
-      await Promise.all([
-        Pedido.countDocuments(),
-        Pedido.countDocuments({ estado: 'pendiente' }),
-        Pedido.countDocuments({ estado: 'en_preparacion' }),
-        Pedido.countDocuments({ estado: 'entregado' }),
-        Cliente.countDocuments(),
-      ]);
+    const [
+      totalPedidos,
+      pedidosRecibidos,
+      pedidosEnCamino,
+      pedidosEntregados,
+      totalClientes,
+    ] = await Promise.all([
+      Pedido.countDocuments(),
+      Pedido.countDocuments({ estado: { $in: ['recibido', 'pendiente', 'confirmado'] } }),
+      Pedido.countDocuments({ estado: { $in: ['en_camino', 'en_preparacion', 'listo', 'enviado'] } }),
+      Pedido.countDocuments({ estado: 'entregado' }),
+      Cliente.countDocuments(),
+    ]);
 
     // Calcular facturación acumulada
     const facturacionAgg = await Pedido.aggregate([
@@ -77,9 +82,12 @@ const getMetricasAdmin = async (req, res) => {
       success: true,
       metricas: {
         totalPedidos,
-        pedidosPendientes,
-        pedidosEnPreparacion,
+        pedidosRecibidos,
+        pedidosEnCamino,
         pedidosEntregados,
+        // Compatibilidad con clientes antiguos si consultan nombres previos
+        pedidosPendientes: pedidosRecibidos,
+        pedidosEnPreparacion: pedidosEnCamino,
         totalClientes,
         totalFacturado,
       },

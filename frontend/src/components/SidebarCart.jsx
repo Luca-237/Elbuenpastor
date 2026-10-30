@@ -62,7 +62,13 @@ export default function SidebarCart({
         {/* Encabezado del Panel */}
         <div className="drawer-header">
           <div className="drawer-title-group">
-            <span className="material-symbols-rounded drawer-icon">shopping_bag</span>
+            <div className="drawer-shepherd-badge">
+              <img
+                src="/logo-medallion-navy.png"
+                alt="Sello Sagrado El Buen Pastor"
+                className="drawer-shepherd-img"
+              />
+            </div>
             <div>
               <h2 className="drawer-title">MI PEDIDO LITÚRGICO</h2>
               <span className="drawer-subtitle">
@@ -111,7 +117,7 @@ export default function SidebarCart({
                 <span className="material-symbols-rounded empty-cart-icon">spa</span>
                 <h3>Tu pedido está vacío</h3>
                 <p>
-                  Explora nuestro catálogo de cirios pascuales y ceras artesanales para añadir productos a tu solicitud.
+                  Explora nuestro catálogo de velas litúrgicas, velones y cirios de altar para añadir productos a tu solicitud.
                 </p>
                 <md-outlined-button onClick={onClose}>
                   Continuar Viendo Catálogo

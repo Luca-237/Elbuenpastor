@@ -172,6 +172,18 @@
   line-height: 1;
 }
 
+.status-recibido {
+  background: #EFF6FF;
+  color: #1E40AF;
+  border: 1px solid #BFDBFE;
+}
+
+.status-en_camino {
+  background: #FFFBEB;
+  color: #B45309;
+  border: 1px solid #FDE68A;
+}
+
 .status-en_preparacion {
   background: #FFF4DE;
   color: #925800;

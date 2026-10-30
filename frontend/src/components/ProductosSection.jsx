@@ -116,25 +116,36 @@ export default function ProductosSection({
 
   return (
     <div className="catalogo-page-wrapper">
-      {/* ── 1. ENCABEZADO LITÚRGICO DE PÁGINA ── */}
+      {/* ── 1. ENCABEZADO LITÚRGICO DE PÁGINA (AZUL Y ORO) ── */}
       <div className="page-heading-sober">
         <div className="container">
           <div className="heading-inner">
-            <div className="sacred-heading-badge">
-              <span className="material-symbols-rounded">flare</span>
-              <span>Taller Litúrgico Canónico</span>
+            <div className="catalog-header-badge-row">
+              <div className="catalog-shepherd-emblem">
+                <img
+                  src="/logo-medallion-navy.png"
+                  alt="Sello El Buen Pastor"
+                  className="catalog-emblem-img"
+                />
+              </div>
+              <div className="sacred-heading-badge">
+                <span className="material-symbols-rounded">flare</span>
+                <span>ILUMINA TU FE CON LA LUZ DEL BUEN PASTOR</span>
+              </div>
             </div>
-            <h1 className="heading-title">CATÁLOGO DE CERAS Y CIRIOS</h1>
+
+            <h1 className="heading-title">CATÁLOGO DE VELAS & CIRIOS</h1>
             <p className="heading-tagline">
-              Elaboración artesanal dividida en 3 líneas sagradas: Velas Litúrgicas, Velones y Cirios
+              Velas Litúrgicas, Velones y Cirios de Alta Devoción
             </p>
+
             <nav className="breadcrumbs-nav" aria-label="Migas de pan">
               <span className="breadcrumb-item">Inicio</span>
               <span className="breadcrumb-sep">&gt;</span>
               <span className="breadcrumb-item">Catálogo</span>
               <span className="breadcrumb-sep">&gt;</span>
               <span className="breadcrumb-active">
-                {categoriaActivaObj ? categoriaActivaObj.nombre : 'Todas las Ceras'}
+                {categoriaActivaObj ? categoriaActivaObj.nombre : 'Todos los Productos'}
               </span>
             </nav>
           </div>
@@ -151,83 +162,10 @@ export default function ProductosSection({
         </div>
       )}
 
-      {/* ── 2. BARRA DE CATEGORÍAS PRINCIPALES (TABS LITÚRGICOS SUPERIORES) ── */}
-      <div className="categories-tabs-bar">
-        <div className="container categories-tabs-container">
-          <button
-            type="button"
-            className={`cat-pill-tab ${categoriaSeleccionada === 'todas' ? 'active' : ''}`}
-            onClick={() => handleSelectCategoria('todas')}
-          >
-            <span className="material-symbols-rounded tab-icon">auto_awesome</span>
-            <span>Todas las Ceras</span>
-            <span className="tab-counter">{listaProductos.length}</span>
-          </button>
-
-          {listaCategorias.map((cat) => {
-            const isSelected = categoriaSeleccionada === cat.id;
-            const count = conteoPorCategoria(cat.id);
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                className={`cat-pill-tab ${isSelected ? 'active' : ''}`}
-                onClick={() => handleSelectCategoria(cat.id)}
-              >
-                <span className="material-symbols-rounded tab-icon">
-                  {cat.icono || 'church'}
-                </span>
-                <span>{cat.nombre}</span>
-                <span className="tab-counter">{count}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ── 3. SUB-FILTRO POR MEDIDAS (DIÁMETRO EN MM × LARGO EN CM) ── */}
-      {medidasDisponibles.length > 0 && (
-        <div className="measures-filter-strip">
-          <div className="container measures-strip-container">
-            <div className="measures-strip-label">
-              <span className="material-symbols-rounded">straighten</span>
-              <span>Filtrar por Medida (Diámetro × Largo):</span>
-            </div>
-
-            <div className="measures-pills-row">
-              <button
-                type="button"
-                className={`measure-pill-btn ${medidaSeleccionada === 'todas' ? 'active' : ''}`}
-                onClick={() => setMedidaSeleccionada('todas')}
-              >
-                Todas las medidas
-              </button>
-
-              {medidasDisponibles.map((m) => {
-                const key = `${m.diametroMm}x${m.largoCm}`;
-                const isSelected = medidaSeleccionada === key;
-                return (
-                  <button
-                    key={key}
-                    type="button"
-                    className={`measure-pill-btn ${isSelected ? 'active' : ''}`}
-                    onClick={() => setMedidaSeleccionada(isSelected ? 'todas' : key)}
-                  >
-                    <span className="measure-pill-diam">Ø {m.diametroMm} mm</span>
-                    <span className="measure-pill-sep">×</span>
-                    <span className="measure-pill-len">{m.largoCm} cm</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── 4. ESTRUCTURA CENTRAL (SIDEBAR + GRID DE PRODUCTOS) ── */}
+      {/* ── ESTRUCTURA CENTRAL (SIDEBAR + GRID DE PRODUCTOS) ── */}
       <div className="container catalogo-main-container">
         <div className="catalogo-layout-grid">
-          {/* ── SIDEBAR IZQUIERDA ── */}
+          {/* ── SIDEBAR IZQUIERDA: FILTROS INTEGRADOS ── */}
           <aside className="catalogo-sidebar" aria-label="Filtros del catálogo">
             {/* Buscador */}
             <div className="sidebar-widget widget-search">
@@ -257,7 +195,7 @@ export default function ProductosSection({
                     className="category-btn-link"
                     onClick={() => handleSelectCategoria('todas')}
                   >
-                    <span className="cat-name">Todas las Ceras</span>
+                    <span className="cat-name">Todos los Productos</span>
                     <span className="cat-count">({listaProductos.length})</span>
                   </button>
                 </li>
@@ -278,7 +216,52 @@ export default function ProductosSection({
               </ul>
             </div>
 
-
+            {/* Filtro por Medida Calibrada (Integrado en el Sidebar) */}
+            {medidasDisponibles.length > 0 && (
+              <div className="sidebar-widget widget-measures-sidebar">
+                <div className="widget-header">
+                  <h3 className="widget-title">
+                    <span className="material-symbols-rounded widget-title-icon">straighten</span>
+                    MEDIDAS (Ø × LARGO)
+                  </h3>
+                  {medidaSeleccionada !== 'todas' && (
+                    <button
+                      type="button"
+                      className="sidebar-clear-measure-btn"
+                      onClick={() => setMedidaSeleccionada('todas')}
+                      title="Ver todas las medidas"
+                    >
+                      Restablecer
+                    </button>
+                  )}
+                </div>
+                <div className="sidebar-measures-pills">
+                  <button
+                    type="button"
+                    className={`sidebar-measure-pill ${medidaSeleccionada === 'todas' ? 'active' : ''}`}
+                    onClick={() => setMedidaSeleccionada('todas')}
+                  >
+                    Todas las medidas
+                  </button>
+                  {medidasDisponibles.map((m) => {
+                    const key = `${m.diametroMm}x${m.largoCm}`;
+                    const isSelected = medidaSeleccionada === key;
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        className={`sidebar-measure-pill ${isSelected ? 'active' : ''}`}
+                        onClick={() => setMedidaSeleccionada(isSelected ? 'todas' : key)}
+                      >
+                        <span className="measure-diam">Ø {m.diametroMm} mm</span>
+                        <span className="measure-sep">×</span>
+                        <span className="measure-len">{m.largoCm} cm</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Módulo Litúrgico */}
             <div className="sidebar-widget widget-liturgical-callout">
@@ -358,6 +341,26 @@ export default function ProductosSection({
                   const tallas = prod.tamanosPorNumero || [];
                   const precioMin = tallas.length > 0 ? tallas[0].precioUnitario : prod.precioUnitario;
 
+                  // Si está en modo 'por_medida', determinar la imagen adecuada según filtro o defecto
+                  let imagenCard = prod.imagen;
+                  let esFotoDeMedida = false;
+                  if (prod.modoImagen === 'por_medida') {
+                    if (medidaSeleccionada !== 'todas') {
+                      const [dMm, lCm] = medidaSeleccionada.split('x').map(Number);
+                      const tallaCoincidente = tallas.find((t) => t.diametroMm === dMm && t.largoCm === lCm);
+                      if (tallaCoincidente?.imagen) {
+                        imagenCard = tallaCoincidente.imagen;
+                        esFotoDeMedida = true;
+                      }
+                    } else {
+                      const tallaConFoto = tallas.find((t) => t.isDefault && t.imagen) || tallas.find((t) => t.imagen);
+                      if (tallaConFoto?.imagen) {
+                        imagenCard = tallaConFoto.imagen;
+                        esFotoDeMedida = true;
+                      }
+                    }
+                  }
+
                   return (
                     <article key={prod.id} className="sober-product-card">
                       {/* Imagen con badge */}
@@ -367,7 +370,7 @@ export default function ProductosSection({
                         style={{ cursor: 'pointer' }}
                       >
                         <img
-                          src={prod.imagen}
+                          src={imagenCard}
                           alt={prod.modelo}
                           className="sober-product-img"
                           loading="lazy"
@@ -378,6 +381,12 @@ export default function ProductosSection({
                             Destacado
                           </span>
                         )}
+                        {esFotoDeMedida && (
+                          <span className="sober-badge measure-photo-badge" title="Fotografía según medida seleccionada">
+                            <span className="material-symbols-rounded">photo_camera</span>
+                            Foto por Medida
+                          </span>
+                        )}
                         <span className="product-category-overlay">
                           {prod.categoriaNombre}
                         </span>
@@ -386,7 +395,7 @@ export default function ProductosSection({
                       {/* Información del Producto */}
                       <div className="product-info-centered">
                         <span className="product-cat-tag">
-                          {prod.tipoCeraNombre || prod.categoriaNombre}
+                          {prod.categoriaNombre || 'Línea Litúrgica'}
                         </span>
 
                         <h3

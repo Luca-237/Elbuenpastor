@@ -1,26 +1,136 @@
 /* ==========================================================================
-   HEADER SOBRIO CON CONTRACCIÓN AL SCROLL Y ACCESO A CARRITO
+   HEADER SACRO: AZUL LITÚRGICO & ORO IMPERIAL (VELAS BUEN PASTOR)
    ========================================================================== */
 
 .site-header-sober {
-  background-color: #FFFFFF;
-  border-bottom: 1px solid #E5E0D6;
+  background: linear-gradient(180deg, #0C2340 0%, #081B30 100%);
+  border-bottom: 2px solid #C5A059;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 6px 24px rgba(6, 18, 32, 0.45);
   overflow-anchor: none;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
-/* ── Top Bar Institucional ── */
+/* ── 0. Barra Superior: Reventa & Parroquias (Arriba de todo) ── */
+.top-announcement-bar {
+  background: linear-gradient(90deg, #071524 0%, #0D2646 50%, #071524 100%);
+  border-bottom: 1.5px solid #C5A059;
+  color: #F8E6BE;
+  padding: 8px 0;
+  font-size: 0.84rem;
+  letter-spacing: 0.02em;
+  position: relative;
+  z-index: 101;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+}
+
+.announcement-bar-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.announcement-msg-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.announcement-spark-icon {
+  font-size: 19px;
+  color: #D4AF37;
+  flex-shrink: 0;
+}
+
+.announcement-text {
+  color: #F0E6D2;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.announcement-data-link {
+  background: none;
+  border: none;
+  color: #D4AF37;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0 2px;
+  font-family: inherit;
+  font-size: inherit;
+  transition: all 0.2s ease;
+}
+
+.announcement-data-link:hover {
+  color: #FFFFFF;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+}
+
+.announcement-btn-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.top-credentials-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #C5A059 0%, #9C7026 100%);
+  border: 1px solid #F3DE98;
+  color: #071524;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.32);
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.top-credentials-action-btn:hover {
+  background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+  color: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.5);
+}
+
+.top-credentials-action-btn .material-symbols-rounded {
+  font-size: 15px;
+  color: #071524;
+}
+
+@media (max-width: 860px) {
+  .announcement-bar-flex {
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .announcement-msg-group {
+    justify-content: center;
+    text-align: center;
+    font-size: 0.78rem;
+  }
+}
+
+/* ── Top Bar Institucional (Azul Noche & Oro) ── */
 .top-bar-sober {
-  background-color: #23211E;
-  color: #BDB7AB;
+  background-color: #061322;
+  color: #DDD4C3;
   font-size: 0.76rem;
   letter-spacing: 0.06em;
-  padding: 7px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.28);
   max-height: 42px;
   opacity: 1;
   overflow: hidden;
@@ -36,21 +146,43 @@
 }
 
 .liturgical-tagline {
-  color: #DDD6CA;
-  font-weight: 500;
+  color: #EADCB9;
+  font-weight: 600;
   text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.08em;
+}
+
+.top-star-icon {
+  font-size: 14px;
+  color: #D4AF37;
 }
 
 .top-bar-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+}
+
+.top-contact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #E2D7C3;
+  font-size: 0.75rem;
+}
+
+.top-contact-chip .material-symbols-rounded {
+  font-size: 14px;
+  color: #D4AF37;
 }
 
 .top-link {
   background: none;
   border: none;
-  color: #C7C0B3;
+  color: #DDD2BD;
   font-family: var(--font-sans);
   font-size: 0.76rem;
   letter-spacing: 0.08em;
@@ -60,29 +192,49 @@
 
 .top-link:hover {
   color: #FFFFFF;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
 }
 
 .cart-top-link {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: #E2DBD0;
-  font-weight: 600;
+  color: #F5E3BD;
+  font-weight: 700;
 }
 
 .top-cart-icon {
-  font-size: 14px;
-  color: #CBA258;
+  font-size: 15px;
+  color: #D4AF37;
 }
 
 .top-bar-divider {
-  color: #555047;
+  color: rgba(197, 160, 89, 0.4);
+}
+
+.top-link-admin-active {
+  color: #F8E6BE !important;
+  font-weight: 700;
+}
+
+.top-bar-admin-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #D4AF37, #9C7026);
+  color: #0C2340;
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 1px 7px;
+  border-radius: 8px;
+  margin-left: 5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* ── Área Principal del Header ── */
 .header-main-area {
-  padding: 22px 0 14px 0;
+  padding: 18px 0 12px 0;
   transition: padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  background: radial-gradient(circle at 50% 30%, rgba(20, 54, 95, 0.4) 0%, rgba(12, 35, 64, 0) 70%);
 }
 
 .header-main-container {
@@ -90,63 +242,76 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 14px;
+  gap: 12px;
 }
 
-/* Marca / Logo Institucional */
+/* Marca / Logo Institucional con Medallón Dorado */
 .brand-sober-block {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
+  gap: 16px;
   cursor: pointer;
   user-select: none;
   transition: all 0.3s ease;
 }
 
 .brand-sober-block:hover {
-  opacity: 0.92;
+  transform: translateY(-1px);
 }
 
-.brand-cross-icon {
-  color: #946A25;
-  margin-bottom: 4px;
+.brand-medallion-frame {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, #F3DE98, #C5A059, #8E6523);
+  box-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   transition: all 0.3s ease;
 }
 
-.brand-cross-icon .material-symbols-rounded {
-  font-size: 26px;
-  transition: font-size 0.3s ease;
+.brand-medallion-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 
 .brand-text-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  text-align: left;
   transition: all 0.3s ease;
 }
 
 .brand-name-sober {
   font-family: var(--font-serif);
-  font-size: 1.65rem;
+  font-size: 1.75rem;
   letter-spacing: 0.16em;
-  color: #23211E;
+  color: #F8E6BE;
   font-weight: 700;
   line-height: 1.15;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
   transition: font-size 0.3s ease, letter-spacing 0.3s ease;
 }
 
 .brand-desc-sober {
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  color: #8C8476;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: #DCC89F;
   text-transform: uppercase;
   font-weight: 600;
-  margin-top: 3px;
+  margin-top: 4px;
   max-height: 20px;
   opacity: 1;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   transition: max-height 0.25s ease, opacity 0.25s ease, margin 0.25s ease;
 }
 
@@ -157,7 +322,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  border-top: 1px solid #F0EBE1;
+  border-top: 1px solid rgba(197, 160, 89, 0.28);
   padding-top: 10px;
 }
 
@@ -171,7 +336,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
   transition: all 0.3s ease;
 }
@@ -192,56 +357,236 @@
 }
 
 .nav-btn-active {
-  --md-filled-button-container-color: #8E6523;
-  --md-filled-button-label-text-color: #FFFFFF;
-  box-shadow: 0 3px 10px rgba(142, 101, 35, 0.25);
+  --md-filled-button-container-color: #C5A059;
+  --md-filled-button-label-text-color: #071524;
+  font-weight: 700 !important;
+  box-shadow: 0 3px 14px rgba(197, 160, 89, 0.45);
 }
 
 .nav-btn-inactive {
-  --md-text-button-label-text-color: #524D46;
+  --md-text-button-label-text-color: #E2D7C1;
 }
 
 .nav-btn-inactive:hover {
-  --md-text-button-label-text-color: #8E6523;
+  --md-text-button-label-text-color: #FFFFFF;
 }
 
-/* Botón Trigger del Carrito */
-.header-cart-trigger {
+/* ==========================================================================
+   CLUSTER DE ACCIONES: BOTÓN DE USUARIO/ADMIN + CARRITO
+   ========================================================================== */
+
+.header-actions-cluster {
   position: absolute;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
+  gap: 10px;
+}
+
+/* Wrapper del Menú de Usuario */
+.header-user-menu-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Botón de Ingreso de Usuario / Admin en Header */
+.header-user-btn {
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
-  padding: 6px 14px;
-  background-color: #FAF8F5;
-  border: 1px solid #DED6C7;
+  padding: 6px 13px;
+  background-color: rgba(16, 44, 78, 0.75);
+  border: 1px solid rgba(197, 160, 89, 0.55);
   border-radius: var(--radius-pill);
+  color: #F8E6BE;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.header-user-btn:hover {
+  background-color: #C5A059;
+  color: #071524;
+  border-color: #C5A059;
+  box-shadow: 0 3px 12px rgba(197, 160, 89, 0.35);
+}
+
+.header-user-btn .user-btn-icon {
+  font-size: 18px;
+  color: #D4AF37;
+  transition: color 0.2s ease;
+}
+
+.header-user-btn:hover .user-btn-icon {
+  color: #071524;
+}
+
+/* Estado Autenticado del Botón de Usuario */
+.header-user-btn.is-authenticated {
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.3) 0%, rgba(142, 101, 35, 0.5) 100%);
+  border-color: #D4AF37;
+  color: #F8E6BE;
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+}
+
+.header-user-btn.is-authenticated:hover {
+  background: linear-gradient(135deg, #C5A059 0%, #D4AF37 100%);
+  border-color: #F3DE98;
+  color: #071524;
+}
+
+.header-user-btn.is-authenticated .user-btn-icon {
+  color: #F3DE98;
+}
+
+.header-user-btn.is-authenticated:hover .user-btn-icon {
+  color: #071524;
+}
+
+/* Indicador de estado activo (punto verde/oro sutil) */
+.user-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #2E7D32;
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 6px rgba(46, 125, 50, 0.6);
+  flex-shrink: 0;
+}
+
+/* Dropdown flotante del usuario */
+.header-user-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 220px;
+  background: #FFFFFF;
+  border: 1px solid #E5DFD3;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(35, 33, 30, 0.16);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 200;
+}
+
+.dropdown-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+}
+
+.dropdown-user-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #FAF3E3;
+  color: #8E6523;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-user-icon .material-symbols-rounded {
+  font-size: 18px;
+}
+
+.dropdown-user-info strong {
+  display: block;
+  font-size: 0.82rem;
   color: #23211E;
+}
+
+.dropdown-user-info small {
+  display: block;
+  font-size: 0.7rem;
+  color: #7A7265;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #F0EAE1;
+  margin: 4px 0;
+}
+
+.dropdown-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  border-radius: 8px;
   font-family: var(--font-sans);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 500;
+  color: #3C362E;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.dropdown-menu-item .material-symbols-rounded {
+  font-size: 18px;
+  color: #8E6523;
+}
+
+.dropdown-menu-item:hover {
+  background-color: #FAF6EE;
+  color: #8E6523;
+}
+
+.dropdown-menu-item.logout {
+  color: #A92323;
+}
+
+.dropdown-menu-item.logout .material-symbols-rounded {
+  color: #C53030;
+}
+
+.dropdown-menu-item.logout:hover {
+  background-color: #FDF2F2;
+  color: #C53030;
+}
+
+/* Botón Trigger del Carrito */
+.header-cart-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #C5A059 0%, #9C7026 100%);
+  border: 1px solid #E8C87A;
+  border-radius: var(--radius-pill);
+  color: #071524;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
   letter-spacing: 0.05em;
   cursor: pointer;
+  box-shadow: 0 2px 10px rgba(197, 160, 89, 0.35);
   transition: var(--transition-smooth);
 }
 
 .header-cart-trigger:hover {
-  background-color: #8E6523;
-  color: #FFFFFF;
-  border-color: #8E6523;
-  box-shadow: 0 3px 10px rgba(142, 101, 35, 0.22);
+  background: linear-gradient(135deg, #D4AF37 0%, #B88934 100%);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.5);
+  transform: translateY(-1px);
 }
 
 .header-cart-trigger .material-symbols-rounded {
   font-size: 18px;
-  color: #8E6523;
-  transition: color 0.2s;
-}
-
-.header-cart-trigger:hover .material-symbols-rounded {
-  color: #FFFFFF;
+  color: #071524;
 }
 
 .cart-count-badge {
@@ -272,8 +617,8 @@
    ========================================================================== */
 
 .site-header-sober.is-collapsed {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border-bottom-color: #DDD6C8;
+  box-shadow: 0 6px 24px rgba(6, 18, 32, 0.55);
+  border-bottom-color: #C5A059;
 }
 
 .site-header-sober.is-collapsed .top-bar-sober {
@@ -305,12 +650,9 @@
     gap: 10px;
   }
 
-  .site-header-sober.is-collapsed .brand-cross-icon {
-    margin-bottom: 0;
-  }
-
-  .site-header-sober.is-collapsed .brand-cross-icon .material-symbols-rounded {
-    font-size: 20px;
+  .site-header-sober.is-collapsed .brand-medallion-frame {
+    width: 40px;
+    height: 40px;
   }
 
   .site-header-sober.is-collapsed .brand-text-wrapper {
@@ -337,7 +679,7 @@
     gap: 16px;
   }
 
-  .site-header-sober.is-collapsed .header-cart-trigger {
+  .site-header-sober.is-collapsed .header-actions-cluster {
     position: static;
     transform: none;
   }
@@ -371,11 +713,15 @@
     padding-right: 0; /* Sin asimetría */
   }
 
-  .header-cart-trigger {
+  .header-actions-cluster {
     position: absolute;
     right: 12px;
     top: 8px;
     transform: none;
+    gap: 8px;
+  }
+
+  .header-cart-trigger {
     padding: 6px 12px;
     font-size: 0.76rem;
   }
@@ -524,13 +870,13 @@
     letter-spacing: 0.12em;
   }
 
-  .header-cart-trigger .cart-trigger-label {
+  .header-cart-trigger .cart-trigger-label,
+  .header-user-btn .user-btn-label {
     display: none;
   }
 
-  .header-cart-trigger {
-    right: 12px;
-    top: 8px;
+  .header-cart-trigger,
+  .header-user-btn {
     padding: 0;
     width: 38px;
     height: 38px;
@@ -538,6 +884,12 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+  }
+
+  .header-user-btn .user-status-dot {
+    position: absolute;
+    top: 2px;
+    right: 2px;
   }
 
   .header-cart-trigger .material-symbols-rounded {

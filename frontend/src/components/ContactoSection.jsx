@@ -52,13 +52,20 @@ export default function ContactoSection() {
     <section className="contacto-section animate-fade-in">
       <div className="section-hero">
         <div className="container">
+          <div className="contact-seal-wrap">
+            <img
+              src="/logo-medallion-navy.png"
+              alt="Sello Sagrado Velas Buen Pastor"
+              className="contact-seal-img"
+            />
+          </div>
           <span className="section-eyebrow">
-            <span className="material-symbols-rounded">chat</span>
-            Estamos a tu disposición
+            <span className="material-symbols-rounded">church</span>
+            Atención a Parroquias, Diócesis & Hogares
           </span>
-          <h2 className="section-title">Comunícate con Nuestro Taller</h2>
+          <h2 className="section-title">Comunícate con Velas Buen Pastor</h2>
           <p className="section-subtitle">
-            Escríbenos para consultar presupuestos mayoristas, pedidos litúrgicos personalizados o pedidos individuales para el hogar. Te responderemos con prontitud y serenidad.
+            Ilumina tu fe con la luz del Buen Pastor. Escríbenos para presupuestos mayoristas, cirios pascuales y velas sagradas para templos de todo el país.
           </p>
         </div>
       </div>

@@ -1,12 +1,72 @@
 /* ==========================================================================
-   FOOTER STYLING
+   FOOTER SACRO: AZUL LITÚRGICO & ORO IMPERIAL (VELAS BUEN PASTOR)
    ========================================================================== */
 
 .site-footer {
-  background: #25221E;
+  background: linear-gradient(180deg, #0C2340 0%, #06121E 100%);
   color: #E2DBD0;
-  padding: 60px 0 30px 0;
-  border-top: 3px solid var(--color-gold-deep);
+  padding: 0 0 35px 0;
+  border-top: 3px solid #C5A059;
+}
+
+/* Cinta de Compromiso Litúrgico (Inspirada en el Folleto) */
+.footer-pillars-strip {
+  background: rgba(6, 18, 30, 0.7);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.35);
+  padding: 22px 0;
+  margin-bottom: 45px;
+}
+
+.footer-pillars-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pillar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pillar-icon {
+  font-size: 26px;
+  color: #D4AF37;
+  background: rgba(197, 160, 89, 0.12);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(197, 160, 89, 0.4);
+}
+
+.pillar-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.pillar-title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #F8E6BE;
+  letter-spacing: 0.04em;
+}
+
+.pillar-sub {
+  font-size: 0.78rem;
+  color: #D6C8AF;
+  letter-spacing: 0.02em;
+}
+
+.pillar-divider {
+  width: 1px;
+  height: 38px;
+  background: rgba(197, 160, 89, 0.35);
 }
 
 .footer-top-grid {
@@ -14,41 +74,58 @@
   grid-template-columns: 1.5fr 1fr 1.2fr;
   gap: 48px;
   padding-bottom: 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2);
 }
 
 .footer-brand-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 14px;
+  margin-bottom: 16px;
 }
 
-.footer-cross {
-  font-size: 32px;
-  color: var(--color-gold-light);
+.footer-medallion-frame {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, #F3DE98, #C5A059, #8E6523);
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.footer-medallion-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .footer-brand-name {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
-  letter-spacing: 0.1em;
-  color: #FFFFFF;
+  font-size: 1.35rem;
+  letter-spacing: 0.12em;
+  color: #F8E6BE;
   display: block;
   font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .footer-brand-tagline {
-  font-size: 0.75rem;
-  color: var(--color-gold-light);
-  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  color: #DCC89F;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .footer-bio {
   font-size: 0.9rem;
-  line-height: 1.6;
-  color: #AFA89D;
+  line-height: 1.65;
+  color: #DDD4C3;
   margin-bottom: 18px;
 }
 
@@ -64,27 +141,29 @@
   justify-content: center;
   line-height: 1;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 5px 12px;
+  background: rgba(16, 44, 78, 0.6);
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  padding: 6px 14px;
   border-radius: var(--radius-pill);
   font-size: 0.76rem;
-  color: #D6CEBF;
+  color: #F3E4C5;
+  font-weight: 600;
 }
 
 .footer-pill .material-symbols-rounded {
   font-size: 14px;
   line-height: 1;
-  color: var(--color-gold-light);
+  color: #D4AF37;
 }
 
 .footer-col-title {
-  font-size: 1rem;
-  color: #FFFFFF;
-  letter-spacing: 0.06em;
+  font-size: 1.05rem;
+  color: #F8E6BE;
+  letter-spacing: 0.08em;
   margin-bottom: 20px;
   position: relative;
   padding-bottom: 8px;
+  font-family: var(--font-serif);
 }
 
 .footer-col-title::after {
@@ -92,9 +171,9 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 28px;
+  width: 32px;
   height: 2px;
-  background: var(--color-gold-light);
+  background: #C5A059;
 }
 
 .footer-nav-list {

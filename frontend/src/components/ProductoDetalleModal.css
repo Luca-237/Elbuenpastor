@@ -636,6 +636,59 @@
   font-size: 18px;
 }
 
+/* FOTOGRAFÍAS ESPECÍFICAS POR MEDIDA */
+.modal-badge-medida-foto {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(35, 31, 28, 0.88);
+  color: #D4AF37;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  letter-spacing: 0.03em;
+  z-index: 2;
+}
+
+.modal-badge-medida-foto .material-symbols-rounded {
+  font-size: 14px;
+}
+
+.size-number-btn.has-custom-img {
+  padding-top: 10px;
+}
+
+.size-mini-thumb-wrap {
+  width: 100%;
+  height: 54px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #ECE5D8;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(216, 195, 165, 0.5);
+}
+
+.size-mini-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.size-number-btn:hover .size-mini-thumb {
+  transform: scale(1.08);
+}
+
 /* RESPONSIVE */
 @media (max-width: 860px) {
   .modal-detalle-grid {
@@ -655,3 +708,4 @@
     grid-template-columns: 1fr;
   }
 }
+

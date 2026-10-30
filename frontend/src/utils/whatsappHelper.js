@@ -8,7 +8,7 @@ export const WHATSAPP_CONFIG = {
   // Número oficial del taller en formato internacional E.164 (Argentina: +54 9 11 4000-8800)
   PHONE_NUMBER: '5491140008800',
   DISPLAY_PHONE: '+54 9 11 4000-8800',
-  TALLER_NAME: 'El Buen Pastor — Ceras & Artículos Litúrgicos',
+  TALLER_NAME: 'El Buen Pastor — Velas & Artículos Litúrgicos',
 };
 
 /**
@@ -26,7 +26,7 @@ export function createWhatsAppUrl(message, phone = WHATSAPP_CONFIG.PHONE_NUMBER)
  * Genera el mensaje de consulta general o institucional
  */
 export function buildGeneralInquiryMessage() {
-  return `¡Paz y bien! Me comunico desde la web de *El Buen Pastor* para realizar una consulta litúrgica sobre el catálogo de ceras y cirios consagrados.`;
+  return `¡Paz y bien! Me comunico desde la web de *El Buen Pastor* para realizar una consulta litúrgica sobre el catálogo de velas y cirios consagrados.`;
 }
 
 /**

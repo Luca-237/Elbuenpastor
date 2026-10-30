@@ -1,9 +1,108 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { formatMedidaDimension } from '../data/catalogoData';
+import AdminPedidosTab from './AdminPedidosTab';
 import './AdminDashboardPage.css';
 
 // PIN de acceso por defecto para el superusuario
 const SUPERUSER_PIN_DEFAULT = '2026';
+
+const INITIAL_ADMIN_PEDIDOS = [
+  {
+    id: 'ord-01',
+    numeroPedido: 'PED-20261024-0012',
+    createdAt: new Date(Date.now() - 3600000 * 4).toISOString(),
+    clienteNombre: 'Parroquia Nuestra Señora de la Merced',
+    clienteTelefono: '5491140008800',
+    clienteEmail: 'contacto@lamerced.org.ar',
+    estado: 'recibido',
+    metodoPago: 'Transferencia Bancaria',
+    tipoEntrega: 'envio_domicilio',
+    direccionEntrega: {
+      calle: 'Av. Rivadavia',
+      numero: '450',
+      ciudad: 'Córdoba Capital',
+      provincia: 'Córdoba',
+    },
+    notas: 'Requerido para la celebración solemne de confirmación parroquial.',
+    items: [
+      {
+        sku: 'CIR-PAS-TRA-001-70x85',
+        modeloNombre: 'Cirio Pascual Tradicional & Cruz Solemne',
+        tamanoNombre: 'Ø 70 mm × 85 cm',
+        cantidad: 2,
+        precioUnitario: 22500,
+        subtotal: 45000,
+      },
+      {
+        sku: 'VL-CAN-35-30',
+        modeloNombre: 'Vela Litúrgica Solemne de Altar',
+        tamanoNombre: 'Ø 35 mm × 30 cm',
+        cantidad: 24,
+        precioUnitario: 3900,
+        subtotal: 93600,
+      },
+    ],
+    total: 138600,
+  },
+  {
+    id: 'ord-02',
+    numeroPedido: 'PED-20261022-0008',
+    createdAt: new Date(Date.now() - 3600000 * 28).toISOString(),
+    clienteNombre: 'Capilla San Francisco de Asís',
+    clienteTelefono: '5493415551234',
+    clienteEmail: 'sanfrancisco.rosario@diocesis.org',
+    estado: 'en_camino',
+    metodoPago: 'Transferencia Bancaria',
+    tipoEntrega: 'envio_domicilio',
+    direccionEntrega: {
+      calle: 'Bv. Oroño',
+      numero: '1280',
+      ciudad: 'Rosario',
+      provincia: 'Santa Fe',
+    },
+    notas: 'Cera 100% virgen de abejas para sagrario.',
+    items: [
+      {
+        sku: 'VEL-SOJ-80-25',
+        modeloNombre: 'Velón Soberano de Sagrario',
+        tamanoNombre: 'Ø 80 mm × 25 cm',
+        cantidad: 6,
+        precioUnitario: 7200,
+        subtotal: 43200,
+      },
+    ],
+    total: 43200,
+  },
+  {
+    id: 'ord-03',
+    numeroPedido: 'PED-20261019-0003',
+    createdAt: new Date(Date.now() - 3600000 * 72).toISOString(),
+    clienteNombre: 'Catedral San Jerónimo',
+    clienteTelefono: '5493514223344',
+    clienteEmail: 'secretaria@catedralsanjeronimo.com',
+    estado: 'entregado',
+    metodoPago: 'Transferencia Bancaria',
+    tipoEntrega: 'retiro_local',
+    direccionEntrega: {
+      calle: 'Independencia',
+      numero: '64',
+      ciudad: 'Córdoba Capital',
+      provincia: 'Córdoba',
+    },
+    notas: 'Retirado por secretaría parroquial.',
+    items: [
+      {
+        sku: 'CIR-PAS-ABJ-100-100',
+        modeloNombre: 'Cirio Pascual Monumental Sagrado',
+        tamanoNombre: 'Ø 100 mm × 100 cm',
+        cantidad: 1,
+        precioUnitario: 39500,
+        subtotal: 39500,
+      },
+    ],
+    total: 39500,
+  },
+];
 
 export default function AdminDashboardPage({
   productos = [],
@@ -21,16 +120,89 @@ export default function AdminDashboardPage({
   onDeleteMeasureFromCategory,
   onResetCatalog,
   activityLog = [],
+  isAuthenticated: isAuthenticatedProp,
+  onLogout: onLogoutProp,
+  onLoginSuccess: onLoginSuccessProp,
 }) {
   // Estado de autenticación
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+  const [internalAuth, setInternalAuth] = useState(() => {
     return sessionStorage.getItem('elbuenpastor_admin_auth') === 'true';
   });
+  const isAuthenticated = isAuthenticatedProp !== undefined ? isAuthenticatedProp : internalAuth;
   const [pinInput, setPinInput] = useState('');
   const [authError, setAuthError] = useState('');
 
-  // Pestaña activa: 'stats' | 'categories' | 'productos' | 'precios'
-  const [activeTab, setActiveTab] = useState('categories');
+  // Pestaña activa: 'pedidos' | 'categories' | 'productos' | 'precios' | 'stats'
+  const [activeTab, setActiveTab] = useState('pedidos');
+
+  // Estado de Pedidos y Cotizaciones
+  const [pedidos, setPedidos] = useState(() => {
+    try {
+      const saved = localStorage.getItem('elbuenpastor_admin_pedidos');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {
+      console.warn('Error leyendo pedidos de localStorage:', e);
+    }
+    return INITIAL_ADMIN_PEDIDOS;
+  });
+
+  // Cargar pedidos desde backend si está online
+  const fetchPedidosFromBackend = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/pedidos');
+      if (res.ok) {
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          setPedidos(json.data);
+          localStorage.setItem('elbuenpastor_admin_pedidos', JSON.stringify(json.data));
+        }
+      }
+    } catch {
+      // Servidor backend en reposo; se mantiene estado local
+    }
+  };
+
+  useEffect(() => {
+    fetchPedidosFromBackend();
+  }, []);
+
+  const handleUpdatePedidoEstado = async (pedidoId, nuevoEstado) => {
+    fetch(`http://localhost:5000/api/pedidos/${pedidoId}/estado`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ estado: nuevoEstado }),
+    }).catch(() => null);
+
+    setPedidos((prev) => {
+      const updated = prev.map((p) => {
+        if ((p._id || p.id) === pedidoId) {
+          return { ...p, estado: nuevoEstado };
+        }
+        return p;
+      });
+      localStorage.setItem('elbuenpastor_admin_pedidos', JSON.stringify(updated));
+      return updated;
+    });
+
+    showToast(`Estado del pedido actualizado a "${nuevoEstado}".`);
+  };
+
+  const handleDeletePedido = async (pedidoId) => {
+    fetch(`http://localhost:5000/api/pedidos/${pedidoId}`, {
+      method: 'DELETE',
+    }).catch(() => null);
+
+    setPedidos((prev) => {
+      const updated = prev.filter((p) => (p._id || p.id) !== pedidoId);
+      localStorage.setItem('elbuenpastor_admin_pedidos', JSON.stringify(updated));
+      return updated;
+    });
+
+    showToast('Pedido eliminado del registro.');
+  };
 
   // Estado para búsqueda en tabla de productos
   const [adminSearch, setAdminSearch] = useState('');
@@ -66,6 +238,7 @@ export default function AdminDashboardPage({
   // Subida de imagen a Cloudinary
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [uploadError, setUploadError] = useState('');
+  const [uploadingSizeIndex, setUploadingSizeIndex] = useState(null);
 
   // Modificación masiva de precios
   const [bulkPercent, setBulkPercent] = useState(10);
@@ -85,6 +258,7 @@ export default function AdminDashboardPage({
     aromasString: 'Cera Virgen Natural, Incienso Sagrado',
     aromaDefault: 'Cera Virgen Natural',
     imagen: '/hero-candles.jpg',
+    modoImagen: 'general', // 'general' | 'por_medida'
     descripcion: '',
     precioUnitario: 3900,
     stock: 25,
@@ -96,17 +270,19 @@ export default function AdminDashboardPage({
   const handleLogin = (e) => {
     e.preventDefault();
     if (pinInput === SUPERUSER_PIN_DEFAULT || pinInput === 'admin') {
-      setIsAuthenticated(true);
+      setInternalAuth(true);
       sessionStorage.setItem('elbuenpastor_admin_auth', 'true');
       setAuthError('');
+      if (onLoginSuccessProp) onLoginSuccessProp();
     } else {
       setAuthError('Clave incorrecta. PIN de desarrollo: 2026');
     }
   };
 
   const handleLogout = () => {
-    setIsAuthenticated(false);
+    setInternalAuth(false);
     sessionStorage.removeItem('elbuenpastor_admin_auth');
+    if (onLogoutProp) onLogoutProp();
   };
 
   // Subida de imagen a Cloudinary
@@ -139,6 +315,55 @@ export default function AdminDashboardPage({
     } finally {
       setIsUploadingImage(false);
     }
+  };
+
+  // Subida de imagen para una medida específica
+  const handleSizeImageUpload = async (index, e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploadingSizeIndex(index);
+    try {
+      const bodyFormData = new FormData();
+      bodyFormData.append('imagen', file);
+
+      const res = await fetch('http://localhost:5000/api/upload', {
+        method: 'POST',
+        body: bodyFormData,
+      });
+
+      const json = await res.json();
+      if (json.success) {
+        setFormData((prev) => {
+          const updated = [...prev.tamanosPorNumero];
+          updated[index] = { ...updated[index], imagen: json.url };
+          return { ...prev, tamanosPorNumero: updated };
+        });
+        showToast('¡Foto individual para esta medida subida a Cloudinary!');
+      } else {
+        showToast(json.message || 'Error al subir la imagen de la medida.');
+      }
+    } catch {
+      // Fallback si el backend está desconectado
+      const localUrl = URL.createObjectURL(file);
+      setFormData((prev) => {
+        const updated = [...prev.tamanosPorNumero];
+        updated[index] = { ...updated[index], imagen: localUrl };
+        return { ...prev, tamanosPorNumero: updated };
+      });
+      showToast('Imagen vinculada a la medida localmente.');
+    } finally {
+      setUploadingSizeIndex(null);
+    }
+  };
+
+  const handleRemoveSizeImage = (index) => {
+    setFormData((prev) => {
+      const updated = [...prev.tamanosPorNumero];
+      updated[index] = { ...updated[index], imagen: '' };
+      return { ...prev, tamanosPorNumero: updated };
+    });
+    showToast('Foto individual removida; usará la imagen general.');
   };
 
   // ── ACCIONES: RENOMBRAR CATEGORÍA ──
@@ -243,6 +468,7 @@ export default function AdminDashboardPage({
       aromasString: 'Cera Virgen Natural, Incienso Sagrado',
       aromaDefault: 'Cera Virgen Natural',
       imagen: '/cirio-pascual.jpg',
+      modoImagen: 'general',
       descripcion: '',
       precioUnitario: defaultSizes[0]?.precioUnitario || 15000,
       stock: 20,
@@ -256,6 +482,7 @@ export default function AdminDashboardPage({
     setIsCreatingNew(false);
     setFormData({
       ...prod,
+      modoImagen: prod.modoImagen || (prod.tamanosPorNumero?.some((t) => t.imagen) ? 'por_medida' : 'general'),
       aromasString: prod.aromas ? prod.aromas.join(', ') : '',
       tamanosPorNumero: prod.tamanosPorNumero || [],
     });
@@ -305,10 +532,16 @@ export default function AdminDashboardPage({
 
     const productoFinal = {
       ...formData,
+      modoImagen: formData.modoImagen || 'general',
       precioUnitario: basePrice,
       stock: Number(formData.stock),
       duracionHoras: Number(formData.duracionHoras),
       aromas: aromasArr,
+      tamanosPorNumero: (formData.tamanosPorNumero || []).map((t) => ({
+        ...t,
+        precioUnitario: Number(t.precioUnitario || basePrice),
+        imagen: t.imagen || '',
+      })),
       preciosPorVolumen: [
         { min: 1, max: 4, precio: basePrice },
         { min: 5, max: 19, precio: Math.round(basePrice * 0.88) },
@@ -354,6 +587,7 @@ export default function AdminDashboardPage({
       dimensiones: 'Ø 60 mm × 85 cm',
       duracionHoras: 100,
       precioUnitario: Number(formData.precioUnitario) || 15000,
+      imagen: '',
       isDefault: false,
     };
     setFormData((prev) => ({
@@ -497,6 +731,16 @@ export default function AdminDashboardPage({
       {/* ── NAVEGACIÓN POR PESTAÑAS DEL DASHBOARD ── */}
       <div className="container admin-main-container">
         <div className="admin-nav-tabs">
+          <button
+            className={`admin-tab-btn ${activeTab === 'pedidos' ? 'active' : ''}`}
+            onClick={() => setActiveTab('pedidos')}
+          >
+            <span className="material-symbols-rounded">receipt_long</span>
+            <span>
+              Pedidos & Taller ({pedidos.filter((p) => p.estado === 'pendiente' || p.estado === 'en_preparacion').length} activos)
+            </span>
+          </button>
+
           <button
             className={`admin-tab-btn ${activeTab === 'categories' ? 'active' : ''}`}
             onClick={() => setActiveTab('categories')}
@@ -1036,6 +1280,18 @@ export default function AdminDashboardPage({
             </div>
           </div>
         )}
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            PESTAÑA 5: PEDIDOS & COTIZACIONES LITÚRGICAS
+           ══════════════════════════════════════════════════════════════════════ */}
+        {activeTab === 'pedidos' && (
+          <AdminPedidosTab
+            pedidos={pedidos}
+            onUpdatePedidoEstado={handleUpdatePedidoEstado}
+            onDeletePedido={handleDeletePedido}
+            onRefreshPedidos={fetchPedidosFromBackend}
+          />
+        )}
       </div>
 
       {/* ══════════════════════════════════════════════════════════════════════
@@ -1421,9 +1677,54 @@ export default function AdminDashboardPage({
                 </div>
               </div>
 
-              {/* Subida de Imagen a Cloudinary */}
+              {/* ── SWITCH FORMATO DE IMÁGENES: GENERAL vs POR MEDIDA ── */}
+              <div className="image-mode-switch-card">
+                <div className="image-mode-header">
+                  <div className="image-mode-icon-wrap">
+                    <span className="material-symbols-rounded">imagesmode</span>
+                  </div>
+                  <div>
+                    <h4 className="image-mode-title">Modalidad de Imágenes del Producto</h4>
+                    <p className="image-mode-subtitle">
+                      Decide si este producto usará una única imagen general o una fotografía individual para cada medida.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="image-mode-toggle-group">
+                  <button
+                    type="button"
+                    className={`image-mode-btn ${formData.modoImagen !== 'por_medida' ? 'active' : ''}`}
+                    onClick={() => setFormData((prev) => ({ ...prev, modoImagen: 'general' }))}
+                  >
+                    <span className="material-symbols-rounded">image</span>
+                    <div className="mode-btn-copy">
+                      <strong>Imagen General Única</strong>
+                      <small>Una sola foto representativa para todo el modelo</small>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`image-mode-btn ${formData.modoImagen === 'por_medida' ? 'active' : ''}`}
+                    onClick={() => setFormData((prev) => ({ ...prev, modoImagen: 'por_medida' }))}
+                  >
+                    <span className="material-symbols-rounded">photo_library</span>
+                    <div className="mode-btn-copy">
+                      <strong>Imagen por Medida</strong>
+                      <small>Carga una foto distinta para cada tamaño/medida</small>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              {/* Subida de Imagen General (o Portada Principal) */}
               <div className="form-field">
-                <label>Imagen del Producto:</label>
+                <label>
+                  {formData.modoImagen === 'por_medida'
+                    ? 'Imagen Portada Principal (Respaldo general):'
+                    : 'Imagen General del Producto:'}
+                </label>
                 <div className="image-upload-flex">
                   <img src={formData.imagen} alt="Preview" className="img-preview-thumb" />
                   <div className="image-inputs-stack">
@@ -1462,30 +1763,17 @@ export default function AdminDashboardPage({
                 />
               </div>
 
-              {/* Aromas y Stock */}
-              <div className="modal-grid-2cols">
-                <div className="form-field">
-                  <label htmlFor="prod-aromas-field">Aromas (separados por coma):</label>
-                  <input
-                    id="prod-aromas-field"
-                    type="text"
-                    value={formData.aromasString}
-                    onChange={(e) => setFormData({ ...formData, aromasString: e.target.value })}
-                    className="admin-input-field"
-                  />
-                </div>
-
-                <div className="form-field">
-                  <label htmlFor="prod-stock-field">Stock disponible:</label>
-                  <input
-                    id="prod-stock-field"
-                    type="number"
-                    min="0"
-                    value={formData.stock}
-                    onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
-                    className="admin-input-field"
-                  />
-                </div>
+              {/* Stock */}
+              <div className="form-field">
+                <label htmlFor="prod-stock-field">Stock disponible:</label>
+                <input
+                  id="prod-stock-field"
+                  type="number"
+                  min="0"
+                  value={formData.stock}
+                  onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                  className="admin-input-field"
+                />
               </div>
 
               {/* ── SECCIÓN DE MEDIDAS Y PRECIOS DEL PRODUCTO ── */}
@@ -1509,6 +1797,9 @@ export default function AdminDashboardPage({
                   <table className="sizes-edit-table">
                     <thead>
                       <tr>
+                        {formData.modoImagen === 'por_medida' && (
+                          <th style={{ width: '130px' }}>Foto Medida</th>
+                        )}
                         <th>Medida (Ø mm × cm)</th>
                         <th>Duración Estimada</th>
                         <th>Precio Unitario ($)</th>
@@ -1518,6 +1809,42 @@ export default function AdminDashboardPage({
                     <tbody>
                       {formData.tamanosPorNumero.map((tam, idx) => (
                         <tr key={tam.id || idx}>
+                          {formData.modoImagen === 'por_medida' && (
+                            <td>
+                              <div className="size-row-image-cell">
+                                <img
+                                  src={tam.imagen || formData.imagen}
+                                  alt={`Foto ${tam.label}`}
+                                  className="size-cell-thumb"
+                                />
+                                <div className="size-image-btn-stack">
+                                  <label className="size-upload-mini-btn">
+                                    <span className="material-symbols-rounded">
+                                      {uploadingSizeIndex === idx ? 'progress_activity' : 'add_a_photo'}
+                                    </span>
+                                    <span>{uploadingSizeIndex === idx ? 'Subiendo...' : (tam.imagen ? 'Cambiar' : 'Subir')}</span>
+                                    <input
+                                      type="file"
+                                      accept="image/*"
+                                      onChange={(e) => handleSizeImageUpload(idx, e)}
+                                      style={{ display: 'none' }}
+                                      disabled={uploadingSizeIndex !== null}
+                                    />
+                                  </label>
+                                  {tam.imagen && (
+                                    <button
+                                      type="button"
+                                      className="size-clear-img-btn"
+                                      onClick={() => handleRemoveSizeImage(idx)}
+                                      title="Usar imagen general para esta medida"
+                                    >
+                                      ×
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                            </td>
+                          )}
                           <td>
                             <strong>Ø {tam.diametroMm} mm × {tam.largoCm} cm</strong>
                           </td>

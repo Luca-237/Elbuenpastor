@@ -5,9 +5,9 @@ export default function QuienesSomosSection({ onIrAProductos, onIrAContacto }) {
   const pilares = [
     {
       icon: 'flare',
-      titulo: 'Pureza en las Materias Primas',
+      titulo: 'Dignidad & Calibre Litúrgico',
       descripcion:
-        'Utilizamos cera de soja vegetal 100% biodegradable y cera pura de opérculo de abejas de montes nativos. Sin derivados tóxicos del petróleo ni aditivos sintéticos irritantes.',
+        'Elaboramos cirios pascuales y velas con mechas calibradas y proporciones canónicas exactas para una combustión constante, limpia y sin humo en el altar.',
     },
     {
       icon: 'handshake',
@@ -25,45 +25,55 @@ export default function QuienesSomosSection({ onIrAProductos, onIrAContacto }) {
 
   return (
     <section className="quienes-somos-section animate-fade-in">
-      {/* Hero Visual Sereno */}
+      {/* Hero Visual Sereno con Medallón Dorado */}
       <div className="about-hero">
         <div className="container about-hero-grid">
           <div className="about-hero-content">
-            <span className="about-eyebrow">
-              <span className="material-symbols-rounded">history_edu</span>
-              Nuestra Vocación Artesanal
-            </span>
-            <h2 className="about-title">Luz Noble para Acompañar la Oración</h2>
+            <div className="about-brand-badge-wrap">
+              <img
+                src="/logo-medallion-navy.png"
+                alt="Sello Sagrado El Buen Pastor"
+                className="about-brand-seal-icon"
+              />
+              <span className="about-eyebrow">
+                <span className="material-symbols-rounded">flare</span>
+                Velas Buen Pastor • Taller Litúrgico
+              </span>
+            </div>
+
+            <h2 className="about-title">Ilumina tu Fe con la Luz del Buen Pastor</h2>
             <p className="about-text-lead">
-              En <strong>El Buen Pastor</strong> nacemos con el anhelo de rescatar la dignidad y nobleza de las ceras sagradas. Ofrecemos velas que arden con llama limpia y constante, perfumando el ambiente con fragancias puras de incienso, mirra y cera virgen.
+              En <strong>Velas Buen Pastor</strong> nacemos con la vocación canónica de rescatar la dignidad y nobleza de las velas sagradas para el culto litúrgico y el recogimiento espiritual en templos y hogares.
             </p>
             <p className="about-text-secondary">
-              Nos inspira el pasaje del Evangelio que nos recuerda ser luz en la oscuridad. Cada cirio que sale de nuestro taller lleva consigo la dedicación de manos artesanas que trabajan con esmero para dignificar el culto divino y el rincón de oración del hogar.
+              Inspirados en la figura de Cristo como Buen Pastor que guía y cuida a su rebaño, cada pieza es elaborada artesanalmente con dedicación y solemnidad. La luz viva de nuestras velas acompaña la oración con una llama serena y constante.
             </p>
 
             <div className="about-hero-actions">
-              <md-filled-button onClick={onIrAProductos}>
-                <span slot="icon" className="material-symbols-rounded">store</span>
-                Explorar Catálogo
-              </md-filled-button>
+              <button className="about-primary-btn" onClick={onIrAProductos}>
+                <span className="material-symbols-rounded">store</span>
+                Ver Catálogo Litúrgico
+              </button>
 
-              <md-outlined-button onClick={onIrAContacto}>
-                <span slot="icon" className="material-symbols-rounded">mail</span>
-                Escribir al Taller
-              </md-outlined-button>
+              <button className="about-secondary-btn" onClick={onIrAContacto}>
+                <span className="material-symbols-rounded">mail</span>
+                Contactar al Taller
+              </button>
             </div>
           </div>
 
           <div className="about-hero-image-wrapper">
             <div className="image-frame-serene">
-              <img
-                src="/hero-candles.jpg"
-                alt="Cirios y velas artesanales El Buen Pastor"
-                className="about-hero-image"
-              />
-              <div className="image-caption-tag">
-                <span className="material-symbols-rounded">spa</span>
-                <span>Taller artesanal • Cera 100% natural</span>
+              <div className="logo-engraving-card">
+                <img
+                  src="/logo-buen-pastor.png"
+                  alt="Grabado tradicional El Buen Pastor - Cirios y Velas"
+                  className="about-shepherd-engraving"
+                />
+                <div className="engraving-ribbon">
+                  <span className="material-symbols-rounded">verified</span>
+                  <span>Sello Litúrgico de Autenticidad</span>
+                </div>
               </div>
             </div>
           </div>

@@ -19,43 +19,60 @@
   align-items: center;
 }
 
+.about-brand-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.about-brand-seal-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #C5A059;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+  background: #0C2340;
+}
+
 .about-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--color-sage-light);
-  border: 1px solid rgba(95, 116, 100, 0.25);
-  color: var(--color-sage-deep);
-  padding: 5px 14px;
+  background: #0C2340;
+  border: 1px solid #C5A059;
+  color: #F8E6BE;
+  padding: 6px 16px;
   border-radius: var(--radius-pill);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: 16px;
 }
 
 .about-eyebrow .material-symbols-rounded {
   font-size: 16px;
+  color: #D4AF37;
 }
 
 .about-title {
   font-size: 2.3rem;
-  color: var(--color-text-main);
+  color: #0C2340;
   line-height: 1.25;
   margin-bottom: 18px;
+  font-family: var(--font-serif);
 }
 
 .about-text-lead {
   font-size: 1.1rem;
-  color: var(--color-text-main);
+  color: #1D1B18;
   line-height: 1.7;
   margin-bottom: 14px;
 }
 
 .about-text-secondary {
   font-size: 0.98rem;
-  color: var(--color-text-muted);
+  color: #5E584E;
   line-height: 1.7;
   margin-bottom: 28px;
 }
@@ -66,48 +83,107 @@
   flex-wrap: wrap;
 }
 
-.about-hero-actions md-filled-button {
-  --md-filled-button-container-color: #8E6523;
-  --md-filled-button-label-text-color: #FFFFFF;
-  --md-filled-button-container-shape: var(--radius-pill);
+.about-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #0C2340 0%, #071524 100%);
+  color: #F8E6BE;
+  border: 1px solid #C5A059;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 14px rgba(12, 35, 64, 0.25);
+  transition: all 0.25s ease;
 }
 
-.about-hero-actions md-filled-button:hover {
-  --md-filled-button-container-color: #785217;
+.about-primary-btn:hover {
+  background: linear-gradient(135deg, #102C4E 0%, #0C2340 100%);
+  border-color: #F3DE98;
+  box-shadow: 0 6px 20px rgba(197, 160, 89, 0.35);
+  transform: translateY(-2px);
 }
 
-.about-hero-actions md-outlined-button {
-  --md-outlined-button-outline-color: #8E6523;
-  --md-outlined-button-label-text-color: #8E6523;
-  --md-outlined-button-container-shape: var(--radius-pill);
+.about-primary-btn .material-symbols-rounded {
+  font-size: 18px;
+  color: #D4AF37;
 }
 
-/* Imagen con marco sereno */
-.about-hero-image-wrapper {
-  position: relative;
+.about-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #FAF5EB;
+  color: #0C2340;
+  border: 1.5px solid #0C2340;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.25s ease;
 }
 
-.image-frame-serene {
+.about-secondary-btn:hover {
+  background: #0C2340;
+  color: #F8E6BE;
+  border-color: #C5A059;
+}
+
+.about-secondary-btn .material-symbols-rounded {
+  font-size: 18px;
+  color: #C5A059;
+}
+
+/* Tarjeta de Grabado del Logo */
+.logo-engraving-card {
+  background: #FFFFFF;
+  border: 2px solid #C5A059;
   border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 4px solid #FFFFFF;
-  box-shadow: 0 16px 40px rgba(80, 60, 40, 0.12);
+  padding: 24px;
+  box-shadow: 0 16px 40px rgba(12, 35, 64, 0.12), 0 0 0 4px rgba(197, 160, 89, 0.2);
+  text-align: center;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.about-hero-image {
+.about-shepherd-engraving {
   width: 100%;
-  height: 400px;
-  object-fit: cover;
-  display: block;
+  max-width: 320px;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.06));
+}
+
+.engraving-ribbon {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #0C2340;
+  color: #F8E6BE;
+  border: 1px solid #C5A059;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.engraving-ribbon .material-symbols-rounded {
+  font-size: 16px;
+  color: #D4AF37;
 }
 
 .image-caption-tag {
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
-  background: rgba(253, 251, 247, 0.92);
   backdrop-filter: blur(8px);
   padding: 10px 16px;
   border-radius: var(--radius-md);

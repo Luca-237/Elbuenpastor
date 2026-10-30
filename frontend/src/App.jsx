@@ -5,20 +5,25 @@ import QuienesSomosSection from './components/QuienesSomosSection';
 import ContactoSection from './components/ContactoSection';
 import HistorialSection from './components/HistorialSection';
 import AdminDashboardPage from './components/AdminDashboardPage';
+import AdminLoginModal from './components/AdminLoginModal';
 import SidebarCart from './components/SidebarCart';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import { INITIAL_CATEGORIES, INITIAL_PRODUCTOS, formatMedidaDimension } from './data/catalogoData';
 import './App.css';
 
-const STORAGE_KEY_CATEGORIES = 'elbuenpastor_categories_v3';
-const STORAGE_KEY_PRODUCTOS = 'elbuenpastor_productos_v3';
+const STORAGE_KEY_CATEGORIES = 'elbuenpastor_categories_v5';
+const STORAGE_KEY_PRODUCTOS = 'elbuenpastor_productos_v5';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState(() => {
     return window.location.hash === '#admin' ? 'admin' : 'productos';
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
+    return sessionStorage.getItem('elbuenpastor_admin_auth') === 'true';
+  });
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   // Categorías maestras (Velas Litúrgicas, Velones, Cirios) con medidas estandarizadas
   const [categories, setCategories] = useState(() => {
@@ -64,7 +69,6 @@ export default function App() {
         { min: 20, max: null, precio: 17500 },
       ],
       imagen: '/cirio-pascual.jpg',
-      duracionHoras: 160,
     },
   ]);
 
@@ -122,6 +126,24 @@ export default function App() {
       },
       ...prev,
     ]);
+  };
+
+  // Manejo de Autenticación de Administrador / Superusuario
+  const handleAdminLoginSuccess = () => {
+    setIsAdminAuthenticated(true);
+    sessionStorage.setItem('elbuenpastor_admin_auth', 'true');
+    setIsLoginModalOpen(false);
+    setActiveSection('admin');
+    registrarActividad('Acceso Superusuario', 'Sesión iniciada desde el Header.', 'info');
+  };
+
+  const handleAdminLogout = () => {
+    setIsAdminAuthenticated(false);
+    sessionStorage.removeItem('elbuenpastor_admin_auth');
+    if (activeSection === 'admin') {
+      setActiveSection('productos');
+    }
+    registrarActividad('Cierre de sesión', 'Superusuario desconectado.', 'info');
   };
 
   // ── GESTIÓN DE CATEGORÍAS (SUPERUSER) ──────────────────────────────────────
@@ -450,12 +472,10 @@ export default function App() {
             sku: producto.sku,
             modelo: producto.modelo,
             tamano: producto.tamano || 'Estándar',
-            aroma: producto.aromaSeleccionado || producto.aromaDefault || '',
             precioUnitario: producto.precioUnitario,
             cantidad: qtyToAdd,
             preciosPorVolumen: producto.preciosPorVolumen,
             imagen: producto.imagen,
-            duracionHoras: producto.duracionHoras,
           },
         ];
       }
@@ -517,6 +537,9 @@ export default function App() {
         onNavigate={setActiveSection}
         cartCount={totalItemsCount}
         onOpenCart={() => setIsCartOpen(true)}
+        isAdminAuthenticated={isAdminAuthenticated}
+        onOpenLoginModal={() => setIsLoginModalOpen(true)}
+        onAdminLogout={handleAdminLogout}
       />
 
       {/* Contenido Principal Dinámico */}
@@ -557,9 +580,19 @@ export default function App() {
             onDeleteMeasureFromCategory={handleDeleteMeasureFromCategory}
             onResetCatalog={handleResetCatalog}
             activityLog={activityLog}
+            isAuthenticated={isAdminAuthenticated}
+            onLogout={handleAdminLogout}
+            onLoginSuccess={handleAdminLoginSuccess}
           />
         )}
       </main>
+
+      {/* Modal Emergente de Login para Superusuario */}
+      <AdminLoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        onLoginSuccess={handleAdminLoginSuccess}
+      />
 
       {/* Sidebar Lateral Derecha (Carrito + Actividad) */}
       <SidebarCart

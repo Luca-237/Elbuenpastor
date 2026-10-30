@@ -51,11 +51,13 @@
   color: #7A5820;
 }
 
+.kpi-icon-received,
 .kpi-icon-pending {
   background: #FEF3C7;
   color: #D97706;
 }
 
+.kpi-icon-onway,
 .kpi-icon-workshop {
   background: #E0E7FF;
   color: #4338CA;
@@ -270,23 +272,20 @@
   letter-spacing: 0.04em;
 }
 
+.status-badge-recibido,
 .status-badge-pendiente {
   background: #FEF3C7;
   color: #92400E;
   border: 1px solid #FCD34D;
 }
 
-.status-badge-en_preparacion {
+.status-badge-en_camino,
+.status-badge-en_preparacion,
+.status-badge-despachado,
+.status-badge-enviado {
   background: #E0E7FF;
   color: #3730A3;
   border: 1px solid #C7D2FE;
-}
-
-.status-badge-despachado,
-.status-badge-enviado {
-  background: #F3E8FF;
-  color: #6B21A8;
-  border: 1px solid #E9D5FF;
 }
 
 .status-badge-entregado {

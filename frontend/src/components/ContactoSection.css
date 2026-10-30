@@ -6,17 +6,32 @@
   padding-bottom: 70px;
 }
 
+.contact-seal-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.contact-seal-img {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 2px solid #C5A059;
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.35);
+  background: #0C2340;
+}
+
 .section-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--color-gold-surface);
-  border: 1px solid rgba(167, 122, 46, 0.28);
-  color: var(--color-gold-deep);
+  background: #0C2340;
+  border: 1px solid #C5A059;
+  color: #F8E6BE;
   padding: 6px 16px;
   border-radius: var(--radius-pill);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 16px;
@@ -24,7 +39,7 @@
 
 .section-eyebrow .material-symbols-rounded {
   font-size: 16px;
-  color: var(--color-gold-deep);
+  color: #D4AF37;
 }
 
 .contacto-grid-container {

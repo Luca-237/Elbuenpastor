@@ -1351,6 +1351,106 @@
   margin-top: 4px;
 }
 
+/* ── SWITCH MODALIDAD DE IMÁGENES: GENERAL vs POR MEDIDA ── */
+.image-mode-switch-card {
+  background: #FAF6EE;
+  border: 1px solid #E4D8C4;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.image-mode-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.image-mode-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: #FFFFFF;
+  border: 1px solid #DECBB1;
+  color: #8E6523;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.image-mode-icon-wrap .material-symbols-rounded {
+  font-size: 22px;
+}
+
+.image-mode-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 0.98rem;
+  color: #2D2721;
+}
+
+.image-mode-subtitle {
+  margin: 2px 0 0 0;
+  font-size: 0.78rem;
+  color: #7A7265;
+  line-height: 1.35;
+}
+
+.image-mode-toggle-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.image-mode-btn {
+  background: #FFFFFF;
+  border: 1.5px solid #DED4C3;
+  border-radius: 9px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.image-mode-btn:hover {
+  border-color: #8E6523;
+  background: #FAF4E6;
+}
+
+.image-mode-btn.active {
+  background: #FAF0D8;
+  border-color: #8E6523;
+  box-shadow: 0 2px 8px rgba(142, 101, 35, 0.16);
+}
+
+.image-mode-btn .material-symbols-rounded {
+  font-size: 22px;
+  color: #8E6523;
+  flex-shrink: 0;
+}
+
+.mode-btn-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mode-btn-copy strong {
+  font-size: 0.82rem;
+  color: #231F1C;
+}
+
+.mode-btn-copy small {
+  font-size: 0.7rem;
+  color: #726A5E;
+}
+
 /* Manager de Medidas del Producto */
 .product-sizes-manager-box {
   background: #FAF8F5;
@@ -1437,6 +1537,67 @@
 }
 
 .remove-size-btn:hover {
+  color: #DC2626;
+}
+
+/* Celda de imagen por medida */
+.size-row-image-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.size-cell-thumb {
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #DED3C1;
+  background: #FFFFFF;
+}
+
+.size-image-btn-stack {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.size-upload-mini-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 8px;
+  background: #FAF3E3;
+  border: 1px solid #DECBB1;
+  color: #8E6523;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.size-upload-mini-btn:hover {
+  background: #8E6523;
+  color: #FFFFFF;
+}
+
+.size-upload-mini-btn .material-symbols-rounded {
+  font-size: 14px;
+}
+
+.size-clear-img-btn {
+  background: none;
+  border: none;
+  color: #9B1C1C;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.size-clear-img-btn:hover {
   color: #DC2626;
 }
 

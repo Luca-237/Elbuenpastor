@@ -216,7 +216,7 @@ export const INITIAL_PRODUCTOS = [
   {
     id: 'prod-vela-altar-virgen',
     sku: 'VEL-LIT-ALT-003',
-    modelo: 'Vela Litúrgica de Altar en Cera Virgen',
+    modelo: 'Vela Litúrgica de Altar Consagrada',
     categoriaId: 'velas-liturgicas',
     categoriaNombre: 'Velas Litúrgicas',
     tipoCeraId: 'abeja',

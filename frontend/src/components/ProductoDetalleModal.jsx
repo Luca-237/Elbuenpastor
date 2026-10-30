@@ -20,10 +20,7 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
     );
   });
 
-  // Aroma por defecto
-  const [aromaSeleccionado, setAromaSeleccionado] = useState(
-    () => producto?.aromaDefault || (producto?.aromas && producto.aromas[0]) || 'Cera Virgen Natural'
-  );
+
 
   // Cantidad seleccionada
   const [cantidad, setCantidad] = useState(1);
@@ -54,20 +51,24 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
   const precioAplicadoUnitario = tramoActual ? tramoActual.precio : precioUnitarioBase;
   const precioTotal = precioAplicadoUnitario * cantidad;
 
+  // Determinar modo de imagen (general vs por medida) y foto activa
+  const esModoPorMedida = producto.modoImagen === 'por_medida';
+  const imagenMedidaActual = tamanoSeleccionado?.imagen;
+  const imagenAMostrar = (esModoPorMedida && imagenMedidaActual) ? imagenMedidaActual : (producto.imagen || imagenMedidaActual);
+
   // Manejador para añadir al pedido
   const handleAddToCartClick = () => {
     const medidaLabel = tamanoSeleccionado.dimensiones || `${tamanoSeleccionado.diametroMm} mm × ${tamanoSeleccionado.largoCm} cm`;
     const itemConfigurado = {
       ...producto,
-      cartItemId: `${producto.id}-${tamanoSeleccionado.diametroMm}x${tamanoSeleccionado.largoCm}-${aromaSeleccionado.replace(/\s+/g, '')}`,
+      imagen: imagenAMostrar,
+      cartItemId: `${producto.id}-${tamanoSeleccionado.diametroMm}x${tamanoSeleccionado.largoCm}`,
       sku: `${producto.sku}-${tamanoSeleccionado.diametroMm}x${tamanoSeleccionado.largoCm}`,
       tamano: medidaLabel,
       diametroMm: tamanoSeleccionado.diametroMm,
       largoCm: tamanoSeleccionado.largoCm,
-      duracionHoras: tamanoSeleccionado.duracionHoras,
       precioUnitario: precioUnitarioBase,
       preciosPorVolumen: preciosPorVolumenDinamicos,
-      aromaSeleccionado: aromaSeleccionado,
       cantidad: cantidad,
     };
 
@@ -104,8 +105,18 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
           {/* COLUMNA IZQUIERDA: Imagen y Especificaciones rápidas */}
           <div className="modal-media-col">
             <div className="modal-image-wrapper">
-              <img src={producto.imagen} alt={producto.modelo} className="modal-product-image" />
+              <img
+                src={imagenAMostrar}
+                alt={`${producto.modelo} - Ø ${tamanoSeleccionado.diametroMm} mm × ${tamanoSeleccionado.largoCm} cm`}
+                className="modal-product-image"
+              />
               {producto.destacado && <span className="modal-badge-destacado">Destacado Litúrgico</span>}
+              {esModoPorMedida && imagenMedidaActual && (
+                <span className="modal-badge-medida-foto" title="Fotografía calibrada para esta medida específica">
+                  <span className="material-symbols-rounded">photo_camera</span>
+                  Foto: Ø {tamanoSeleccionado.diametroMm}×{tamanoSeleccionado.largoCm}cm
+                </span>
+              )}
             </div>
 
             <div className="modal-spec-chips">
@@ -114,12 +125,8 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
                 <span>{producto.categoriaNombre}</span>
               </div>
               <div className="spec-chip">
-                <span className="material-symbols-rounded">energy_savings_leaf</span>
-                <span>{producto.tipoCeraNombre}</span>
-              </div>
-              <div className="spec-chip">
-                <span className="material-symbols-rounded">schedule</span>
-                <span>Duración estimada: ~{tamanoSeleccionado.duracionHoras}h</span>
+                <span className="material-symbols-rounded">flare</span>
+                <span>Calibre Canónico de Altar</span>
               </div>
               <div className="spec-chip">
                 <span className="material-symbols-rounded">straighten</span>
@@ -150,7 +157,7 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: Títulos, Selector de Medida, Aroma y Pedido */}
+          {/* COLUMNA DERECHA: Títulos, Selector de Medida y Pedido */}
           <div className="modal-content-col">
             <div className="category-pill-header">
               <span className="material-symbols-rounded">church</span>
@@ -182,15 +189,19 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
                     <button
                       key={tam.id || idx}
                       type="button"
-                      className={`size-number-btn ${isSelected ? 'active' : ''}`}
+                      className={`size-number-btn ${isSelected ? 'active' : ''} ${esModoPorMedida && tam.imagen ? 'has-custom-img' : ''}`}
                       onClick={() => setTamanoSeleccionado(tam)}
                     >
+                      {esModoPorMedida && tam.imagen && (
+                        <div className="size-mini-thumb-wrap">
+                          <img src={tam.imagen} alt={tam.dimensiones || 'Medida'} className="size-mini-thumb" />
+                        </div>
+                      )}
                       <span className="size-dim-badge">
                         <span className="diam-tag">Ø {tam.diametroMm} mm</span>
                         <span className="cross-sep">×</span>
                         <span className="len-tag">{tam.largoCm} cm</span>
                       </span>
-                      <span className="size-burn-time">~{tam.duracionHoras}h combustión</span>
                       <span className="size-num-price">${tam.precioUnitario.toLocaleString('es-AR')}</span>
                     </button>
                   );
@@ -200,35 +211,12 @@ export default function ProductoDetalleModal({ producto, onClose, onAddToCart })
               <div className="size-info-banner">
                 <span className="material-symbols-rounded">check_circle</span>
                 <span>
-                  <strong>Medida activa: Ø {tamanoSeleccionado.diametroMm} mm × {tamanoSeleccionado.largoCm} cm</strong> · Combustión constante estimada en ~{tamanoSeleccionado.duracionHoras} horas sin ahumar.
+                  <strong>Medida seleccionada: Ø {tamanoSeleccionado.diametroMm} mm × {tamanoSeleccionado.largoCm} cm</strong> · Proporción física calibrada para altares y candeleros.
                 </span>
               </div>
             </div>
 
-            {/* ── 2. SELECCIÓN DE AROMA / FRAGANCIA SACRA ── */}
-            {producto.aromas && producto.aromas.length > 0 && (
-              <div className="modal-section-group">
-                <span className="section-title">
-                  <span className="material-symbols-rounded">local_florist</span>
-                  Aroma / Fragancia Sacra:
-                </span>
-                <div className="aroma-options-wrap">
-                  {producto.aromas.map((aroma) => (
-                    <button
-                      key={aroma}
-                      type="button"
-                      className={`aroma-pill-btn ${aromaSeleccionado === aroma ? 'active' : ''}`}
-                      onClick={() => setAromaSeleccionado(aroma)}
-                    >
-                      <span className="material-symbols-rounded">spa</span>
-                      {aroma}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* ── 3. PRECIOS Y ESCALA POR VOLUMEN ── */}
+            {/* ── 2. PRECIOS Y ESCALA POR VOLUMEN ── */}
             <div className="modal-section-group wholesale-box-group">
               <span className="section-title">
                 <span className="material-symbols-rounded">sell</span>

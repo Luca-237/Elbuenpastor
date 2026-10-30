@@ -4,48 +4,66 @@
    ========================================================================== */
 
 :root {
-  /* Paleta Sacra & Serena */
-  --color-ivory: #FDFCF9;
-  --color-sand: #F5EFE6;
-  --color-sand-hover: #ECE4D6;
-  --color-warm-border: #E5DCCE;
-  --color-border-subtle: #EDE7DC;
-  
-  --color-gold-deep: #8E6523;
-  --color-gold-primary: #A77A2E;
-  --color-gold-light: #CBA258;
-  --color-gold-surface: #FAF2E3;
-  
-  --color-sage: #5F7464;
-  --color-sage-light: #EBF1EC;
-  --color-sage-deep: #3E5143;
-  
-  --color-text-main: #2C2824;
-  --color-text-muted: #6B655D;
-  --color-text-soft: #918A80;
-  
-  --color-white: #FFFFFF;
-  --color-shadow-gentle: rgba(142, 101, 35, 0.08);
-  --color-shadow-card: rgba(44, 40, 36, 0.06);
+  /* ── PALETA LITÚRGICA SACRA: AZUL NOCHE Y ORO SAGRADO ── */
+  /* Colores Principales (Inspirados en la identidad visual Velas Buen Pastor) */
+  --color-navy-darkest: #071524;
+  --color-navy-deep: #0C2340;
+  --color-navy-primary: #102C4E;
+  --color-navy-surface: #14365F;
+  --color-navy-card: #0A1E35;
+  --color-blue-soft: #EAF2F9;
+  --color-blue-tint: #D6E6F5;
+  --color-blue-border: #A8C8E6;
 
-  /* Google Material Web - Variables de Diseño M3 */
-  --md-sys-color-primary: #946A25;
-  --md-sys-color-on-primary: #FFFFFF;
-  --md-sys-color-primary-container: #FCEFD8;
-  --md-sys-color-on-primary-container: #301E03;
+  /* Oro Sacro Canónico */
+  --color-gold-deep: #8E6523;
+  --color-gold-primary: #C5A059;
+  --color-gold-bright: #D4AF37;
+  --color-gold-light: #E8C87A;
+  --color-gold-pale: #F3DE98;
+  --color-gold-surface: #FAF3E3;
+  --color-gold-glow: rgba(212, 175, 55, 0.28);
+  --color-gold-border: rgba(197, 160, 89, 0.45);
+
+  /* Terracota Sacro (del texto EL BUEN PASTOR) */
+  --color-terracotta: #A03B23;
+  --color-terracotta-light: #FBECE8;
+
+  /* Fondos de Pergamino e Marfil */
+  --color-ivory: #FDFBF7;
+  --color-sand: #FAF5EB;
+  --color-sand-hover: #F2E9D9;
+  --color-warm-border: #E8DFC8;
+  --color-border-subtle: #EFE8DA;
+
+  /* Texto */
+  --color-text-main: #1D1B18;
+  --color-text-navy: #0C2340;
+  --color-text-muted: #5E584E;
+  --color-text-soft: #8C8476;
+  --color-white: #FFFFFF;
+
+  --color-shadow-gentle: rgba(12, 35, 64, 0.08);
+  --color-shadow-card: rgba(12, 35, 64, 0.06);
+
+  /* Google Material Web - Variables de Diseño M3 Litúrgicas */
+  --md-sys-color-primary: #0C2340;
+  --md-sys-color-on-primary: #F3DE98;
+  --md-sys-color-primary-container: #EAF2F9;
+  --md-sys-color-on-primary-container: #0C2340;
   
-  --md-sys-color-secondary: #5B7060;
-  --md-sys-color-on-secondary: #FFFFFF;
-  --md-sys-color-secondary-container: #E5EDE6;
-  --md-sys-color-on-secondary-container: #17261C;
+  --md-sys-color-secondary: #C5A059;
+  --md-sys-color-on-secondary: #0C2340;
+  --md-sys-color-secondary-container: #FAF3E3;
+  --md-sys-color-on-secondary-container: #8E6523;
   
-  --md-sys-color-surface: #FCFAF6;
-  --md-sys-color-on-surface: #2C2824;
-  --md-sys-color-on-surface-variant: #6B655D;
-  --md-sys-color-surface-container: #F5EFE6;
-  --md-sys-color-surface-container-high: #EDE5D8;
-  --md-sys-color-outline: #D4CBBC;
-  --md-sys-color-outline-variant: #E5DCCE;
+  --md-sys-color-surface: #FDFBF7;
+  --md-sys-color-on-surface: #1D1B18;
+  --md-sys-color-on-surface-variant: #5E584E;
+  --md-sys-color-surface-container: #FAF5EB;
+  --md-sys-color-surface-container-high: #F2E9D9;
+  --md-sys-color-outline: #D6C8AC;
+  --md-sys-color-outline-variant: #E8DFC8;
 
   /* Tipografías */
   --font-serif: 'Cinzel', serif;
@@ -59,9 +77,9 @@
   --radius-lg: 22px;
   --radius-pill: 9999px;
   
-  --elevation-1: 0 2px 8px rgba(78, 65, 45, 0.05);
-  --elevation-2: 0 6px 20px rgba(78, 65, 45, 0.08);
-  --elevation-3: 0 12px 36px rgba(78, 65, 45, 0.12);
+  --elevation-1: 0 2px 10px rgba(12, 35, 64, 0.06);
+  --elevation-2: 0 8px 24px rgba(12, 35, 64, 0.1);
+  --elevation-3: 0 16px 42px rgba(12, 35, 64, 0.16);
 }
 
 * {
@@ -154,9 +172,10 @@ md-text-button {
 
 /* Contenedores */
 .container {
-  max-width: 1240px;
+  max-width: 1560px;
+  width: 95%;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
 }
 
 @media (max-width: 480px) {

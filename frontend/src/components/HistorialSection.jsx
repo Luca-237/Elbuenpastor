@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import './HistorialSection.css';
 
-// Ejemplos representativos basados directamente en la colección 'pedidos' del backend
+// Ejemplos representativos basados en los 3 estados canónicos: Recibido, En camino, Entregado
 const PEDIDOS_DEMO = [
   {
     id: 'ord-01',
     numeroPedido: 'PED-20240924-0012',
     fecha: '24 Sep 2024',
     clienteNombre: 'Parroquia Nuestra Señora de la Merced',
-    estado: 'en_preparacion',
-    estadoLabel: 'En Preparación Litúrgica',
+    estado: 'en_camino',
+    estadoLabel: 'En camino',
     estadoPago: 'pagado',
     metodoPago: 'Transferencia Bancaria',
     tipoEntrega: 'envio_domicilio',
@@ -44,7 +44,7 @@ const PEDIDOS_DEMO = [
     fecha: '18 Sep 2024',
     clienteNombre: 'Capilla San Francisco de Asís',
     estado: 'entregado',
-    estadoLabel: 'Entregado con Bendición',
+    estadoLabel: 'Entregado',
     estadoPago: 'pagado',
     metodoPago: 'MercadoPago',
     tipoEntrega: 'envio_domicilio',
@@ -78,8 +78,8 @@ const PEDIDOS_DEMO = [
     numeroPedido: 'PED-20240927-0019',
     fecha: '27 Sep 2024',
     clienteNombre: 'María Teresa Benítez (Particular)',
-    estado: 'confirmado',
-    estadoLabel: 'Confirmado / En cola de colada',
+    estado: 'recibido',
+    estadoLabel: 'Recibido',
     estadoPago: 'pendiente',
     metodoPago: 'Efectivo contra entrega',
     tipoEntrega: 'retiro_local',
@@ -102,12 +102,11 @@ const PEDIDOS_DEMO = [
   },
 ];
 
+// Pasos canónicos: Recibido, En camino, Entregado
 const PASOS_ESTADO = [
-  { id: 'confirmado', label: 'Confirmado' },
-  { id: 'en_preparacion', label: 'Elaboración' },
-  { id: 'listo', label: 'Embalado' },
-  { id: 'enviado', label: 'En Camino' },
-  { id: 'entregado', label: 'Entregado' },
+  { id: 'recibido', label: 'Recibido', icon: 'inbox' },
+  { id: 'en_camino', label: 'En camino', icon: 'local_shipping' },
+  { id: 'entregado', label: 'Entregado', icon: 'task_alt' },
 ];
 
 export default function HistorialSection() {
@@ -119,13 +118,18 @@ export default function HistorialSection() {
     p.clienteNombre.toLowerCase().includes(busqueda.toLowerCase())
   );
 
+  const normalizarEstado = (estado) => {
+    if (['en_camino', 'enviado', 'listo', 'en_preparacion'].includes(estado)) return 'en_camino';
+    if (['entregado'].includes(estado)) return 'entregado';
+    return 'recibido';
+  };
+
   const getStepIndex = (estado) => {
-    switch (estado) {
-      case 'confirmado': return 0;
-      case 'en_preparacion': return 1;
-      case 'listo': return 2;
-      case 'enviado': return 3;
-      case 'entregado': return 4;
+    const norm = normalizarEstado(estado);
+    switch (norm) {
+      case 'recibido': return 0;
+      case 'en_camino': return 1;
+      case 'entregado': return 2;
       default: return 0;
     }
   };

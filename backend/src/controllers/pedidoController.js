@@ -192,13 +192,16 @@ const updatePedidoEstado = async (req, res) => {
     const { estado } = req.body;
 
     const estadosValidos = [
+      'recibido',
+      'en_camino',
+      'entregado',
+      // Compatibilidad con registros legados
       'borrador',
       'pendiente',
       'confirmado',
       'en_preparacion',
       'listo',
       'enviado',
-      'entregado',
       'cancelado',
     ];
 
